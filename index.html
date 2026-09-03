@@ -1,1 +1,3556 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"> <meta name="theme-color" content="#0b0b0d"> <meta name="description" content="BM Learn AI - Ghana SHS Business Management learning platform"> <title>BM Learn AI | Business Management</title> <style> :root{ --bg:#08090b; --panel:#111318; --panel2:#17191f; --gold:#d4af37; --gold2:#f3d36a; --white:#f7f7f4; --muted:#a9abb3; --line:#292c34; --green:#48d597; --red:#ff6b6b; --blue:#69a9ff; --shadow:0 18px 50px rgba(0,0,0,.35); --radius:20px; } *{box-sizing:border-box} html{scroll-behavior:smooth} body{ margin:0; background: radial-gradient(circle at top right,rgba(212,175,55,.10),transparent 28%), radial-gradient(circle at bottom left,rgba(105,169,255,.06),transparent 25%), var(--bg); color:var(--white); font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.6; } button,input,select,textarea{font:inherit} button{ cursor:pointer; border:0; } a{color:inherit} .app{ min-height:100vh; } .header{ position:sticky; top:0; z-index:100; background:rgba(8,9,11,.92); backdrop-filter:blur(18px); border-bottom:1px solid var(--line); } .header-inner{ max-width:1180px; margin:auto; min-height:72px; padding:12px 16px; display:flex; align-items:center; gap:12px; } .brand{ display:flex; align-items:center; gap:10px; flex:1; min-width:0; } .logo{ width:45px; height:45px; border-radius:14px; display:grid; place-items:center; background:linear-gradient(135deg,var(--gold),#8d6d13); color:#090909; font-weight:900; box-shadow:0 8px 25px rgba(212,175,55,.18); } .brand-text{ min-width:0; } .brand-text strong{ display:block; font-size:17px; letter-spacing:.2px; } .brand-text span{ color:var(--muted); font-size:11px; } .role-switch{ display:flex; background:#15171c; border:1px solid var(--line); border-radius:999px; padding:3px; } .role-btn{ background:transparent; color:var(--muted); padding:8px 10px; border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap; } .role-btn.active{ color:#090909; background:var(--gold); } .icon-btn{ width:42px; height:42px; border-radius:13px; background:var(--panel2); color:var(--white); border:1px solid var(--line); } .menu{ display:none; position:absolute; right:14px; top:68px; width:min(310px,calc(100vw - 28px)); background:#101217; border:1px solid var(--line); border-radius:18px; padding:10px; box-shadow:var(--shadow); } .menu.open{display:block} .menu button{ width:100%; text-align:left; background:transparent; color:var(--white); padding:13px 12px; border-radius:12px; } .menu button:hover{ background:#1a1d23; } .main{ max-width:1180px; margin:auto; padding:20px 15px 70px; } .hero{ padding:30px 0 20px; } .hero-card{ border:1px solid var(--line); background: linear-gradient(135deg,rgba(212,175,55,.13),rgba(255,255,255,.02)), var(--panel); border-radius:28px; padding:28px 22px; box-shadow:var(--shadow); overflow:hidden; position:relative; } .hero-card:after{ content:""; position:absolute; width:180px; height:180px; border-radius:50%; border:1px solid rgba(212,175,55,.14); right:-50px; top:-70px; } .eyebrow{ color:var(--gold2); text-transform:uppercase; letter-spacing:1.5px; font-weight:900; font-size:11px; } h1,h2,h3,h4{ line-height:1.2; } .hero h1{ font-size:clamp(30px,8vw,54px); margin:10px 0; max-width:760px; } .hero p{ color:var(--muted); max-width:760px; margin-bottom:20px; } .actions{ display:flex; flex-wrap:wrap; gap:10px; } .btn{ padding:12px 16px; border-radius:13px; font-weight:850; transition:.18s ease; } .btn:hover{ transform:translateY(-1px); } .btn-primary{ background:var(--gold); color:#090909; } .btn-secondary{ background:var(--panel2); color:var(--white); border:1px solid var(--line); } .btn-danger{ background:rgba(255,107,107,.12); color:#ff9090; border:1px solid rgba(255,107,107,.25); } .section{ margin-top:28px; } .section-head{ display:flex; align-items:end; justify-content:space-between; gap:12px; margin-bottom:13px; } .section-head h2{ margin:0; font-size:22px; } .section-head p{ margin:4px 0 0; color:var(--muted); font-size:13px; } .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; } .card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 8px 25px rgba(0,0,0,.12); } .card h3{ margin:7px 0 8px; } .card p{ color:var(--muted); font-size:14px; } .card-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; } .badge{ display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; background:rgba(212,175,55,.10); border:1px solid rgba(212,175,55,.20); color:var(--gold2); font-size:10px; font-weight:900; } .topic-card{ cursor:pointer; transition:.2s; } .topic-card:hover{ transform:translateY(-3px); border-color:rgba(212,175,55,.4); } .progress-wrap{ height:9px; background:#202229; border-radius:999px; overflow:hidden; } .progress-bar{ height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold2)); border-radius:999px; transition:.4s; } .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; } .stat{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:15px; } .stat strong{ display:block; font-size:24px; } .stat span{ color:var(--muted); font-size:11px; } .search-row{ display:flex; gap:10px; flex-wrap:wrap; } .input,.select,.textarea{ width:100%; background:#0d0f13; color:var(--white); border:1px solid var(--line); border-radius:13px; padding:12px 13px; outline:none; } .input:focus,.select:focus,.textarea:focus{ border-color:var(--gold); } .search-box{ flex:1; min-width:200px; } .filters{ display:flex; gap:7px; overflow-x:auto; padding-bottom:4px; } .filter{ white-space:nowrap; background:var(--panel2); color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:8px 12px; } .filter.active{ background:var(--gold); color:#080808; } .hidden{display:none!important} .modal{ position:fixed; inset:0; z-index:500; display:none; align-items:flex-end; justify-content:center; background:rgba(0,0,0,.72); backdrop-filter:blur(7px); } .modal.open{display:flex} .modal-box{ width:min(900px,100%); max-height:92vh; overflow:auto; background:#0e1014; border:1px solid var(--line); border-radius:24px 24px 0 0; box-shadow:var(--shadow); } .modal-head{ position:sticky; top:0; z-index:2; background:rgba(14,16,20,.96); backdrop-filter:blur(15px); border-bottom:1px solid var(--line); padding:15px 17px; display:flex; justify-content:space-between; align-items:center; gap:12px; } .modal-body{ padding:18px; } .close{ background:#1b1e24; color:white; width:38px; height:38px; border-radius:11px; } .lesson-section{ background:#12151a; border:1px solid #252932; border-radius:17px; padding:17px; margin-bottom:12px; } .lesson-section h3{ margin:0 0 9px; color:var(--gold2); font-size:17px; } .lesson-section p{ color:#d5d6da; margin:7px 0; } .lesson-section ul, .lesson-section ol{ padding-left:22px; } .lesson-section li{ margin:7px 0; color:#d5d6da; } .key-box{ border-left:3px solid var(--gold); padding:12px 14px; background:rgba(212,175,55,.06); border-radius:0 12px 12px 0; } .case{ background: linear-gradient(135deg,rgba(105,169,255,.07),rgba(212,175,55,.05)), #11141a; border:1px solid #2a303b; border-radius:17px; padding:17px; margin-top:12px; } .case h4{ margin:0 0 8px; color:#8dbaff; } .think{ border:1px dashed rgba(212,175,55,.5); background:rgba(212,175,55,.04); border-radius:15px; padding:15px; margin-top:12px; } .think strong{ color:var(--gold2); } .essay-list{ counter-reset:essay; } .essay-item{ background:#101318; border:1px solid var(--line); border-radius:14px; padding:13px; margin:8px 0; } .essay-item b{ color:var(--gold2); } .option{ display:block; width:100%; text-align:left; padding:13px; background:#12151a; color:white; border:1px solid var(--line); border-radius:12px; margin:8px 0; } .option:hover{ border-color:var(--gold); } .result{ border-radius:16px; padding:17px; background:rgba(72,213,151,.07); border:1px solid rgba(72,213,151,.25); } .exam-sheet{ background:#fff; color:#111; padding:30px; border-radius:10px; } .exam-sheet h1,.exam-sheet h2,.exam-sheet h3{ color:#111; } .exam-sheet p,.exam-sheet li{ color:#222; } .ai-output{ white-space:pre-wrap; background:#0a0c0f; border:1px solid var(--line); border-radius:15px; padding:16px; color:#e9e9e9; } .scan-preview{ width:100%; max-height:330px; object-fit:contain; background:#050607; border-radius:16px; border:1px solid var(--line); display:none; } .empty{ text-align:center; padding:30px; color:var(--muted); } .footer{ text-align:center; color:#777b84; padding:30px 15px; font-size:12px; } .toast{ position:fixed; z-index:999; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); opacity:0; pointer-events:none; background:#f1f1ef; color:#111; padding:11px 16px; border-radius:999px; font-size:13px; font-weight:800; transition:.25s; max-width:90%; text-align:center; } .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); } @media(max-width:850px){ .grid{grid-template-columns:repeat(2,1fr)} } @media(max-width:620px){ .header-inner{padding:10px 11px} .role-btn{padding:7px 8px;font-size:10px} .brand-text span{display:none} .main{padding:14px 11px 50px} .hero-card{padding:23px 17px;border-radius:22px} .grid{grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,1fr)} .modal{align-items:flex-end} .modal-box{max-height:94vh} .modal-body{padding:14px} } @media print{ body{background:white!important;color:black!important} body *{visibility:hidden!important} #printArea,#printArea *{visibility:visible!important} #printArea{ position:absolute; left:0; top:0; width:100%; } } </style> </head> <body> <div class="app"> <header class="header"> <div class="header-inner"> <div class="brand"> <div class="logo">BM</div> <div class="brand-text"> <strong>BM Learn AI</strong> <span>Ghana SHS Business Management</span> </div> </div> <div class="role-switch" aria-label="Choose role"> <button class="role-btn active" data-role="student">🎓 Student</button> <button class="role-btn" data-role="teacher">👨🏽‍🏫 Teacher</button> </div> <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button> <nav class="menu" id="menu"> <button data-page="home">🏠 Home</button> <button data-page="topics">📚 Topics</button> <button data-page="practice">📝 Practice</button> <button data-page="scanner">📸 Scan Question</button> <button data-page="assistant">🤖 BM Thinking Assistant</button> <button data-page="teacher" data-teacher-only>👨🏽‍🏫 Teacher Centre</button> <button data-page="about">ℹ️ About BM Learn AI</button> <button data-page="settings">⚙️ Settings</button> </nav> </div> </header> <main class="main" id="main"></main> <footer class="footer"> BM Learn AI • Learn • Think • Apply • Excel </footer> </div> <div class="modal" id="modal"> <div class="modal-box"> <div class="modal-head"> <strong id="modalTitle">BM Learn AI</strong> <button class="close" id="closeModal">✕</button> </div> <div class="modal-body" id="modalBody"></div> </div> </div> <div class="toast" id="toast"></div> <input id="scanInput" type="file" accept="image/*" capture="environment" class="hidden" > <script> "use strict"; /* ============================================================ BM LEARN AI CLEAN SINGLE-FILE EDUCATIONAL APP ============================================================ */ const APP = { role: localStorage.getItem("bm_role") || "student", page: "home", topicFilter: "ALL", topicSearch: "", completed: JSON.parse(localStorage.getItem("bm_completed_topics") || "[]"), practiceScore: Number(localStorage.getItem("bm_practice_score") || 0), practiceAttempts: Number(localStorage.getItem("bm_practice_attempts") || 0), currentTopic: null, examSet: 1, examQuestions: [], scanImage: "" }; const $ = (selector) => document.querySelector(selector); const $$ = (selector) => [...document.querySelectorAll(selector)]; function safeText(value){ return String(value ?? ""); } function escapeHTML(value){ return safeText(value) .replaceAll("&","&amp;") .replaceAll("<","&lt;") .replaceAll(">","&gt;") .replaceAll('"',"&quot;") .replaceAll("'","&#039;"); } function toast(message){ const t = $("#toast"); if(!t) return; t.textContent = message; t.classList.add("show"); clearTimeout(window.__toastTimer); window.__toastTimer = setTimeout(()=>t.classList.remove("show"),2600); } function openModal(title, html){ $("#modalTitle").textContent = title; $("#modalBody").innerHTML = html; $("#modal").classList.add("open"); document.body.style.overflow = "hidden"; } function closeModal(){ $("#modal").classList.remove("open"); document.body.style.overflow = ""; } function saveState(){ localStorage.setItem("bm_role", APP.role); localStorage.setItem("bm_completed_topics", JSON.stringify(APP.completed)); localStorage.setItem("bm_practice_score", String(APP.practiceScore)); localStorage.setItem("bm_practice_attempts", String(APP.practiceAttempts)); } function setRole(role){ APP.role = role; saveState(); $$(".role-btn").forEach(btn=>{ btn.classList.toggle("active", btn.dataset.role === role); }); render(); toast(role === "teacher" ? "Teacher interface activated 👨🏽‍🏫" : "Student interface activated 🎓"); } function navigate(page){ if(page === "teacher" && APP.role !== "teacher"){ toast("Switch to Teacher mode first."); return; } APP.page = page; $("#menu").classList.remove("open"); window.scrollTo({top:0,behavior:"smooth"}); render(); } function markComplete(topicId){ if(!APP.completed.includes(topicId)){ APP.completed.push(topicId); saveState(); toast("Topic marked as completed ✅"); }else{ APP.completed = APP.completed.filter(x=>x !== topicId); saveState(); toast("Topic removed from completed list."); } render(); } function progressPercent(){ return Math.round((APP.completed.length / topics.length) * 100); } /* ============================================================ TOPIC CONTENT ============================================================ */ const topics = [ { id:"forms", name:"Forms of Business", level:"SHS1", icon:"🏢", meaning:"Forms of business describe the legal and ownership structures through which business activities are organised, controlled and financed.", objective:"By the end of this lesson, learners should be able to identify major forms of business, explain how they are formed, discuss their features, importance, advantages and limitations, and recommend an appropriate form for a particular business situation.", intro:[ "A business does not operate in only one ownership structure. The form chosen affects who owns the business, who controls it, how capital is raised, who receives profits, who bears losses and how long the business can continue.", "The major forms considered in Business Management include sole proprietorship, partnership, companies and state-owned enterprises. The choice should depend on the size and nature of the business, capital requirements, risk, desired control and legal considerations." ], sections:[ { title:"1. Sole Proprietorship", html:` <p><b>Meaning:</b> A sole proprietorship is a business owned and normally controlled by one person who provides the capital and takes responsibility for the business.</p> <p><b>How it is formed:</b> The owner identifies a business opportunity, prepares the required capital, chooses a business name where appropriate, completes relevant registration/formalisation requirements and begins operations. The exact registration requirements depend on the nature of the activity and applicable Ghanaian law.</p> <p><b>Key features:</b></p> <ul> <li>Single ownership.</li> <li>The owner normally takes the major decisions.</li> <li>Easy and relatively inexpensive to establish compared with more complex structures.</li> <li>The owner receives the residual profit.</li> <li>The business is closely connected to its owner.</li> <li>The owner may have unlimited personal liability for business obligations depending on the legal structure.</li> </ul> <p><b>Importance:</b> It encourages entrepreneurship because an individual can convert an idea or skill into a business without first building a large ownership structure. It also allows quick decisions and close contact with customers.</p> <p><b>Advantages:</b> Easy decision-making, privacy, flexibility, personal motivation and close customer relationships.</p> <p><b>Limitations:</b> Limited capital, heavy dependence on the owner, limited managerial capacity and potentially high personal financial risk.</p> ` }, { title:"2. Partnership", html:` <p><b>Meaning:</b> A partnership is a business arrangement in which two or more persons agree to carry on a business and share its results according to their agreement and applicable law.</p> <p><b>How it is formed:</b> Potential partners identify the business, agree on contributions and responsibilities, decide how profits and losses will be shared, prepare an appropriate partnership agreement or deed and complete relevant registration/formalisation requirements.</p> <p><b>Key features:</b></p> <ul> <li>Two or more owners.</li> <li>Partners contribute capital, skills, property or other resources.</li> <li>Management responsibilities may be shared.</li> <li>Profit and loss sharing follows the agreement and applicable law.</li> <li>Mutual trust is important.</li> <li>The legal consequences of partnership debts depend on the type of partnership and applicable law.</li> </ul> <p><b>Importance:</b> Partnership combines resources and skills. One partner may provide finance while another provides technical knowledge, marketing ability or professional expertise.</p> <p><b>Advantages:</b> More resources than one individual may provide, shared responsibilities, wider expertise and greater ability to divide tasks.</p> <p><b>Limitations:</b> Possible disagreements, slower decisions where partners cannot agree, shared profits and possible liability risks.</p> ` }, { title:"3. Companies", html:` <p><b>Meaning:</b> A company is an incorporated business organisation recognised as a legal entity separate from its owners, subject to the applicable company law.</p> <p><b>How it is formed:</b> Promoters decide the business purpose and structure, prepare the required incorporation information and documents, register/incorporate the company with the appropriate authority, establish ownership and management arrangements, and then commence operations after meeting relevant legal requirements.</p> <p><b>Key features:</b></p> <ul> <li>Separate legal personality.</li> <li>Ownership represented by shares in companies where applicable.</li> <li>Management can be separated from ownership.</li> <li>Continuity can exist independently of changes in individual shareholders.</li> <li>Limited liability may protect shareholders from personal liability beyond their investment, subject to the law and circumstances.</li> <li>Companies are subject to formal legal and reporting requirements.</li> </ul> <p><b>Importance:</b> Companies can mobilise substantial capital, support large-scale operations, provide continuity and separate business assets from owners in accordance with law.</p> <p><b>Advantages:</b> Greater access to capital, continuity, limited liability in appropriate structures and ability to employ specialist managers.</p> <p><b>Limitations:</b> More expensive/formal establishment, regulatory obligations, record-keeping requirements and possible separation between owners and managers.</p> ` }, { title:"4. State-Owned Enterprise", html:` <p><b>Meaning:</b> A state-owned enterprise is an organisation owned or controlled by government and established to provide goods, services or strategic economic functions.</p> <p><b>How it is formed:</b> It may be established through government policy, legislation or another legally recognised process depending on the enterprise.</p> <p><b>Key features:</b></p> <ul> <li>Government ownership or controlling interest.</li> <li>May pursue commercial and public-interest objectives.</li> <li>Can operate in strategically important sectors.</li> <li>Management may be appointed through public-sector governance arrangements.</li> <li>May be accountable to government and the public.</li> </ul> <p><b>Importance:</b> State enterprises may provide essential services, support national development, create employment and operate where government considers private provision alone insufficient.</p> <p><b>Advantages:</b> Ability to undertake strategic projects, provision of essential services and contribution to national development.</p> <p><b>Challenges:</b> Political interference, bureaucratic delays, weak incentives in some situations and financial inefficiency where governance is poor.</p> ` } ], compare:"Sole proprietorship normally gives the owner the greatest direct control but may have the narrowest resource base. Partnership combines resources and skills but requires trust and agreement. Companies provide a more formal structure and may mobilise greater capital. State-owned enterprises are established or controlled by government and may combine commercial and public objectives.", cases:[ { title:"Case Study: Akosua's Fashion Business", text:"Akosua has GH¢40,000 and wants to start a small fashion business. She wants to make decisions quickly and remain personally involved with customers. However, she hopes to expand into three regions within five years. Her brother has offered to contribute capital and marketing expertise, but they have different ideas about how profits should be shared.", questions:[ "Which form of business would you initially recommend for Akosua? Give reasons.", "Would your recommendation change if her brother became a permanent business partner?", "What factors should they consider before choosing a partnership?", "If the business later requires substantial external capital, which form might become more attractive and why?" ] } ], essays:[ "Explain five features of a sole proprietorship.", "Describe the process involved in establishing a partnership.", "Discuss six advantages and four limitations of a company.", "Distinguish between a sole proprietorship and a partnership.", "Explain five reasons why an entrepreneur may choose a sole proprietorship.", "A young entrepreneur wants to expand a small business into a national company. Advise the entrepreneur on an appropriate form of business and justify your answer." ] }, { id:"management", name:"Functions of Management", level:"SHS1", icon:"🧭", meaning:"Management involves coordinating people and other resources to achieve organisational objectives efficiently and effectively.", objective:"Explain the major functions of management and apply them to practical business situations.", intro:["Management is not simply giving instructions. Managers plan what should be achieved, organise resources, direct people and control performance so that objectives can be achieved."], sections:[ {title:"Planning",html:"<p>Planning involves deciding in advance what should be done, how, when, where and by whom. It reduces uncertainty and gives direction.</p><p><b>Importance:</b> provides direction, coordinates activities, supports resource allocation and creates standards for control.</p>"}, {title:"Organising",html:"<p>Organising involves arranging tasks, people, authority and resources so that plans can be implemented efficiently.</p><p><b>Importance:</b> prevents duplication, clarifies responsibility and improves coordination.</p>"}, {title:"Staffing",html:"<p>Staffing involves obtaining and developing the people needed by an organisation. It includes manpower planning, recruitment, selection, placement, training and development.</p>"}, {title:"Directing",html:"<p>Directing involves guiding, supervising, communicating with and motivating employees towards organisational goals.</p>"}, {title:"Controlling",html:"<p>Controlling involves setting standards, measuring actual performance, comparing results with standards and taking corrective action where necessary.</p>"} ], compare:"Planning determines where the organisation wants to go; organising arranges resources; staffing provides people; directing activates people; controlling checks whether performance is on course.", cases:[ {title:"Case: Falling Sales",text:"A retail company has experienced falling sales for four months. The manager blames employees, but there are no clear sales targets, staff roles overlap and customer complaints are not reviewed regularly.",questions:["Identify three management functions that appear weak.","Explain how each function could be improved.","Which function should be addressed first and why?"]} ], essays:[ "Explain five importance of planning to a business.", "Discuss five functions of management.", "Explain how organising contributes to business efficiency.", "Describe the relationship between planning and controlling.", "A business is experiencing poor employee performance. Explain how management functions can be used to solve the problem." ] }, { id:"business-development", name:"Business Development", level:"SHS1", icon:"📈", meaning:"Business development involves identifying and creating opportunities for business growth, improved performance, partnerships, markets and customer value.", objective:"Explain how businesses identify opportunities and develop sustainable growth.", intro:["Business development connects market opportunities with organisational capabilities. It may involve new products, new customers, partnerships, distribution channels or expansion."], sections:[ {title:"Opportunity Identification",html:"<p>Businesses identify unmet customer needs, market gaps, changing technology, demographic changes and emerging consumer behaviour.</p>"}, {title:"Growth Strategies",html:"<p>Growth may involve increasing sales in existing markets, entering new markets, developing products, forming partnerships or diversifying activities.</p>"}, {title:"Importance",html:"<p>Business development can increase revenue, improve competitiveness, create employment, strengthen customer relationships and support long-term survival.</p>"} ], compare:"Growth should not be confused with simply becoming larger. Good growth should create value while maintaining financial, operational and strategic sustainability.", cases:[ {title:"Case: Local Juice Producer",text:"A Ghanaian juice producer has strong demand in Kumasi but limited distribution elsewhere. The owner is considering supermarkets, online ordering, school contracts and exports.",questions:["Which opportunity should be investigated first?","What information should management collect before deciding?","Which risks could arise from rapid expansion?"]} ], essays:[ "Explain five importance of business development.", "Discuss five ways a business can identify new opportunities.", "Explain factors a business should consider before expanding.", "Describe five growth strategies available to a business." ] }, { id:"international", name:"International Business", level:"SHS2", icon:"🌍", meaning:"International business refers to commercial activities that cross national borders, including trade, investment, licensing, franchising and international partnerships.", objective:"Explain international market-entry strategies, evaluate their advantages and disadvantages, and recommend suitable strategies in different business situations.", intro:[ "Entering a foreign market is a strategic decision. A business must consider control, cost, speed, risk, local knowledge, intellectual property, competition, regulations, culture and the resources available.", "The strongest answer in an examination is not merely to define an entry strategy. A strong learner explains why the strategy fits the particular business situation." ], sections:[ { title:"1. Exporting", html:` <p><b>Meaning:</b> Exporting involves producing goods or services in one country and selling them to customers in another country.</p> <p><b>How it works:</b> The business produces or sources the product domestically, identifies foreign buyers or distributors, meets export and destination-country requirements, arranges logistics and receives payment under agreed terms.</p> <p><b>Why a business chooses exporting:</b> It can enter a foreign market without immediately establishing a full foreign operation. It is particularly useful when the business wants to test demand before committing substantial capital.</p> <p><b>Importance:</b> expands the customer base, generates foreign revenue, increases production opportunities and can help a business gain international experience.</p> <p><b>Advantages:</b> lower commitment than owning a foreign subsidiary, potentially faster entry and ability to use existing production facilities.</p> <p><b>Disadvantages:</b> transport costs, tariffs, exchange-rate risks, less control over foreign distribution and possible difficulty understanding local customers.</p> <p><b>Best suited when:</b> the company has competitive products, production capacity and wants relatively low commitment.</p> ` }, { title:"2. Licensing", html:` <p><b>Meaning:</b> Licensing is an arrangement in which the owner of intellectual property gives another business in a foreign market permission to use specified intellectual property, such as a trademark, technology, design or production process, under agreed conditions.</p> <p><b>How it works:</b> The licensor and licensee negotiate rights, territory, duration, payment/royalty arrangements, quality standards and other obligations. The licensee then uses the authorised intellectual property according to the agreement.</p> <p><b>Why choose licensing:</b> It can provide access to foreign markets without requiring the intellectual-property owner to establish and finance the entire foreign operation.</p> <p><b>Importance:</b> monetises intellectual property, creates international presence and can leverage the local licensee's knowledge and resources.</p> <p><b>Advantages:</b> relatively low capital requirement, local knowledge through the licensee and potentially rapid expansion.</p> <p><b>Disadvantages:</b> less control, quality-control problems and risk that the licensee may eventually become a competitor or misuse intellectual property if controls are weak.</p> <p><b>Best suited when:</b> the key competitive asset is intellectual property and the company wants lower financial commitment.</p> ` }, { title:"3. Franchising", html:` <p><b>Meaning:</b> Franchising allows a franchisee to operate a business using the franchisor's brand, business model, systems and support under an agreed franchise arrangement.</p> <p><b>Main parties:</b> The <b>franchisor</b> owns the brand/business system. The <b>franchisee</b> invests in and operates the local outlet according to agreed standards.</p> <p><b>Franchise agreement:</b> It normally specifies territory, duration, fees, royalties, operating standards, training, support, intellectual-property use and obligations of both parties.</p> <p><b>Why choose franchising:</b> It can combine the strength of an established brand with the local entrepreneur's capital, market knowledge and management effort.</p> <p><b>Importance:</b> supports rapid expansion, creates local entrepreneurship, spreads a proven business model and may reduce the franchisor's direct capital burden.</p> <p><b>Advantages:</b> faster expansion, local knowledge, shared investment and established brand recognition.</p> <p><b>Disadvantages:</b> difficult quality control, possible conflicts with franchisees and reputational damage if a franchisee performs poorly.</p> <p><b>Best suited when:</b> the business has a repeatable business model, strong brand and systems that can be transferred to another market.</p> ` }, { title:"4. Joint Venture", html:` <p><b>Meaning:</b> A joint venture occurs when two or more parties collaborate in a business undertaking and contribute resources while sharing agreed risks, returns and responsibilities.</p> <p><b>How it works:</b> Partners agree on contributions, ownership/control arrangements, objectives, decision-making, profit sharing, intellectual property, dispute resolution and exit arrangements.</p> <p><b>Why choose it:</b> A foreign company may lack local knowledge, distribution networks, relationships or understanding of regulations. A local partner may possess these resources.</p> <p><b>Importance:</b> combines complementary resources and can reduce the burden of entering an unfamiliar market.</p> <p><b>Advantages:</b> shared resources, local knowledge, shared risks and access to established networks.</p> <p><b>Disadvantages:</b> conflicts over control, profit sharing, strategy and technology; differences in organisational culture can also create problems.</p> <p><b>Best suited when:</b> the foreign business needs a strong local partner and both parties have complementary capabilities.</p> ` }, { title:"5. Wholly Owned Subsidiary", html:` <p><b>Meaning:</b> A wholly owned subsidiary is a foreign business operation fully owned by its parent company.</p> <p><b>How it may be established:</b> The parent may establish a new foreign operation or acquire an existing business, subject to applicable laws and approvals.</p> <p><b>Why choose it:</b> It provides a high level of control over operations, brand, technology, quality, staffing and strategic decisions.</p> <p><b>Importance:</b> allows the parent company to protect important capabilities and develop a long-term presence in the foreign market.</p> <p><b>Advantages:</b> high control, greater protection of proprietary knowledge and direct access to foreign operations.</p> <p><b>Disadvantages:</b> high capital requirement, high exposure to foreign-market risk, regulatory complexity and potentially slower learning without a local partner.</p> <p><b>Best suited when:</b> the company has substantial resources, requires high control and expects the market to justify long-term investment.</p> ` }, { title:"6. Choosing the Right Strategy", html:` <p>A business should not choose a market-entry strategy simply because one method is described as “best”. The correct strategy depends on circumstances.</p> <ul> <li><b>Need for control:</b> high control may favour a wholly owned subsidiary.</li> <li><b>Limited capital:</b> exporting, licensing or franchising may require less direct investment.</li> <li><b>Need for local knowledge:</b> a joint venture or franchise may provide stronger local insight.</li> <li><b>Importance of intellectual property:</b> licensing may monetise IP while contractual controls protect it.</li> <li><b>Speed:</b> franchising or licensing can facilitate expansion more quickly than building a completely new operation.</li> <li><b>Risk tolerance:</b> firms with low tolerance for financial exposure may choose lower-commitment approaches.</li> <li><b>Nature of product:</b> physical goods may be exported, while service/business models may be suitable for franchising.</li> </ul> ` } ], compare:"Exporting generally requires less foreign investment than a wholly owned subsidiary. Licensing focuses on granting intellectual-property rights, while franchising transfers a broader business system and brand. Joint ventures share resources and control according to agreement. A wholly owned subsidiary gives the parent company the greatest direct control but normally requires greater commitment and exposes the parent to greater market risk.", cases:[ { title:"Case Study 1: Ghanaian Food Manufacturer", text:"A Ghanaian food-processing company has developed a successful snack brand. It has limited experience outside Ghana but receives enquiries from retailers in Côte d’Ivoire and Nigeria. The company has enough production capacity to supply foreign customers but does not have large funds to build factories abroad. A Nigerian distributor has offered to sell the products through its existing network. At the same time, another company has offered to pay for the right to manufacture the snack using the Ghanaian company's formula and brand.", questions:[ "Which market-entry strategy would you recommend initially?", "Compare exporting with licensing in this situation.", "What factors should management investigate before accepting the licensing offer?", "If the company later becomes financially strong and wants maximum control, which strategy could it consider?", "Defend your final recommendation as if you were presenting to the board." ] }, { title:"Case Study 2: Ghanaian Restaurant Brand", text:"A Ghanaian restaurant has built a strong reputation in Accra. Customers frequently ask whether the brand can open in other African countries. The owner wants rapid expansion but does not have enough money to personally finance ten foreign outlets. A local entrepreneur in Kenya has business experience, capital and knowledge of local customers. However, the owner is worried that poor service at a foreign outlet could damage the Ghanaian brand.", questions:[ "Which entry strategy is most appropriate?", "Why might franchising be more suitable than a wholly owned subsidiary?", "What controls should the Ghanaian company put in place?", "What could cause the strategy to fail?", "Would you recommend the same strategy if the owner had unlimited capital? Explain." ] }, { title:"Case Study 3: Technology Company", text:"A Ghanaian technology company has developed a specialised software system for financial institutions. A foreign bank wants to use the technology. Another foreign company wants to become a local partner and jointly establish a technology operation. The Ghanaian company has strong technical knowledge but limited knowledge of the foreign country's regulations and customer behaviour.", questions:[ "Compare licensing and joint venturing for this company.", "Which strategy would you recommend and why?", "What risks are associated with sharing technology with a foreign partner?", "How could the company protect its intellectual property?", "Under what circumstances would a wholly owned subsidiary become preferable?" ] } ], essays:[ "Explain exporting as an approach to international business and discuss five advantages and five limitations.", "Explain licensing and distinguish it from franchising.", "Discuss six advantages and four disadvantages of franchising as an international market-entry strategy.", "Explain how a joint venture is formed and discuss the factors that may determine its success.", "Explain six advantages and four disadvantages of a wholly owned subsidiary.", "A Ghanaian company wants to enter a foreign market but has limited capital and little knowledge of the market. Recommend an entry strategy and justify your answer.", "Compare franchising, licensing and joint venturing.", "Explain five factors a business should consider when selecting an international market-entry strategy." ] }, { id:"ebusiness", name:"E-Business", level:"SHS1", icon:"💻", meaning:"E-business involves using digital technologies and electronic networks to conduct, support or improve business activities.", objective:"Explain how digital technologies support modern business operations.", intro:["E-business can affect marketing, sales, customer service, purchasing, payments, communication and internal operations."], sections:[ {title:"Forms of E-Business",html:"<p>Examples include online retailing, electronic procurement, digital payments, online customer support and business-to-business electronic transactions.</p>"}, {title:"Importance",html:"<p>It can expand market reach, operate beyond normal physical opening hours, improve information flow and reduce some transaction costs.</p>"}, {title:"Challenges",html:"<p>Cybersecurity, privacy, internet access, digital skills, payment risks and customer trust can affect e-business performance.</p>"} ], cases:[ {title:"Case: Online Clothing Store",text:"A clothing business receives many social-media enquiries but loses customers because orders are recorded manually and deliveries are often delayed.",questions:["Identify three e-business problems.","Recommend digital solutions.","What risks must the owner manage?"]} ], essays:[ "Explain five importance of e-business.", "Discuss five challenges of e-business.", "Explain how e-business can improve customer service.", "Describe five digital activities through which a business can serve customers." ] }, { id:"hrm", name:"Human Resource Management", level:"SHS3", icon:"👥", meaning:"Human Resource Management is the systematic process of acquiring, developing, motivating, maintaining and managing people so that organisational and employee objectives can be achieved.", objective:"Explain HRM functions, recruitment, selection, performance appraisal, training, motivation, employee relations and other people-management activities, and apply them to workplace cases.", intro:[ "Employees are a major organisational resource because they use knowledge, skills, judgement and effort to transform other resources into useful products and services.", "HRM therefore goes beyond hiring. It covers workforce planning, recruitment, selection, placement, induction, training, performance management, compensation, employee relations, health and safety, discipline, career development and separation." ], sections:[ { title:"1. Human Resource Planning", html:` <p>Human resource planning involves determining the number and types of employees an organisation needs now and in the future.</p> <p><b>Importance:</b> prevents labour shortages and surpluses, supports expansion, improves workforce quality and helps control labour costs.</p> ` }, { title:"2. Recruitment", html:` <p><b>Meaning:</b> Recruitment is the process of attracting suitable candidates to apply for identified job vacancies.</p> <p><b>Purpose:</b> to create a pool of potentially suitable applicants from which the organisation can select.</p> <p><b>Important principle:</b> recruitment comes before selection. Recruitment attracts candidates; selection evaluates candidates and chooses the most suitable person.</p> ` }, { title:"3. Steps in Recruitment", html:` <ol> <li><b>Identify the vacancy:</b> determine why the position exists and whether it needs to be filled.</li> <li><b>Conduct job analysis:</b> collect information about duties, responsibilities, working conditions and requirements.</li> <li><b>Prepare job description:</b> state the duties, responsibilities, reporting relationships and other important features of the job.</li> <li><b>Prepare job specification:</b> identify the qualifications, skills, knowledge, experience and personal qualities required.</li> <li><b>Choose recruitment source/channel:</b> decide whether to recruit internally, externally or through a combination.</li> <li><b>Advertise/source candidates:</b> communicate the vacancy through suitable channels.</li> <li><b>Receive applications:</b> collect CVs, application forms and supporting documents.</li> <li><b>Screen applications:</b> compare applicants with the basic requirements.</li> <li><b>Shortlist:</b> identify candidates who best meet the requirements for further assessment.</li> </ol> ` }, { title:"4. Channels / Sources of Recruitment", html:` <p><b>Internal recruitment:</b> filling a vacancy using existing employees, such as promotion, transfer or internal vacancy announcements.</p> <p><b>Advantages:</b> lower recruitment cost, employees already understand the organisation and it can motivate staff by showing career opportunities.</p> <p><b>Disadvantages:</b> smaller candidate pool and risk of limiting new ideas.</p> <p><b>External recruitment:</b> attracting people from outside the organisation.</p> <p><b>Channels include:</b> online job platforms, social media, company websites, professional networks, recruitment agencies, educational institutions, employee referrals, newspapers and career fairs.</p> <p><b>Why channel choice matters:</b> the channel should reach the type of candidate required. A specialist position may require a professional network, while a large entry-level recruitment exercise may use online platforms or educational institutions.</p> ` }, { title:"5. Selection", html:` <p>Selection is the process of assessing applicants and choosing the candidate who best meets the requirements of the job and organisation.</p> <p><b>Common stages:</b> application screening, tests where appropriate, interviews, reference checks, background verification where appropriate, final decision, job offer and placement.</p> <p><b>Good selection should be:</b> job-related, consistent, fair, evidence-based and compliant with applicable employment requirements.</p> ` }, { title:"6. Induction and Onboarding", html:` <p>Induction introduces a new employee to the organisation, job, colleagues, policies, procedures, expectations and working environment.</p> <p>Effective induction can reduce anxiety, clarify expectations, improve adjustment and help employees become productive more quickly.</p> ` }, { title:"7. Training and Development", html:` <p><b>Training</b> develops knowledge, skills and attitudes needed for current job performance. <b>Development</b> is broader and prepares employees for future responsibilities and career growth.</p> <p>Methods may include coaching, mentoring, workshops, job rotation, demonstrations, apprenticeships and online learning.</p> ` }, { title:"8. Performance Appraisal", html:` <p><b>Meaning:</b> Performance appraisal is a systematic process of assessing an employee's performance against agreed standards or expectations and providing feedback.</p> <p><b>Importance:</b></p> <ul> <li>Identifies strengths and weaknesses.</li> <li>Helps identify training and development needs.</li> <li>Provides feedback.</li> <li>Supports promotion and career decisions.</li> <li>Can improve motivation when conducted fairly.</li> <li>Helps managers identify performance problems early.</li> <li>Provides information for workforce decisions.</li> </ul> ` }, { title:"9. Steps in Performance Appraisal", html:` <ol> <li><b>Set performance standards:</b> establish clear, realistic and measurable expectations.</li> <li><b>Communicate standards:</b> employees must understand what is expected.</li> <li><b>Measure actual performance:</b> collect relevant evidence such as output, quality, customer feedback or agreed indicators.</li> <li><b>Compare performance with standards:</b> identify gaps and strengths.</li> <li><b>Discuss results:</b> provide constructive feedback and allow the employee to respond.</li> <li><b>Agree corrective/development action:</b> training, coaching, resources, revised targets or other appropriate action.</li> <li><b>Follow up:</b> review progress after an agreed period.</li> </ol> ` }, { title:"10. Methods of Performance Appraisal", html:` <p>Methods can include rating scales, checklists, management by objectives, self-assessment, peer feedback, supervisor assessment and 360-degree feedback.</p> <p><b>360-degree feedback:</b> performance information is collected from several relevant perspectives, which may include supervisors, peers, subordinates and sometimes customers.</p> ` }, { title:"11. Problems/Biases in Performance Appraisal", html:` <ul> <li><b>Halo effect:</b> one strong characteristic influences the overall judgement.</li> <li><b>Recency effect:</b> recent events receive too much attention.</li> <li><b>Leniency:</b> a manager rates employees unusually highly.</li> <li><b>Severity:</b> a manager rates employees unusually harshly.</li> <li><b>Personal bias:</b> irrelevant personal opinions influence assessment.</li> <li><b>Poor standards:</b> vague or unrealistic standards make assessment unreliable.</li> </ul> ` }, { title:"12. Compensation and Benefits", html:` <p>Compensation includes financial and non-financial rewards provided to employees in return for their work. It can include wages, salaries, allowances, bonuses, benefits, recognition and other rewards.</p> <p>A fair reward system can help attract, retain and motivate employees, although money alone does not guarantee high performance.</p> ` }, { title:"13. Employee Relations", html:` <p>Employee relations concern the relationship between management and employees. Effective communication, consultation, fair treatment, grievance procedures and constructive conflict management can support cooperation.</p> ` }, { title:"14. Discipline and Grievance Handling", html:` <p>Discipline involves maintaining acceptable standards of behaviour and performance. A grievance is a formal complaint by an employee about a workplace matter.</p> <p>Good procedures should be clear, consistent, fair and properly documented.</p> ` }, { title:"15. Separation", html:` <p>Employees may leave through resignation, retirement, redundancy, dismissal, termination or other lawful forms of separation. Organisations should manage separation fairly and according to applicable employment requirements.</p> ` } ], compare:"Recruitment attracts applicants; selection chooses among applicants; induction helps the selected employee adjust; training develops skills; performance appraisal evaluates performance and provides feedback; compensation rewards work; employee relations manage workplace relationships.", cases:[ { title:"Case Study 1: Rapid Recruitment", text:"Adom Retail Ltd is expanding from three branches to eight branches. The HR officer advertises vacancies only through one social-media page and receives 700 applications. Because management is under pressure, the HR officer selects people based mainly on how quickly they respond. Several new employees lack the required skills, customer complaints increase and staff turnover becomes high.", questions:[ "Identify four weaknesses in Adom Retail's recruitment process.", "Explain the importance of job analysis before advertising.", "Recommend three recruitment channels the company could use.", "Distinguish between recruitment and selection in this case.", "Design a better recruitment process for the company." ] }, { title:"Case Study 2: Unfair Performance Appraisal", text:"KenteTech Services evaluates employees every December. A supervisor gives one employee a low rating because of an argument that occurred two weeks before the appraisal. The employee had exceeded the annual sales target and had strong customer feedback. The supervisor did not review records from earlier months.", questions:[ "Identify the appraisal problem in the case.", "Explain the recency effect.", "Why should performance standards be communicated before appraisal?", "Recommend four ways the company can make appraisal more reliable.", "Should the employee's appraisal be cancelled or reviewed? Defend your answer." ] }, { title:"Case Study 3: Recruitment vs Selection", text:"A manufacturing company needs a production supervisor. It has advertised the vacancy, received applications and shortlisted eight candidates. The management team is debating whether interviewing is still necessary because all eight candidates have impressive qualifications.", questions:[ "At which stage of the recruitment/selection process is the company?", "Why should qualifications alone not determine the final decision?", "Suggest four selection methods that could be used.", "Explain why job specification is important in this situation.", "Recommend the best final selection approach and justify it." ] } ], essays:[ "Define recruitment and explain six steps involved in the recruitment process.", "Explain five internal and five external sources of recruitment.", "Distinguish between recruitment and selection.", "Explain the importance of job analysis, job description and job specification.", "Define performance appraisal and explain seven reasons why it is important.", "Describe the steps involved in conducting an effective performance appraisal.", "Explain five methods of performance appraisal.", "Discuss five problems that may make performance appraisal unreliable.", "Explain six importance of training and development.", "Discuss five factors that can influence employee motivation.", "Explain five functions of Human Resource Management.", "A company has high employee turnover. Analyse the possible HR causes and recommend solutions." ] }, { id:"marketing", name:"Marketing", level:"SHS3", icon:"📣", meaning:"Marketing involves identifying customer needs, creating value and communicating, delivering and exchanging offerings to satisfy customers and organisational objectives.", objective:"Explain marketing concepts and apply them to business decisions.", intro:["Marketing begins with understanding customers. Selling is one part of marketing; marketing also involves research, product decisions, pricing, promotion, distribution and relationship management."], sections:[ {title:"Marketing Mix",html:"<p>The traditional marketing mix is commonly discussed as product, price, place and promotion. Service marketing may extend this to people, process and physical evidence.</p>"}, {title:"Importance",html:"<p>Marketing helps businesses understand customers, create demand, communicate value, build brands and compete effectively.</p>"}, {title:"Market Research",html:"<p>Market research provides information about customers, competitors, trends and market conditions to improve decision-making.</p>"} ], cases:[ {title:"Case: New Product Launch",text:"A Ghanaian beverage company wants to launch a low-sugar drink for young consumers but has not researched preferred flavours or prices.",questions:["What research should the company conduct?","How should it use the marketing mix?","What risks arise from launching without research?"]} ], essays:[ "Explain five importance of marketing.", "Discuss the elements of the marketing mix.", "Explain five importance of market research.", "Describe five methods of promoting a product." ] }, { id:"finance", name:"Finance", level:"SHS3", icon:"💰", meaning:"Business finance concerns obtaining, allocating and managing money required to establish and operate a business.", objective:"Explain business finance decisions and apply financial reasoning to cases.", intro:["Businesses need finance for start-up, working capital, expansion, assets and unexpected needs. The source chosen affects cost, control, risk and repayment obligations."], sections:[ {title:"Sources of Finance",html:"<p>Sources may include owner's capital, retained profit, bank finance, trade credit, leasing and other appropriate forms of finance.</p>"}, {title:"Importance of Financial Planning",html:"<p>Financial planning helps estimate funding needs, manage cash, anticipate shortages and allocate resources.</p>"} ], cases:[ {title:"Case: Expansion Finance",text:"A business wants to buy new equipment but has limited cash. The owner is considering a bank loan, using retained profits or bringing in a new investor.",questions:["Compare the three options.","Which option would you recommend?","What factors should influence the decision?"]} ], essays:[ "Explain five importance of finance to a business.", "Discuss five sources of business finance.", "Explain factors considered when choosing a source of finance.", "Distinguish between short-term and long-term finance." ] }, { id:"production", name:"Production and Operations", level:"SHS3", icon:"🏭", meaning:"Production and operations management involves transforming inputs into goods or services efficiently and effectively.", objective:"Explain production processes, productivity, quality and operational decisions.", intro:["Operations connect resources such as materials, labour, equipment and information to outputs that customers value."], sections:[ {title:"Production Systems",html:"<p>Production may be job, batch, mass/flow or continuous depending on product characteristics and demand.</p>"}, {title:"Quality Management",html:"<p>Quality management aims to ensure that products or services consistently meet agreed standards and customer expectations.</p>"}, {title:"Importance",html:"<p>Efficient operations can reduce waste, control cost, improve quality and strengthen competitiveness.</p>"} ], cases:[ {title:"Case: Production Waste",text:"A small manufacturing company experiences high material waste and customer complaints about inconsistent product quality.",questions:["Identify likely operational causes.","Recommend quality improvements.","How could staff training affect productivity?"]} ], essays:[ "Explain five importance of production management.", "Discuss four types of production systems.", "Explain five ways a business can improve productivity.", "Discuss five importance of quality control." ] }, { id:"law-contract", name:"Law of Contract", level:"SHS2", icon:"⚖️", meaning:"A contract is a legally enforceable agreement between parties, subject to the requirements of applicable law.", objective:"Explain essential elements of a valid contract and apply contract principles to cases.", intro:["Business transactions rely heavily on agreements. Learners should understand not only definitions but how contract principles apply when parties disagree."], sections:[ {title:"Essentials of a Valid Contract",html:"<p>Important elements include offer, acceptance, consideration, intention to create legal relations, capacity, legality and certainty, subject to the applicable legal context.</p>"}, {title:"Application",html:"<p>When analysing a contract problem, identify the facts, identify the relevant element, explain the rule and apply the rule to the facts before reaching a conclusion.</p>"} ], cases:[ {title:"Case: The Unclear Deal",text:"Kojo offers to sell a machine to Yaw for GH¢50,000. Yaw says he will think about it. Kojo later claims that a contract exists because Yaw inspected the machine.",questions:["Was acceptance clearly communicated?","Which elements of contract should be examined?","Apply the principles to the facts and reach a reasoned conclusion."]} ], essays:[ "Explain six essential elements of a valid contract.", "Distinguish between an offer and an invitation to treat.", "Explain acceptance and state conditions for effective acceptance.", "Discuss consideration as an element of a contract.", "Apply the essentials of a valid contract to a business case." ] }, { id:"risk", name:"Business Risk and Insurance", level:"SHS2", icon:"🛡️", meaning:"Business risk is the possibility that events may cause loss, reduced profit or failure to achieve objectives. Insurance is a mechanism for transferring specified risks to an insurer in exchange for a premium, subject to policy terms.", objective:"Identify business risks, explain insurance and apply risk-management principles.", intro:["Risk cannot always be eliminated. Managers identify risks, assess likelihood and impact, select controls and decide which risks should be transferred through insurance."], sections:[ {title:"Types of Risk",html:"<p>Risks may arise from fire, theft, accidents, natural events, market changes, operational failure, credit problems, technology and other sources.</p>"}, {title:"Risk Management",html:"<p>Steps may include identifying risks, analysing them, evaluating priorities, selecting controls, implementing measures and monitoring results.</p>"}, {title:"Importance of Insurance",html:"<p>Insurance can protect against specified financial losses, support business continuity and provide greater confidence when undertaking legitimate business activities.</p>"} ], cases:[ {title:"Case: Warehouse Fire",text:"A distributor stores valuable stock in a warehouse. Management has insurance but has not maintained fire equipment and stores electrical cables poorly.",questions:["Identify the risks.","Explain why insurance alone is insufficient.","Recommend risk-control measures.","How might poor risk management affect an insurance claim?"]} ], essays:[ "Explain five types of business risk.", "Explain six importance of insurance to business.", "Describe the risk-management process.", "Distinguish between risk prevention and risk transfer.", "Explain factors a business should consider when selecting insurance." ] } ]; /* ============================================================ EXAM QUESTION BANK ============================================================ */ const objectivePool = [ ["Which of the following best describes recruitment?","Attracting suitable applicants for a vacancy","Selecting the final employee","Training existing workers","Appraising employees",0], ["Which strategy gives a parent company full ownership of a foreign subsidiary?","Licensing","Franchising","Wholly owned subsidiary","Exporting",2], ["A franchisee normally receives the right to use a franchisor's:","Personal bank account","Brand and business system","Private home","Tax number",1], ["A joint venture is mainly characterised by:","One owner only","Shared resources and agreed participation","No risk","No contractual arrangement",1], ["Which stage normally follows shortlisting?","Performance appraisal","Selection assessment","Retirement","Production",1], ["A job description mainly explains:","The duties and responsibilities of a job","The employee's personal hobbies","The company's annual profit","The candidate's family history",0], ["A job specification mainly identifies:","Job requirements and qualities needed","Customer complaints","Product prices","Company debts",0], ["Which is an internal recruitment source?","Promotion","Newspaper advertisement","External agency","Career fair",0], ["Which is an external recruitment source?","Transfer","Promotion","Recruitment agency","Internal notice",2], ["Performance appraisal is mainly concerned with:","Assessing employee performance against expectations","Buying machinery","Setting product prices","Choosing suppliers",0], ["The recency effect occurs when an appraiser:","Focuses too much on recent events","Rates everyone equally","Uses several sources of evidence","Sets clear standards",0], ["The halo effect occurs when:","One characteristic influences the overall judgement","All employees receive training","Targets are increased","Recruitment is external",0], ["Which entry strategy generally requires the highest direct control?","Licensing","Exporting","Wholly owned subsidiary","Simple distribution",2], ["Exporting means:","Selling goods/services across borders","Buying another company","Hiring foreign employees only","Giving away a trademark",0], ["Licensing normally involves:","Granting specified intellectual-property rights","Opening a fully owned factory","Hiring all foreign workers","Buying a competitor",0], ["Which factor strongly supports a joint venture decision?","Need for local partner knowledge","Desire to avoid all cooperation","No available partner","No market research",0], ["A sole proprietorship normally has:","One owner","Twenty shareholders","Government ownership","A board of directors only",0], ["A partnership is based on:","An arrangement between partners","Government ownership","Only one owner","No contribution",0], ["A company can have:","A separate legal identity subject to law","No legal obligations","No management","No records",0], ["One major advantage of a company is:","Potential access to larger capital","No regulations","No risk","No accounting",0], ["Planning involves:","Deciding in advance what should be done","Checking only past performance","Hiring only","Selling only",0], ["Controlling involves:","Comparing actual performance with standards and correcting deviations","Advertising only","Recruiting only","Exporting only",0], ["Marketing begins with:","Understanding customer needs and creating value","Ignoring customers","Producing without research","Avoiding competition",0], ["Market research helps a business:","Make informed decisions","Eliminate every risk","Guarantee profit","Avoid all competition",0], ["Business risk refers to:","Possibility of events affecting objectives or results","Guaranteed profit","A fixed salary","A business name",0], ["Insurance is primarily used to:","Transfer specified financial risks subject to policy terms","Guarantee profit","Remove every business risk","Avoid management",0], ["Which is a source of business finance?","Retained profit","Customer complaint","Job description","Franchise manual",0], ["Quality management aims to:","Meet agreed quality standards consistently","Increase defects","Ignore customers","Reduce all training",0], ["E-business can help businesses:","Reach customers through digital channels","Eliminate every cyber risk","Avoid all costs","Stop communication",0], ["A state-owned enterprise is generally:","Owned or controlled by government","Owned by one student","Always a partnership","Never commercial",0] ]; const essaySets = [ [ "Explain six essentials of a valid contract and apply them to a business situation.", "Discuss six ways a business can identify, assess and manage risks.", "Explain five reasons a Ghanaian business may choose exporting when entering a foreign market.", "Explain six functions of Human Resource Management.", "Distinguish between recruitment and selection and explain why both are important.", "Define performance appraisal and discuss six reasons for conducting it." ], [ "Explain the difference between an offer and an invitation to treat, using business examples.", "Explain five types of business risk and recommend suitable control measures.", "Explain licensing and discuss five reasons a business may choose it.", "Describe the major stages in the recruitment process.", "Explain five internal and five external recruitment channels.", "Discuss five problems that can make performance appraisal unfair." ], [ "Explain six requirements that should be considered when determining whether a contract is valid.", "Discuss the importance of insurance to a business.", "Explain franchising and analyse five reasons for choosing franchising over a wholly owned subsidiary.", "Explain job analysis, job description and job specification.", "Discuss six importance of training and development.", "Describe the steps involved in effective performance appraisal." ], [ "Explain acceptance as an element of a valid contract.", "Distinguish between risk prevention and risk transfer.", "Explain a joint venture and discuss four possible benefits and four challenges.", "Explain five methods through which organisations can recruit employees.", "Explain five methods of employee selection.", "Discuss the importance of feedback in performance appraisal." ], [ "Discuss consideration as an element of a valid contract.", "Explain the importance of identifying business risks before expansion.", "Explain a wholly owned subsidiary and discuss its advantages and disadvantages.", "Explain the importance of induction to a newly recruited employee.", "Discuss six factors that can influence employee motivation.", "Explain five common appraisal biases and how they can be reduced." ], [ "Using a practical example, explain how capacity to contract may affect a business agreement.", "Explain five factors that determine the choice of insurance cover.", "Compare exporting, licensing and franchising.", "Explain how an organisation should prepare a job description and job specification.", "Discuss five benefits of employee development.", "Explain the process of measuring employee performance." ], [ "Explain the importance of intention to create legal relations in business agreements.", "Explain five methods of reducing operational risk.", "Compare joint ventures and wholly owned subsidiaries.", "Discuss internal and external recruitment and state situations in which each is appropriate.", "Explain the importance of fair selection procedures.", "Discuss how appraisal results can be used to improve employee performance." ], [ "Explain five circumstances that may make a business agreement legally problematic.", "Discuss the role of insurance in business continuity.", "Explain why a business with limited capital may choose exporting or licensing.", "Discuss six functions of an HR department.", "Explain the importance of interviews and selection tests.", "Discuss the relationship between performance appraisal and training." ], [ "Explain the importance of certainty in a business agreement.", "Explain how a business can manage risks without relying only on insurance.", "Recommend a suitable entry strategy for a Ghanaian company entering an unfamiliar African market and justify your decision.", "Explain six steps in recruitment.", "Discuss five recruitment channels and their suitability.", "Explain how performance appraisal can support promotion and career development." ], [ "Explain six elements that should be considered when analysing a contract case.", "Analyse the difference between insurable and non-insurable business risks.", "Evaluate the advantages and disadvantages of franchising for a growing business.", "Explain how poor recruitment can affect organisational performance.", "Discuss five methods of developing employees.", "Analyse a situation in which an employee believes an appraisal is unfair and recommend corrective action." ] ]; /* ============================================================ RENDERING ============================================================ */ function render(){ try{ if(APP.role === "teacher"){ $$(".role-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.role==="teacher")); }else{ $$(".role-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.role==="student")); } switch(APP.page){ case "topics": renderTopics(); break; case "practice": renderPractice(); break; case "scanner": renderScanner(); break; case "assistant": renderAssistant(); break; case "teacher": renderTeacher(); break; case "about": renderAbout(); break; case "settings": renderSettings(); break; default: renderHome(); } }catch(error){ console.error(error); $("#main").innerHTML = ` <div class="empty"> <h2>Something went wrong</h2> <p>The app protected itself from crashing. Please reload the page.</p> <button class="btn btn-primary" data-action="reload">Reload</button> </div>`; } } function renderHome(){ const pct = progressPercent(); $("#main").innerHTML = ` <section class="hero"> <div class="hero-card"> <div class="eyebrow">Ghana SHS Business Management</div> <h1>Learn the idea. Understand the reason. Apply it.</h1> <p> BM Learn AI is designed to move students beyond memorising definitions. Learn concepts deeply, analyse business situations and practise examination thinking. </p> <div class="actions"> <button class="btn btn-primary" data-page="topics">📚 Start Learning</button> <button class="btn btn-secondary" data-page="practice">📝 Practice Test</button> <button class="btn btn-secondary" data-page="scanner">📸 Scan a Question</button> </div> </div> </section> <section class="stats"> <div class="stat"><strong>${topics.length}</strong><span>Learning Topics</span></div> <div class="stat"><strong>${APP.completed.length}</strong><span>Topics Completed</span></div> <div class="stat"><strong>${APP.practiceAttempts}</strong><span>Practice Attempts</span></div> <div class="stat"><strong>${APP.practiceScore}</strong><span>Best Score</span></div> </section> <section class="section"> <div class="section-head"> <div> <h2>Your Learning Progress</h2> <p>${pct}% of the current topic library completed.</p> </div> <b>${pct}%</b> </div> <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div> </section> <section class="section"> <div class="section-head"> <div> <h2>Learn Differently</h2> <p>Choose what you need.</p> </div> </div> <div class="grid"> ${[ ["📚","Deep Notes","Understand definitions, explanations, examples and applications.","topics"], ["🧠","Think & Apply","Analyse realistic business cases instead of memorising answers.","practice"], ["📸","Question Scanner","Upload or photograph a question and use the AI-solving workflow.","scanner"], ["🤖","BM Thinking Assistant","Ask for explanations, comparisons and exam-focused guidance.","assistant"] ].map(x=>` <div class="card topic-card" data-page="${x[3]}"> <div style="font-size:28px">${x[0]}</div> <h3>${x[1]}</h3> <p>${x[2]}</p> </div>`).join("")} </div> </section> ${APP.role==="teacher" ? ` <section class="section"> <div class="card"> <div class="eyebrow">Teacher Mode</div> <h2>👨🏽‍🏫 Teacher Centre</h2> <p>Create varied practice examinations, choose from 10 different Section-B structures and generate matching marking schemes.</p> <button class="btn btn-primary" data-page="teacher">Open Teacher Centre</button> </div> </section>` : ""} `; } function renderTopics(){ const filtered = topics.filter(t=>{ const matchesLevel = APP.topicFilter==="ALL" || t.level===APP.topicFilter; const text = `${t.name} ${t.meaning}`.toLowerCase(); return matchesLevel && text.includes(APP.topicSearch.toLowerCase()); }); $("#main").innerHTML = ` <section class="section"> <div class="section-head"> <div> <div class="eyebrow">Learning Library</div> <h2>Business Management Topics</h2> <p>Detailed notes with cases and trial essays.</p> </div> </div> <div class="search-row"> <div class="search-box"> <input class="input" id="topicSearch" placeholder="Search topics..." value="${escapeHTML(APP.topicSearch)}"> </div> </div> <br> <div class="filters"> ${["ALL","SHS1","SHS2","SHS3"].map(f=>` <button class="filter ${APP.topicFilter===f?"active":""}" data-filter="${f}">${f==="ALL"?"All Levels":f}</button> `).join("")} </div> </section> <section class="section"> <div class="grid"> ${filtered.length ? filtered.map(topicCard).join("") : `<div class="empty">No topic found.</div>`} </div> </section>`; } function topicCard(t){ const done = APP.completed.includes(t.id); return ` <div class="card topic-card" data-topic="${t.id}"> <div class="card-top"> <div style="font-size:28px">${t.icon}</div> <span class="badge">${t.level}</span> </div> <h3>${escapeHTML(t.name)}</h3> <p>${escapeHTML(t.meaning)}</p> <div class="actions"> <button class="btn ${done?"btn-secondary":"btn-primary"}" data-topic="${t.id}"> ${done?"✓ Completed":"Open Lesson"} </button> </div> </div>`; } function renderLesson(topic){ APP.currentTopic = topic; const done = APP.completed.includes(topic.id); const sections = topic.sections.map(s=>` <div class="lesson-section"> <h3>${s.title}</h3> ${s.html} </div>`).join(""); const cases = (topic.cases || []).map(c=>` <div class="case"> <h4>🧠 ${escapeHTML(c.title)}</h4> <p>${escapeHTML(c.text)}</p> <ol> ${c.questions.map(q=>`<li>${escapeHTML(q)}</li>`).join("")} </ol> </div>`).join(""); const essays = (topic.essays || []).map((q,i)=>` <div class="essay-item"> <b>Trial Essay ${i+1}</b> <div>${escapeHTML(q)}</div> </div>`).join(""); openModal(topic.icon+" "+topic.name,` <div class="lesson-section"> <h3>🎯 Learning Objective</h3> <p>${escapeHTML(topic.objective)}</p> </div> <div class="lesson-section"> <h3>📖 Meaning / Definition</h3> <p>${escapeHTML(topic.meaning)}</p> </div> <div class="lesson-section"> <h3>🧠 Introduction & Explanation</h3> ${topic.intro.map(x=>`<p>${escapeHTML(x)}</p>`).join("")} </div> ${sections} <div class="lesson-section"> <h3>⚖️ Important Comparison</h3> <div class="key-box">${escapeHTML(topic.compare || "Compare the concept with related business ideas and explain when each would be appropriate.")}</div> </div> ${cases ? ` <div class="lesson-section"> <h3>🧩 Application & Critical Thinking Cases</h3> <p>Do not rush to the answer. Identify the facts, identify the concept, apply the concept and justify your conclusion.</p> ${cases} </div>`:""} <div class="lesson-section"> <h3>📝 Trial Essay Questions</h3> <p>Try each question before asking BM Learn AI for a model answer.</p> ${essays} </div> <div class="actions"> <button class="btn ${done?"btn-secondary":"btn-primary"}" data-action="complete-topic" data-id="${topic.id}"> ${done?"✓ Completed — Tap to Undo":"✓ Mark Topic Complete"} </button> <button class="btn btn-secondary" data-page="practice">📝 Practice</button> </div> `); } /* ============================================================ PRACTICE ============================================================ */ function renderPractice(){ const qs = shuffle([...objectivePool]).slice(0,10); $("#main").innerHTML = ` <section class="hero"> <div class="hero-card"> <div class="eyebrow">Student Assessment</div> <h1>Practice Test</h1> <p>10 questions • Mixed Business Management topics • Instant score</p> <button class="btn btn-primary" data-action="start-practice">Start Test</button> </div> </section> <section class="section"> <div class="card"> <h3>🧠 How to use practice effectively</h3> <p>Do the questions without looking at your notes. After marking, revisit every question you missed and explain why the correct option is correct.</p> </div> </section>`; } function startPractice(){ const qs = shuffle([...objectivePool]).slice(0,10); openModal("📝 Practice Test",` <form id="practiceForm"> ${qs.map((q,i)=>` <div class="lesson-section"> <h3>Question ${i+1}</h3> <p><b>${escapeHTML(q[0])}</b></p> ${q.slice(1,5).map((opt,j)=>` <label class="option"> <input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${escapeHTML(opt)} </label> `).join("")} </div>`).join("")} <button class="btn btn-primary" type="submit">Submit Test</button> </form> `); $("#practiceForm").addEventListener("submit",e=>{ e.preventDefault(); let score=0; qs.forEach((q,i)=>{ const selected = document.querySelector(`input[name="q${i}"]:checked`); if(selected && Number(selected.value)===q[5]) score++; }); APP.practiceAttempts++; if(score>APP.practiceScore) APP.practiceScore=score; saveState(); $("#modalBody").innerHTML=` <div class="result"> <h2>${score}/10</h2> <p>${score>=8?"Excellent work! 🔥":score>=5?"Good start. Review the questions you missed.":"Use the result as a learning guide. Revisit the relevant topics and try again."}</p> </div> <br> <button class="btn btn-primary" data-action="close-modal">Continue</button> `; toast("Practice completed."); }); } /* ============================================================ SCANNER ============================================================ */ function renderScanner(){ $("#main").innerHTML = ` <section class="hero"> <div class="hero-card"> <div class="eyebrow">Question Analysis</div> <h1>📸 Scan & Think</h1> <p>Take a clear photo of a Business Management question or upload one from your phone.</p> <div class="actions"> <button class="btn btn-primary" data-action="open-scanner">📷 Take / Upload Question</button> <button class="btn btn-secondary" data-action="paste-question">⌨️ Type Question</button> </div> </div> </section> <section class="section"> <div class="card"> <h3>🤖 How the AI solver should respond</h3> <p><b>1.</b> Identify the question.</p> <p><b>2.</b> Identify the Business Management concept being tested.</p> <p><b>3.</b> Explain the reasoning.</p> <p><b>4.</b> Apply it to the facts.</p> <p><b>5.</b> Produce an examination-ready answer.</p> <p><b>6.</b> Point out common mistakes.</p> </div> </section> <section class="section"> <div class="card"> <div class="badge">AI CONNECTION</div> <h3>Secure AI integration</h3> <p>This website is ready for a secure AI backend. Do not place an API key directly inside this GitHub file.</p> </div> </section>`; } function openScanner(){ $("#scanInput").value=""; $("#scanInput").click(); } function handleScan(file){ if(!file) return; if(!file.type.startsWith("image/")){ toast("Please choose an image."); return; } const reader = new FileReader(); reader.onload = e=>{ APP.scanImage = e.target.result; openModal("📸 Question Scanner",` <img src="${APP.scanImage}" class="scan-preview" style="display:block"> <br> <div class="lesson-section"> <h3>Step 1 — Image Ready</h3> <p>Your question image has been loaded.</p> </div> <button class="btn btn-primary" data-action="solve-scan"> 🤖 Solve with AI </button> <p style="color:var(--muted);font-size:12px;margin-top:12px"> A secure AI backend should be connected before this sends the image to an external AI service. Until then, BM Learn AI provides a safe learning workflow instead of pretending that an external AI has analysed the image. </p> `); }; reader.onerror=()=>{ toast("The image could not be read. Try another image."); }; reader.readAsDataURL(file); } function solveScan(){ openModal("🤖 AI Question Solver",` <div class="lesson-section"> <h3>AI Analysis Workflow</h3> <p>For a real external AI response, the image must be sent through a secure server/backend. Your GitHub website should never contain a private API key.</p> </div> <div class="ai-output">BM Learn AI is ready for the secure AI connection. When connected, the solver will: • Read the photographed question • Identify the topic • Identify command words such as explain, discuss, analyse or evaluate • Break the question into required points • Reason through the case • Give a detailed explanation • Give a Ghana-relevant example where appropriate • Produce an examination-ready answer • Highlight common mistakes • Ask the learner a follow-up thinking question</div> <br> <div class="think"> <strong>🧠 Think before seeing the answer</strong> <p>What Business Management topic do you think this question is testing? What command word is used?</p> </div> `); } function pasteQuestion(){ openModal("⌨️ Type a Question",` <textarea id="typedQuestion" class="textarea" rows="7" placeholder="Type or paste your Business Management question here..."></textarea> <br><br> <button class="btn btn-primary" data-action="analyse-text">🤖 Analyse with BM Thinking Assistant</button> `); } function analyseText(){ const q = $("#typedQuestion")?.value.trim(); if(!q){ toast("Please enter a question."); return; } const lower=q.toLowerCase(); let topic="Business Management"; let guidance="Break the question into the command word, key concept and facts that must be applied."; if(lower.includes("recruit") || lower.includes("selection") || lower.includes("performance appraisal") || lower.includes("human resource")){ topic="Human Resource Management"; guidance="Identify the HR concept, explain it clearly, then apply it to the facts in the question."; }else if(lower.includes("franchise") || lower.includes("licens") || lower.includes("joint venture") || lower.includes("export") || lower.includes("subsidiary")){ topic="International Business"; guidance="Compare the entry strategy with the firm's capital, control, local knowledge, risk and long-term objectives."; }else if(lower.includes("contract") || lower.includes("offer") || lower.includes("acceptance") || lower.includes("consideration")){ topic="Law of Contract"; guidance="Identify the relevant contractual principle, explain the rule and apply it to the facts before concluding."; }else if(lower.includes("insurance") || lower.includes("risk")){ topic="Business Risk and Insurance"; guidance="Identify the risk, assess its likely effect and recommend suitable prevention, reduction or transfer measures."; } openModal("🤖 BM Thinking Analysis",` <div class="lesson-section"> <h3>Topic Detected</h3> <p>${escapeHTML(topic)}</p> </div> <div class="lesson-section"> <h3>Your Question</h3> <p>${escapeHTML(q)}</p> </div> <div class="lesson-section"> <h3>🧠 Thinking Framework</h3> <p>${escapeHTML(guidance)}</p> </div> <div class="think"> <strong>Exam Thinking Rule</strong> <p>Do not only state a point. State the point, explain it, connect it to the question and give an appropriate example or implication.</p> </div> <button class="btn btn-secondary" data-page="topics">Open Topic Library</button> `); } /* ============================================================ ASSISTANT ============================================================ */ function renderAssistant(){ $("#main").innerHTML=` <section class="hero"> <div class="hero-card"> <div class="eyebrow">BM Thinking Assistant</div> <h1>🤖 Ask. Understand. Apply.</h1> <p>Ask Business Management questions and receive structured learning guidance.</p> </div> </section> <section class="section"> <div class="card"> <label>Answer style</label> <select class="select" id="assistantStyle"> <option value="detailed">Detailed explanation</option> <option value="exam">Examination answer</option> <option value="simple">Simple learner explanation</option> <option value="case">Case-study analysis</option> </select> <br><br> <textarea class="textarea" id="assistantQuestion" rows="6" placeholder="Example: Explain why a business may choose franchising instead of a wholly owned subsidiary."></textarea> <br><br> <button class="btn btn-primary" data-action="ask-assistant">🤖 Think Through It</button> </div> </section> <section class="section"> <div class="card"> <h3>💡 Better prompts</h3> <p>“Explain recruitment step by step and give a Ghanaian business example.”</p> <p>“Compare licensing and franchising and tell me when each is appropriate.”</p> <p>“Give me a case study on performance appraisal and make me analyse it before revealing the answer.”</p> </div> </section>`; } function askAssistant(){ const q=$("#assistantQuestion")?.value.trim(); const style=$("#assistantStyle")?.value || "detailed"; if(!q){ toast("Type your question first."); return; } const lower=q.toLowerCase(); let matched=null; for(const t of topics){ const words=t.name.toLowerCase().split(/\s+/); if(words.some(w=>w.length>3 && lower.includes(w))){ matched=t; break; } } let answer=""; if(matched){ answer= `TOPIC: ${matched.name} DEFINITION ${matched.meaning} HOW TO THINK ABOUT IT ${matched.objective} KEY IDEA ${matched.intro.join("\n\n")} EXAM APPROACH Identify the command word. State the relevant concept. Explain each point. Apply it to the business situation. Where appropriate, give a realistic example. LEARNER CHALLENGE Can you explain this topic without looking at your notes? Then create your own business example.`; }else{ answer= `BM LEARN AI THINKING FRAMEWORK I could not confidently match the question to one specific built-in topic. Use this approach: 1. Identify the command word. 2. Identify the Business Management concept. 3. Define the concept. 4. Break the question into parts. 5. Explain each relevant point. 6. Apply the concept to the facts. 7. Give an example where appropriate. 8. Conclude with a justified judgement if the question says analyse, evaluate, assess or recommend. QUESTION: ${q}`; } if(style==="exam"){ answer += ` EXAMINATION STYLE Write direct points. For every major point, explain it and link it to the question. Avoid listing unexplained headings.`; } if(style==="case"){ answer += ` CASE ANALYSIS FACTS → ISSUE → CONCEPT → APPLICATION → CONSEQUENCE → RECOMMENDATION`; } if(style==="simple"){ answer += ` SIMPLE EXPLANATION Think of the topic as a real business decision. Ask: What is happening? Why does it matter? What would a manager do?`; } openModal("🤖 BM Thinking Assistant",` <div class="ai-output">${escapeHTML(answer)}</div> <br> <div class="think"> <strong>Think further</strong> <p>Now create a practical Ghanaian business example and explain how the concept would apply.</p> </div> `); } /* ============================================================ TEACHER CENTRE ============================================================ */ function renderTeacher(){ if(APP.role!=="teacher"){ navigate("home"); return; } $("#main").innerHTML=` <section class="hero"> <div class="hero-card"> <div class="eyebrow">Teacher Centre</div> <h1>👨🏽‍🏫 Build better assessments.</h1> <p>Generate different examination sets instead of giving students the same essay questions repeatedly.</p> <div class="actions"> <button class="btn btn-primary" data-action="generate-exam">📝 Generate Exam</button> <button class="btn btn-secondary" data-action="show-marking">📋 Marking Scheme</button> </div> </div> </section> <section class="section"> <div class="grid"> <div class="card"> <div style="font-size:28px">🔢</div> <h3>10 Section-B Sets</h3> <p>Same structure, different questions.</p> </div> <div class="card"> <div style="font-size:28px">🎯</div> <h3>Application</h3> <p>Cases require learners to apply concepts.</p> </div> <div class="card"> <div style="font-size:28px">📋</div> <h3>Matching Marking</h3> <p>Generate a corresponding marking framework.</p> </div> </div> </section> <section class="section"> <div class="card"> <h3>Exam Structure</h3> <p><b>Section A:</b> 50 objectives × ½ mark = 25 marks.</p> <p><b>Section B:</b> Question 1 compulsory case study = 25 marks.</p> <p><b>Questions 2–7:</b> Answer any 3 questions.</p> <p><b>Coverage:</b> Law of Contract, Business Risk & Insurance, International Business and Human Resource Management.</p> </div> </section>`; } function generateExam(){ APP.examSet = Math.floor(Math.random()*10)+1; const objectives = shuffle([...objectivePool]).slice(0,50); APP.examQuestions = objectives; const essays=essaySets[APP.examSet-1]; const caseStudy = ` Adom Growth Enterprises Ltd is a Ghanaian business that has grown from a small local operation into a medium-sized enterprise. Management plans to enter another African market within the next two years. The company is considering exporting, licensing, franchising, a joint venture and a wholly owned subsidiary. At the same time, the company is experiencing recruitment problems. Several employees were hired quickly because the company needed staff. Job descriptions were not properly prepared, recruitment was conducted through only one channel and some employees were appointed without structured interviews. After six months, management noticed high turnover and inconsistent performance. The HR manager introduced a performance appraisal system. However, some supervisors gave employees poor ratings based mainly on recent incidents instead of considering performance throughout the year. Other supervisors gave almost everyone very high ratings. The finance manager has also warned the board about business risks, including fire, theft, exchange-rate changes, transport problems and possible disagreement with international partners. The board has asked management to prepare a strategy that balances growth, control, cost, risk and employee performance. `; let examHTML=` <div class="exam-sheet" id="printArea"> <h1>BM LEARN AI</h1> <h2>Business Management Practice Examination</h2> <p><b>Section B Set ${APP.examSet}</b> • Original practice material</p> <hr> <h2>SECTION A — OBJECTIVE TEST</h2> <p>Answer all questions. Each question carries ½ mark.</p> ${objectives.map((q,i)=>` <p> <b>${i+1}.</b> ${escapeHTML(q[0])}<br> A. ${escapeHTML(q[1])}<br> B. ${escapeHTML(q[2])}<br> C. ${escapeHTML(q[3])}<br> D. ${escapeHTML(q[4])} </p>`).join("")} <hr> <h2>SECTION B — STRUCTURED ESSAY & CASE STUDY</h2> <h3>QUESTION ONE — COMPULSORY [25 MARKS]</h3> <p>${escapeHTML(caseStudy)}</p> <ol> <li>Explain four recruitment weaknesses shown in the case and recommend improvements. [6 marks]</li> <li>Identify three risks facing Adom Growth Enterprises Ltd and explain appropriate risk-management measures. [6 marks]</li> <li>Recommend an international market-entry strategy for the company and justify your recommendation using at least three relevant factors. [7 marks]</li> <li>Explain three HRM measures that could improve employee performance and retention. [6 marks]</li> </ol> <h3>QUESTIONS 2–7</h3> <p><b>Answer any THREE questions.</b></p> ${essays.map((q,i)=>` <p><b>${i+2}.</b> ${escapeHTML(q)}</p> `).join("")} <hr> <p><b>End of Paper</b></p> </div> `; openModal(`📝 Generated Examination — Set ${APP.examSet}`,` ${examHTML} <br> <div class="actions"> <button class="btn btn-primary" data-action="print-exam">🖨️ Print / Save PDF</button> <button class="btn btn-secondary" data-action="show-marking">📋 View Marking Scheme</button> <button class="btn btn-secondary" data-action="generate-exam">🔄 Generate Another Set</button> </div> `); toast(`Exam Set ${APP.examSet} generated.`); } function showMarking(){ const set=APP.examSet; const essays=essaySets[set-1]; const scheme=` <div class="lesson-section"> <h3>Section A</h3> <p>Each correct objective answer carries ½ mark. The answer key is shown below.</p> <p>${APP.examQuestions.length ? APP.examQuestions.map((q,i)=>`${i+1}. ${String.fromCharCode(65+q[5])}`).join(" • ") : "Generate an examination first to create its objective key."}</p> </div> <div class="lesson-section"> <h3>Question 1 — Case Study [25 marks]</h3> <ol> <li><b>Recruitment weaknesses [6]:</b> award marks for relevant weaknesses such as inadequate job analysis, weak recruitment channels, rushed screening, lack of structured interviews and poor job specification, with appropriate explanations.</li> <li><b>Business risks [6]:</b> award marks for identifying relevant risks and explaining suitable prevention, reduction, control or transfer measures.</li> <li><b>Entry strategy [7]:</b> reward a justified recommendation based on capital, control, risk, local knowledge, speed, intellectual property and long-term objectives.</li> <li><b>HR measures [6]:</b> award relevant measures such as improved recruitment, induction, training, fair appraisal, feedback, motivation and employee development.</li> </ol> </div> <div class="lesson-section"> <h3>Questions 2–7 — Set ${set}</h3> ${essays.map((q,i)=>` <div class="essay-item"> <b>Q${i+2}</b> <p>${escapeHTML(q)}</p> <p><b>Marking guidance:</b> Award marks for accurate concepts, relevant explanations, application/examples and logical conclusions where required.</p> </div>`).join("")} </div> <div class="think"> <strong>Teacher note</strong> <p>For application questions, do not award full credit for unexplained lists. Reward learners who connect their answers to the facts of the case.</p> </div> `; openModal(`📋 Marking Scheme — Set ${set}`,scheme); } /* ============================================================ SETTINGS ============================================================ */ function renderSettings(){ $("#main").innerHTML=` <section class="section"> <div class="eyebrow">Personalise BM Learn AI</div> <h2>⚙️ Settings</h2> </section> <section class="section"> <div class="grid"> <div class="card"> <h3>🎓 Student Settings</h3> <p>Learning progress and practice data are stored locally on this device.</p> <button class="btn btn-danger" data-action="reset-progress">Reset Student Progress</button> </div> <div class="card"> <h3>👨🏽‍🏫 Teacher Settings</h3> <p>Teacher mode provides assessment generation, marking schemes and exam printing.</p> <button class="btn btn-secondary" data-action="teacher-mode">Switch to Teacher</button> </div> <div class="card"> <h3>📚 Topic Settings</h3> <p>Use SHS1, SHS2 and SHS3 filters from the Topics library.</p> <button class="btn btn-secondary" data-page="topics">Open Topics</button> </div> <div class="card"> <h3>📝 Practice Settings</h3> <p>Practice currently uses 10 mixed objective questions per attempt.</p> <button class="btn btn-secondary" data-page="practice">Open Practice</button> </div> <div class="card"> <h3>🤖 Assistant Settings</h3> <p>Choose detailed, simple, examination or case-analysis response styles.</p> <button class="btn btn-secondary" data-page="assistant">Open Assistant</button> </div> <div class="card"> <h3>📸 Scanner Settings</h3> <p>Use camera/upload to prepare a question for secure AI analysis.</p> <button class="btn btn-secondary" data-page="scanner">Open Scanner</button> </div> </div> </section>`; } function resetProgress(){ if(confirm("Reset all student progress and practice statistics on this device?")){ APP.completed=[]; APP.practiceScore=0; APP.practiceAttempts=0; saveState(); render(); toast("Progress reset."); } } function renderAbout(){ $("#main").innerHTML=` <section class="hero"> <div class="hero-card"> <div class="eyebrow">About</div> <h1>BM Learn AI</h1> <p> A learner-centred Business Management platform designed to help Ghana SHS students understand concepts, apply knowledge and develop examination thinking. </p> </div> </section> <section class="section"> <div class="grid"> <div class="card"> <h3>📚 Deep Learning</h3> <p>Lessons go beyond short definitions and include explanations, examples, cases and trial essays.</p> </div> <div class="card"> <h3>🧠 Critical Thinking</h3> <p>Students are encouraged to analyse situations, compare alternatives and justify decisions.</p> </div> <div class="card"> <h3>👨🏽‍🏫 Teacher Support</h3> <p>Teachers can generate varied practice examinations and corresponding marking guidance.</p> </div> </div> </section>`; } /* ============================================================ UTILITIES ============================================================ */ function shuffle(array){ const arr=[...array]; for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; } function printExam(){ window.print(); } /* ============================================================ EVENT SYSTEM ============================================================ */ document.addEventListener("click",event=>{ const roleBtn=event.target.closest("[data-role]"); if(roleBtn){ setRole(roleBtn.dataset.role); return; } const pageBtn=event.target.closest("[data-page]"); if(pageBtn){ navigate(pageBtn.dataset.page); return; } const filterBtn=event.target.closest("[data-filter]"); if(filterBtn){ APP.topicFilter=filterBtn.dataset.filter; renderTopics(); return; } const topicBtn=event.target.closest("[data-topic]"); if(topicBtn){ const topic=topics.find(t=>t.id===topicBtn.dataset.topic); if(topic) renderLesson(topic); return; } const action=event.target.closest("[data-action]"); if(!action) return; switch(action.dataset.action){ case "reload": location.reload(); break; case "close-modal": closeModal(); break; case "complete-topic": markComplete(action.dataset.id); if(APP.currentTopic) renderLesson(APP.currentTopic); break; case "start-practice": startPractice(); break; case "open-scanner": openScanner(); break; case "paste-question": pasteQuestion(); break; case "solve-scan": solveScan(); break; case "analyse-text": analyseText(); break; case "ask-assistant": askAssistant(); break; case "generate-exam": generateExam(); break; case "show-marking": showMarking(); break; case "print-exam": printExam(); break; case "reset-progress": resetProgress(); break; case "teacher-mode": setRole("teacher"); navigate("teacher"); break; } }); $("#menuBtn").addEventListener("click",()=>{ $("#menu").classList.toggle("open"); }); $("#closeModal").addEventListener("click",closeModal); $("#modal").addEventListener("click",e=>{ if(e.target === $("#modal")) closeModal(); }); document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); }); $("#scanInput").addEventListener("change",e=>{ handleScan(e.target.files?.[0]); }); document.addEventListener("input",e=>{ if(e.target.id==="topicSearch"){ APP.topicSearch=e.target.value; renderTopics(); const input=$("#topicSearch"); if(input){ input.focus(); input.setSelectionRange(input.value.length,input.value.length); } } }); /* ============================================================ START ============================================================ */ render(); </script> </body> </html> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#06142d">
+<title>BM Learn AI — Sir Koala 🐨</title>
+
+<style>
+:root{
+  --navy:#06142d;
+  --navy2:#0b1e3d;
+  --blue:#147cff;
+  --blue2:#36a3ff;
+  --gold:#f5c84c;
+  --gold2:#ffe08a;
+  --white:#f8fbff;
+  --muted:#a9b9d2;
+  --card:#10284c;
+  --card2:#15345f;
+  --green:#27d58b;
+  --red:#ff5f76;
+  --border:rgba(255,255,255,.10);
+  --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--navy);
+  color:var(--white);
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* LOGIN */
+
+#loginScreen{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:
+    radial-gradient(circle at top right,rgba(20,124,255,.25),transparent 35%),
+    radial-gradient(circle at bottom left,rgba(245,200,76,.12),transparent 30%),
+    var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow:auto;
+}
+
+.login-box{
+  width:100%;
+  max-width:460px;
+  background:rgba(16,40,76,.96);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  padding:28px 22px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+.logo-big{
+  width:82px;
+  height:82px;
+  border-radius:24px;
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  font-weight:900;
+  background:linear-gradient(145deg,var(--blue),#0754ba);
+  border:3px solid var(--gold);
+  box-shadow:0 10px 30px rgba(20,124,255,.3);
+}
+
+.login-box h1{
+  margin:0;
+  font-size:30px;
+}
+
+.login-box h1 span{
+  color:var(--gold);
+}
+
+.login-sub{
+  color:var(--muted);
+  margin:8px 0 25px;
+}
+
+.field{
+  text-align:left;
+  margin:15px 0;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  font-weight:700;
+}
+
+input,select,textarea{
+  width:100%;
+  background:#081a35;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--blue2);
+  box-shadow:0 0 0 3px rgba(20,124,255,.12);
+}
+
+.role-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:10px 0 18px;
+}
+
+.role-btn{
+  border:1px solid var(--border);
+  background:#0a1d3a;
+  color:white;
+  border-radius:16px;
+  padding:17px 10px;
+  font-weight:800;
+}
+
+.role-btn.active{
+  background:linear-gradient(135deg,var(--blue),#0756bc);
+  border-color:var(--gold);
+  color:white;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:15px;
+  background:linear-gradient(135deg,var(--blue),#0758c7);
+  color:white;
+  font-weight:900;
+  box-shadow:0 8px 20px rgba(20,124,255,.25);
+}
+
+.primary:hover{
+  filter:brightness(1.08);
+}
+
+.gold{
+  color:var(--gold);
+}
+
+.login-foot{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* APP */
+
+#appShell{
+  min-height:100vh;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(6,20,45,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+  max-width:1250px;
+  margin:auto;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.logo{
+  width:46px;
+  height:46px;
+  flex:none;
+  border-radius:14px;
+  background:linear-gradient(145deg,var(--blue),#064ca9);
+  border:2px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  font-weight:900;
+}
+
+.brand-text{
+  min-width:0;
+}
+
+.brand-text strong{
+  display:block;
+  white-space:nowrap;
+}
+
+.brand-text small{
+  color:var(--gold);
+  white-space:nowrap;
+}
+
+.header-right{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.hello{
+  display:block!important;
+  background:#10284c;
+  border:1px solid rgba(245,200,76,.25);
+  color:white;
+  padding:9px 11px;
+  border-radius:13px;
+  font-weight:800;
+  font-size:13px;
+  white-space:nowrap;
+}
+
+.role-pill{
+  background:rgba(20,124,255,.14);
+  border:1px solid rgba(54,163,255,.3);
+  color:#b8dcff;
+  padding:9px 10px;
+  border-radius:13px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.menu-btn{
+  width:44px;
+  height:44px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#10284c;
+  color:white;
+  font-size:21px;
+}
+
+main{
+  max-width:1250px;
+  margin:auto;
+  padding:18px 15px 50px;
+}
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(54,163,255,.28),transparent 30%),
+    linear-gradient(135deg,#0e2d5a,#081a35);
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:25px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+
+.hero h1{
+  margin:0 0 8px;
+  font-size:clamp(26px,6vw,42px);
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.hero strong{
+  color:var(--gold);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:17px;
+  box-shadow:0 7px 25px rgba(0,0,0,.14);
+}
+
+.card h3{
+  margin:0 0 8px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.stat{
+  font-size:29px;
+  font-weight:900;
+  color:var(--gold);
+}
+
+.section-title{
+  margin:25px 0 12px;
+}
+
+.section-title h2{
+  margin:0 0 5px;
+}
+
+.section-title p{
+  color:var(--muted);
+  margin:0;
+}
+
+.topic-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.topic-card{
+  background:linear-gradient(145deg,var(--card),#0a1d3a);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:17px;
+  transition:.2s;
+}
+
+.topic-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(54,163,255,.4);
+}
+
+.topic-number{
+  color:var(--gold);
+  font-weight:900;
+}
+
+.topic-card button{
+  margin-top:8px;
+  width:100%;
+}
+
+.small-btn{
+  border:1px solid var(--border);
+  background:#15345f;
+  color:white;
+  border-radius:11px;
+  padding:10px 12px;
+  font-weight:800;
+}
+
+.small-btn.blue{
+  background:var(--blue);
+}
+
+.small-btn.green{
+  background:#13794f;
+}
+
+.small-btn.red{
+  background:#8d263a;
+}
+
+/* DRAWER */
+
+#drawer{
+  position:fixed;
+  top:0;
+  right:-330px;
+  width:min(330px,88vw);
+  height:100vh;
+  z-index:5000;
+  background:#081a35;
+  border-left:1px solid var(--border);
+  padding:18px;
+  transition:.25s;
+  overflow-y:auto;
+  box-shadow:-15px 0 40px rgba(0,0,0,.3);
+}
+
+#drawer.open{
+  right:0;
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.drawer-close{
+  background:#15345f;
+  color:white;
+  border:0;
+  border-radius:10px;
+  width:40px;
+  height:40px;
+}
+
+.nav-list{
+  display:grid;
+  gap:8px;
+}
+
+.nav-item{
+  width:100%;
+  border:1px solid var(--border);
+  background:#10284c;
+  color:white;
+  padding:13px;
+  text-align:left;
+  border-radius:13px;
+  font-weight:700;
+}
+
+.nav-item:hover{
+  background:#15345f;
+}
+
+#drawerShade{
+  position:fixed;
+  inset:0;
+  z-index:4999;
+  background:rgba(0,0,0,.55);
+  display:none;
+}
+
+#drawerShade.open{
+  display:block;
+}
+
+/* CONTENT */
+
+.note{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.notice{
+  border-left:4px solid var(--gold);
+  background:rgba(245,200,76,.07);
+  padding:13px;
+  border-radius:10px;
+  color:#e8edf6;
+  line-height:1.6;
+}
+
+.warning{
+  border-left:4px solid var(--red);
+  background:rgba(255,95,118,.08);
+  padding:13px;
+  border-radius:10px;
+  color:#f4dfe3;
+  line-height:1.6;
+}
+
+.success{
+  border-left:4px solid var(--green);
+  background:rgba(39,213,139,.08);
+  padding:13px;
+  border-radius:10px;
+  color:#dcfff0;
+  line-height:1.6;
+}
+
+ul,ol{
+  line-height:1.7;
+}
+
+.answer{
+  border:1px solid var(--border);
+  padding:12px;
+  border-radius:13px;
+  margin:8px 0;
+  background:#0b203f;
+}
+
+.question{
+  margin-bottom:22px;
+}
+
+.question strong{
+  color:var(--gold2);
+}
+
+.case{
+  background:#081a35;
+  border:1px solid var(--border);
+  padding:17px;
+  border-radius:16px;
+  line-height:1.7;
+  color:#dce7f6;
+  margin-bottom:14px;
+}
+
+.case strong{
+  color:var(--gold);
+}
+
+.exam-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.exam-paper{
+  background:#f8fbff;
+  color:#101827;
+  border-radius:17px;
+  padding:20px;
+  line-height:1.6;
+}
+
+.exam-paper h2,
+.exam-paper h3{
+  color:#071a35;
+}
+
+.exam-paper .case{
+  color:#1b2636;
+  background:#eef4fb;
+  border-color:#d4deeb;
+}
+
+.exam-paper strong{
+  color:#0a3c83;
+}
+
+.mcq-option{
+  background:white;
+  color:#172238;
+  border:1px solid #d7dfeb;
+  border-radius:10px;
+  padding:9px;
+  margin:6px 0;
+}
+
+.mcq-option input{
+  width:auto;
+  margin-right:8px;
+}
+
+/* SUBMISSIONS */
+
+.submission{
+  border:1px solid var(--border);
+  background:#0b203f;
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:12px;
+}
+
+.submission-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#15345f;
+  font-size:11px;
+  font-weight:900;
+}
+
+.badge.pending{
+  color:#ffe08a;
+}
+
+.badge.reviewed{
+  color:#72ffc0;
+}
+
+.feedback{
+  border-left:4px solid var(--green);
+  background:rgba(39,213,139,.06);
+  padding:13px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* SCANNER */
+
+#imagePreview{
+  max-width:100%;
+  border-radius:16px;
+  margin-top:12px;
+  display:none;
+  border:2px solid var(--blue);
+}
+
+/* MODAL */
+
+.modal-wrap{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  background:rgba(0,0,0,.72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+
+.modal-wrap.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+  overflow:auto;
+  background:#0d2346;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+}
+
+.modal-actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.modal-actions button{
+  flex:1;
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:var(--muted);
+}
+
+footer strong{
+  color:var(--gold);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .topic-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .role-pill{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .header-inner{
+    padding:8px 9px;
+    gap:7px;
+  }
+
+  .logo{
+    width:40px;
+    height:40px;
+    font-size:19px;
+  }
+
+  .brand-text strong{
+    font-size:13px;
+  }
+
+  .brand-text small{
+    font-size:9px;
+  }
+
+  .hello{
+    font-size:11px;
+    padding:8px 8px;
+    max-width:125px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .menu-btn{
+    width:40px;
+    height:40px;
+  }
+
+  main{
+    padding:13px 10px 40px;
+  }
+
+  .hero{
+    padding:19px;
+  }
+
+  .grid,
+  .topic-grid,
+  .exam-controls{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:15px;
+  }
+}
+
+/* PRINT */
+
+@media print{
+  header,
+  #drawer,
+  #drawerShade,
+  footer,
+  .no-print,
+  .hero{
+    display:none!important;
+  }
+
+  body{
+    background:white;
+  }
+
+  main{
+    padding:0;
+  }
+
+  .view{
+    display:none!important;
+  }
+
+  #examView{
+    display:block!important;
+  }
+
+  .exam-paper{
+    box-shadow:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+<section id="loginScreen">
+  <div class="login-box">
+    <div class="logo-big">BM</div>
+
+    <h1>BM Learn <span>AI</span></h1>
+
+    <p class="login-sub">
+      Ghana SHS Business Management Learning Platform
+      <br>Powered by <b class="gold">Sir Koala 🐨</b>
+    </p>
+
+    <div class="field">
+      <label for="loginName">Your Name</label>
+      <input id="loginName" type="text" placeholder="Enter your full name" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label>Who are you?</label>
+
+      <div class="role-grid">
+        <button class="role-btn active" data-role="student">🎓 Student</button>
+        <button class="role-btn" data-role="teacher">👨🏽‍🏫 Teacher</button>
+      </div>
+    </div>
+
+    <button id="loginBtn" class="primary">
+      Enter BM Learn AI 🚀
+    </button>
+
+    <div id="loginError" class="warning hidden" style="margin-top:12px;"></div>
+
+    <div class="login-foot">
+      Your name identifies you inside this prototype.
+      <br>
+      <b>Sir Koala 🐨</b> • BM Learn AI
+    </div>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="appShell" class="hidden">
+
+<header>
+  <div class="header-inner">
+
+    <div class="brand">
+      <div class="logo">BM</div>
+      <div class="brand-text">
+        <strong>BM Learn AI</strong>
+        <small>Sir Koala 🐨</small>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span id="helloText" class="hello">Hello 👋 Student</span>
+      <span id="roleText" class="role-pill">🎓 Student</span>
+      <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+    </div>
+
+  </div>
+</header>
+
+<div id="drawerShade"></div>
+
+<aside id="drawer">
+
+  <div class="drawer-head">
+    <div>
+      <b>BM Learn AI</b>
+      <div class="gold">Sir Koala 🐨</div>
+    </div>
+
+    <button id="drawerClose" class="drawer-close">×</button>
+  </div>
+
+  <div class="nav-list">
+
+    <button class="nav-item" data-view="homeView">🏠 Home</button>
+    <button class="nav-item" data-view="topicsView">📚 Topics</button>
+    <button class="nav-item" data-view="practiceView">🧠 Practice Questions</button>
+    <button class="nav-item" data-view="examView">📝 Exam Generator</button>
+    <button class="nav-item" data-view="scannerView">📷 Scan Question</button>
+    <button class="nav-item" data-view="assistantView">🤖 BM Assistant</button>
+
+    <div id="studentMenu">
+
+      <button class="nav-item" data-view="submitView">
+        📤 Submit Work to Teacher
+      </button>
+
+      <button class="nav-item" data-view="feedbackView">
+        💬 My Teacher Feedback
+      </button>
+
+    </div>
+
+    <div id="teacherMenu" class="hidden">
+
+      <button class="nav-item" data-view="teacherView">
+        👨🏽‍🏫 Teacher Dashboard
+      </button>
+
+      <button class="nav-item" data-view="teacherQuestionsView">
+        📋 Teacher Question Bank
+      </button>
+
+      <button class="nav-item" data-view="adminView">
+        🛠️ Admin Portal
+      </button>
+
+    </div>
+
+    <button id="changeUserBtn" class="nav-item">
+      🔄 Change User / Role
+    </button>
+
+  </div>
+</aside>
+
+<main>
+
+<!-- HOME -->
+<section id="homeView" class="view active">
+
+  <div class="hero">
+    <h1>Hello 👋 <span id="heroName">Student</span></h1>
+
+    <p>
+      Welcome to <strong>BM Learn AI</strong> — your Business Management
+      learning companion for Ghana SHS.
+    </p>
+
+    <div class="success">
+      <b>You are recognized as:</b>
+      <span id="heroRole">🎓 Student</span>
+      <br>
+      Your work and feedback can be connected to your profile.
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="stat">12</div>
+      <h3>Topics</h3>
+      <p>Business Management topics from SHS1 to SHS3.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat">50</div>
+      <h3>Objectives</h3>
+      <p>Practice with mixed Business Management MCQs.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat">10</div>
+      <h3>Exam Sets</h3>
+      <p>Different WAEC-style practice sets.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat">AI</div>
+      <h3>Question Solver</h3>
+      <p>Send a question image to your connected AI backend.</p>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>What do you want to do?</h2>
+    <p>Choose a learning activity.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>📚 Study</h3>
+      <p>Read detailed notes and application examples.</p>
+      <button class="small-btn blue" data-view="topicsView">Open Topics</button>
+    </div>
+
+    <div class="card">
+      <h3>📝 Exam</h3>
+      <p>Generate a complete WAEC-style practice paper.</p>
+      <button class="small-btn blue" data-view="examView">Generate Exam</button>
+    </div>
+
+    <div class="card">
+      <h3>📷 Solve</h3>
+      <p>Take a photo of a Business Management question.</p>
+      <button class="small-btn blue" data-view="scannerView">Scan Question</button>
+    </div>
+
+    <div class="card">
+      <h3>🤖 Ask</h3>
+      <p>Get structured Business Management explanations.</p>
+      <button class="small-btn blue" data-view="assistantView">Open Assistant</button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TOPICS -->
+<section id="topicsView" class="view">
+
+  <div class="section-title">
+    <h2>📚 Business Management Topics</h2>
+    <p>Aligned to Ghana SHS Business Management learning areas.</p>
+  </div>
+
+  <div id="topicGrid" class="topic-grid"></div>
+
+</section>
+
+
+<!-- TOPIC DETAIL -->
+<section id="topicDetailView" class="view">
+
+  <button id="backTopicsBtn" class="small-btn no-print">← Back to Topics</button>
+
+  <div id="topicDetail" style="margin-top:15px;"></div>
+
+</section>
+
+
+<!-- PRACTICE -->
+<section id="practiceView" class="view">
+
+  <div class="hero">
+    <h1>🧠 Practice Questions</h1>
+    <p>Test yourself before entering the examination room.</p>
+  </div>
+
+  <div class="card">
+    <label>Choose Topic</label>
+    <select id="practiceTopic"></select>
+
+    <button id="generatePracticeBtn" class="primary" style="margin-top:12px;">
+      Generate Practice Questions
+    </button>
+  </div>
+
+  <div id="practiceArea" style="margin-top:15px;"></div>
+
+</section>
+
+
+<!-- EXAM -->
+<section id="examView" class="view">
+
+  <div class="hero no-print">
+    <h1>📝 WAEC-Style Exam Generator</h1>
+    <p>
+      Practice paper structure: Section A objectives and
+      Section B structured case-study questions.
+    </p>
+  </div>
+
+  <div class="exam-controls no-print">
+
+    <div class="card">
+      <label>Exam Set</label>
+      <select id="examSet"></select>
+    </div>
+
+    <div class="card">
+      <label>Options</label>
+      <button id="generateExamBtn" class="primary">
+        Generate Selected Set
+      </button>
+    </div>
+
+  </div>
+
+  <div class="no-print card" style="margin-bottom:15px;">
+    <div class="notice">
+      <b>Important:</b> These are original WAEC-style Business Management
+      practice questions, not official WAEC examination questions.
+    </div>
+
+    <button id="printExamBtn" class="small-btn blue" style="margin-top:10px;">
+      🖨️ Print / Save PDF
+    </button>
+  </div>
+
+  <div id="examPaper"></div>
+
+</section>
+
+
+<!-- SCANNER -->
+<section id="scannerView" class="view">
+
+  <div class="hero">
+    <h1>📷 Scan Question</h1>
+    <p>
+      Take or upload a picture of a Business Management question.
+      Then send it for AI analysis.
+    </p>
+  </div>
+
+  <div class="card">
+
+    <div class="notice">
+      <b>How it works:</b>
+      <br>
+      1. Take/upload the question.
+      <br>
+      2. Check the image.
+      <br>
+      3. Press <b>🧠 Send to AI & Solve</b>.
+    </div>
+
+    <div class="field">
+      <label for="questionImage">Question Image</label>
+      <input id="questionImage" type="file" accept="image/*" capture="environment">
+    </div>
+
+    <img id="imagePreview" alt="Question preview">
+
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <button id="sendAiBtn" class="small-btn blue" style="flex:1;">
+        🧠 Send to AI & Solve
+      </button>
+
+      <button id="clearScanBtn" class="small-btn red" style="flex:1;">
+        Clear
+      </button>
+    </div>
+
+    <div id="aiScanResult" style="margin-top:15px;"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ASSISTANT -->
+<section id="assistantView" class="view">
+
+  <div class="hero">
+    <h1>🤖 BM Assistant</h1>
+    <p>
+      Ask a Business Management question and receive a structured
+      learning explanation.
+    </p>
+  </div>
+
+  <div class="card">
+
+    <textarea id="assistantInput" rows="6"
+      placeholder="Example: Explain franchising and give three advantages..."></textarea>
+
+    <button id="assistantBtn" class="primary" style="margin-top:10px;">
+      Ask BM Assistant
+    </button>
+
+  </div>
+
+  <div id="assistantResult" style="margin-top:15px;"></div>
+
+</section>
+
+
+<!-- STUDENT SUBMIT -->
+<section id="submitView" class="view">
+
+  <div class="hero">
+    <h1>📤 Submit Work to a Teacher</h1>
+    <p>
+      Your teacher will see your name, topic, work and submission time.
+    </p>
+  </div>
+
+  <div class="card">
+
+    <div class="success">
+      <b>Student:</b>
+      <span id="submitStudentName"></span>
+      <br>
+      <b>Student ID:</b>
+      <span id="submitStudentId"></span>
+    </div>
+
+    <div class="field">
+      <label>Select Teacher</label>
+      <select id="teacherSelect"></select>
+    </div>
+
+    <div class="field">
+      <label>Topic</label>
+      <select id="submissionTopic"></select>
+    </div>
+
+    <div class="field">
+      <label>Your Work</label>
+      <textarea id="submissionText" rows="10"
+        placeholder="Type or paste your answer here..."></textarea>
+    </div>
+
+    <button id="submitWorkBtn" class="primary">
+      📤 Submit to Teacher
+    </button>
+
+    <div id="submitMessage" style="margin-top:12px;"></div>
+
+  </div>
+
+  <div class="warning" style="margin-top:15px;">
+    <b>Prototype limitation:</b>
+    If your teacher is using a different phone, the submission will not
+    automatically reach that phone until a real shared backend/database is connected.
+    The student and teacher identity system is already prepared for that connection.
+  </div>
+
+</section>
+
+
+<!-- STUDENT FEEDBACK -->
+<section id="feedbackView" class="view">
+
+  <div class="hero">
+    <h1>💬 My Teacher Feedback</h1>
+    <p>See work that has been reviewed by your teachers.</p>
+  </div>
+
+  <div id="studentFeedbackArea"></div>
+
+</section>
+
+
+<!-- TEACHER -->
+<section id="teacherView" class="view">
+
+  <div class="hero">
+    <h1>👨🏽‍🏫 Teacher Dashboard</h1>
+    <p>
+      Welcome, <strong id="teacherName"></strong>.
+      Review work submitted to you.
+    </p>
+
+    <div class="success">
+      <b>Teacher ID:</b>
+      <span id="teacherId"></span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="stat" id="pendingCount">0</div>
+      <h3>Pending</h3>
+      <p>Student submissions waiting for review.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="reviewedCount">0</div>
+      <h3>Reviewed</h3>
+      <p>Submissions already marked.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="studentCount">0</div>
+      <h3>Students</h3>
+      <p>Students who have submitted work to you.</p>
+    </div>
+
+    <div class="card">
+      <div class="stat">🐨</div>
+      <h3>Sir Koala</h3>
+      <p>Teacher tools for BM Learn AI.</p>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Student Submissions</h2>
+    <p>Every submission shows the student's identity.</p>
+  </div>
+
+  <div id="teacherSubmissionArea"></div>
+
+</section>
+
+
+<!-- TEACHER QUESTIONS -->
+<section id="teacherQuestionsView" class="view">
+
+  <div class="hero">
+    <h1>📋 Teacher Question Bank</h1>
+    <p>Create practice questions and use the built-in 10-set structure.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="field">
+      <label>Question Topic</label>
+      <select id="teacherQuestionTopic"></select>
+    </div>
+
+    <div class="field">
+      <label>Question Type</label>
+      <select id="teacherQuestionType">
+        <option>Case Study</option>
+        <option>Structured Essay</option>
+        <option>Objective</option>
+      </select>
+    </div>
+
+    <button id="teacherGenerateQuestionBtn" class="primary">
+      Generate Teacher Question
+    </button>
+
+  </div>
+
+  <div id="teacherQuestionResult" style="margin-top:15px;"></div>
+
+</section>
+
+
+<!-- ADMIN -->
+<section id="adminView" class="view">
+
+  <div class="hero">
+    <h1>🛠️ Admin Portal</h1>
+    <p>
+      BM Learn AI system overview and local prototype administration.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="stat" id="adminUsers">0</div>
+      <h3>Users</h3>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="adminSubmissions">0</div>
+      <h3>Submissions</h3>
+    </div>
+
+    <div class="card">
+      <div class="stat" id="adminAttempts">0</div>
+      <h3>Attempts</h3>
+    </div>
+
+    <div class="card">
+      <div class="stat">OFF</div>
+      <h3>Location Tracking</h3>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:15px;">
+
+    <h3>👥 Local Users</h3>
+
+    <div id="adminUsersList"></div>
+
+  </div>
+
+  <div class="warning" style="margin-top:15px;">
+    <b>Privacy & security:</b>
+    This prototype does not secretly track student locations.
+    Location sharing is OFF. Real admin authentication, online presence
+    and cross-device data require a secure backend/database.
+  </div>
+
+  <div class="card" style="margin-top:15px;">
+
+    <h3>⚠️ Prototype Data</h3>
+
+    <p class="note">
+      Clearing local data removes users, submissions, feedback and attempts
+      saved on this browser.
+    </p>
+
+    <button id="clearDataBtn" class="small-btn red">
+      Clear Local Prototype Data
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <b>BM Learn AI</b><br>
+  Built for Business Management learners<br>
+  <strong>Powered by Sir Koala 🐨</strong>
+</footer>
+
+</div>
+
+
+<!-- REVIEW MODAL -->
+
+<div id="reviewModal" class="modal-wrap">
+
+  <div class="modal">
+
+    <h2>👨🏽‍🏫 Review Student Work</h2>
+
+    <div id="reviewStudentInfo" class="notice"></div>
+
+    <div class="field">
+      <label>Score</label>
+      <input id="reviewScore" type="number" min="0" max="100" placeholder="e.g. 14">
+    </div>
+
+    <div class="field">
+      <label>Teacher Comment / Feedback</label>
+      <textarea id="reviewComment" rows="7"
+        placeholder="Write constructive feedback..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button id="saveReviewBtn" class="small-btn green">
+        ✅ Return Feedback
+      </button>
+
+      <button id="closeReviewBtn" class="small-btn red">
+        Close
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   BM LEARN AI
+   Safe front-end prototype
+   ========================================================= */
+
+/*
+  IMPORTANT:
+  Leave this blank for the prototype.
+
+  When a secure AI backend exists, put its endpoint here.
+
+  NEVER put a secret OpenAI API key in this HTML file.
+*/
+const AI_ENDPOINT = "";
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const STORAGE = {
+  USER:"bm_user_v3",
+  USERS:"bm_users_v3",
+  SUBMISSIONS:"bm_submissions_v3",
+  ATTEMPTS:"bm_attempts_v3",
+  PRACTICE:"bm_practice_v3"
+};
+
+function load(key, fallback){
+  try{
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  }catch(e){
+    return fallback;
+  }
+}
+
+function save(key,value){
+  localStorage.setItem(key,JSON.stringify(value));
+}
+
+
+/* =========================================================
+   GLOBAL STATE
+   ========================================================= */
+
+let currentUser = null;
+let selectedRole = "student";
+let currentTopicIndex = 0;
+let currentReviewId = null;
+let currentImageData = "";
+let practiceQuestions = [];
+
+
+/* =========================================================
+   TOPICS
+   ========================================================= */
+
+const topics = [
+  {
+    name:"Forms of Business",
+    level:"SHS1",
+    icon:"🏢",
+    summary:"Different forms through which businesses can be owned and organized.",
+    meaning:"Forms of business refer to the legal and organizational structures under which a business operates. Major forms include sole proprietorship, partnership, companies and state-owned enterprises.",
+    points:[
+      "Sole proprietorship is owned and controlled by one person.",
+      "Partnership is formed by two or more persons who agree to carry on business together and share results according to their agreement.",
+      "Companies are separate legal entities created under company law.",
+      "State-owned enterprises are established or controlled by government to provide goods or services."
+    ],
+    importance:[
+      "Determines ownership and control.",
+      "Influences liability and risk.",
+      "Affects access to capital.",
+      "Influences continuity of the business.",
+      "Determines how decisions are made."
+    ],
+    advantages:[
+      "Sole proprietorship: easy decision-making and close supervision.",
+      "Partnership: combined skills, experience and capital.",
+      "Company: greater ability to raise capital and continuity.",
+      "State enterprise: may provide essential services where social objectives matter."
+    ],
+    disadvantages:[
+      "Sole proprietor may face unlimited liability and limited capital.",
+      "Partners may disagree and may share liability according to law/agreement.",
+      "Companies can involve greater regulation and administration.",
+      "State enterprises may experience bureaucratic delays or political interference."
+    ],
+    exam:"When answering questions on forms of business, always link the form chosen to capital, liability, control, continuity and the nature of the business."
+  },
+
+  {
+    name:"Functions of Management",
+    level:"SHS1",
+    icon:"🎯",
+    summary:"The major activities managers perform to achieve organizational objectives.",
+    meaning:"Management involves coordinating people and resources through activities such as planning, organizing, staffing, directing and controlling.",
+    points:[
+      "Planning involves deciding what should be achieved and how.",
+      "Organizing involves arranging resources and responsibilities.",
+      "Staffing involves obtaining and developing suitable employees.",
+      "Directing involves guiding, motivating and communicating with workers.",
+      "Controlling involves comparing actual performance with planned standards and correcting deviations."
+    ],
+    importance:[
+      "Provides direction.",
+      "Improves resource utilization.",
+      "Coordinates activities.",
+      "Helps achieve objectives.",
+      "Makes corrective action possible."
+    ],
+    advantages:[
+      "Clear planning reduces uncertainty.",
+      "Good organization prevents duplication.",
+      "Effective direction improves motivation.",
+      "Control improves performance."
+    ],
+    disadvantages:[
+      "Poor planning can waste resources.",
+      "Over-control can discourage employees.",
+      "Poor communication can create conflict."
+    ],
+    exam:"Do not merely list management functions. Explain what each function does and apply it to the situation in the question."
+  },
+
+  {
+    name:"Business Development",
+    level:"SHS1",
+    icon:"📈",
+    summary:"Activities aimed at growing and improving a business.",
+    meaning:"Business development involves identifying opportunities and taking actions that increase a business's customers, sales, market position and long-term value.",
+    points:[
+      "Market research helps identify opportunities.",
+      "Product improvement can increase customer satisfaction.",
+      "Partnerships can provide access to new markets.",
+      "Digital channels can expand reach.",
+      "Expansion should be supported by finance and proper planning."
+    ],
+    importance:[
+      "Creates growth opportunities.",
+      "Improves competitiveness.",
+      "Can increase sales and profitability.",
+      "Encourages innovation.",
+      "May create employment."
+    ],
+    advantages:[
+      "Increased market share.",
+      "Greater revenue potential.",
+      "Stronger brand recognition."
+    ],
+    disadvantages:[
+      "Expansion requires resources.",
+      "Growth may increase business risk.",
+      "Rapid expansion can create management problems."
+    ],
+    exam:"When recommending expansion, discuss both opportunity and risk before reaching a conclusion."
+  },
+
+  {
+    name:"International Business",
+    level:"SHS2",
+    icon:"🌍",
+    summary:"Business activities carried out across national borders.",
+    meaning:"International business involves commercial transactions and operations between businesses, individuals or organizations in different countries.",
+    points:[
+      "Exporting involves selling goods or services to customers in another country.",
+      "Licensing allows another party to use intellectual property under agreed conditions.",
+      "Franchising involves granting the right to use a business model, brand and operating system.",
+      "A joint venture involves two or more parties sharing ownership, resources, risks and returns.",
+      "A wholly owned subsidiary is a foreign operation fully owned by the parent company."
+    ],
+    importance:[
+      "Provides access to larger markets.",
+      "Can increase revenue.",
+      "May provide access to resources and technology.",
+      "Can spread business risk across markets.",
+      "Encourages international relationships."
+    ],
+    advantages:[
+      "Larger customer base.",
+      "Potential economies of scale.",
+      "Access to new knowledge.",
+      "Greater brand exposure."
+    ],
+    disadvantages:[
+      "Exchange-rate risk.",
+      "Political and regulatory risk.",
+      "Cultural differences.",
+      "Transport and logistics costs.",
+      "Different consumer preferences."
+    ],
+    exam:"Choose an international entry strategy by considering capital, control, risk, speed, local knowledge, regulations and long-term objectives."
+  },
+
+  {
+    name:"E-Business",
+    level:"SHS1",
+    icon:"💻",
+    summary:"Using electronic technologies and networks to conduct business activities.",
+    meaning:"E-business refers to using digital technologies and electronic networks to perform business processes, transactions, communication and customer service.",
+    points:[
+      "E-commerce focuses strongly on buying and selling electronically.",
+      "E-business can include procurement, customer service, marketing, communication and internal processes.",
+      "Mobile money and electronic payments support digital transactions.",
+      "Social media can support promotion and customer engagement."
+    ],
+    importance:[
+      "Extends market reach.",
+      "Can reduce some operating costs.",
+      "Provides convenience.",
+      "Improves speed of communication.",
+      "Creates opportunities for small businesses."
+    ],
+    advantages:[
+      "24-hour accessibility.",
+      "Wider market.",
+      "Fast communication.",
+      "Convenient transactions."
+    ],
+    disadvantages:[
+      "Cybersecurity threats.",
+      "Internet dependence.",
+      "Fraud risks.",
+      "Digital skills requirements."
+    ],
+    exam:"Distinguish e-business from e-commerce when the question requires a comparison."
+  },
+
+  {
+    name:"Functional Areas of Management",
+    level:"SHS2",
+    icon:"🧩",
+    summary:"Specialized areas through which business activities are coordinated.",
+    meaning:"Functional areas are major departments or activity areas such as marketing, finance, production, human resources and purchasing.",
+    points:[
+      "Marketing identifies customer needs and develops market strategies.",
+      "Finance manages money and financial resources.",
+      "Production transforms inputs into goods or services.",
+      "Human resources manages employees.",
+      "Purchasing/procurement obtains required materials and services."
+    ],
+    importance:[
+      "Creates specialization.",
+      "Improves coordination.",
+      "Supports efficient resource use.",
+      "Clarifies responsibilities."
+    ],
+    advantages:[
+      "Employees develop expertise.",
+      "Responsibilities are clearer.",
+      "Specialized decisions can improve performance."
+    ],
+    disadvantages:[
+      "Departments can become isolated.",
+      "Conflicts may arise between departmental goals.",
+      "Coordination may become difficult in large organizations."
+    ],
+    exam:"Show how different departments depend on one another instead of discussing each department separately."
+  },
+
+  {
+    name:"Law of Contract",
+    level:"SHS2",
+    icon:"⚖️",
+    summary:"Legal principles governing agreements that create enforceable obligations.",
+    meaning:"A contract is an agreement recognized by law as creating rights and obligations between the parties.",
+    points:[
+      "Offer is a definite proposal capable of acceptance.",
+      "Acceptance is an unqualified agreement to the offer.",
+      "Consideration generally refers to something of value exchanged.",
+      "Parties must have capacity where the law requires it.",
+      "The agreement must satisfy applicable legal requirements."
+    ],
+    importance:[
+      "Provides certainty in transactions.",
+      "Defines responsibilities.",
+      "Protects parties.",
+      "Provides remedies when obligations are breached."
+    ],
+    advantages:[
+      "Promotes trust.",
+      "Clarifies expectations.",
+      "Provides evidence of agreed terms."
+    ],
+    disadvantages:[
+      "Disputes may arise over interpretation.",
+      "Legal enforcement can be costly.",
+      "Some agreements may fail because legal requirements were not satisfied."
+    ],
+    exam:"Apply legal principles to the facts. Do not simply define terms."
+  },
+
+  {
+    name:"Business Risk and Insurance",
+    level:"SHS2",
+    icon:"🛡️",
+    summary:"Understanding uncertainty in business and methods of managing insurable risks.",
+    meaning:"Business risk is the possibility that events may cause loss, reduced profit or failure to achieve objectives. Insurance transfers specified financial risks to an insurer in return for a premium.",
+    points:[
+      "Pure risks involve possibility of loss without a corresponding gain opportunity.",
+      "Speculative risks can involve gain or loss.",
+      "Insurance is mainly concerned with insurable risks.",
+      "Premium is the amount paid for insurance cover.",
+      "Indemnity aims to restore the insured financially to approximately the pre-loss position, subject to the policy."
+    ],
+    importance:[
+      "Protects assets and operations.",
+      "Supports business continuity.",
+      "Encourages confidence.",
+      "Helps manage financial uncertainty."
+    ],
+    advantages:[
+      "Reduces financial impact of covered losses.",
+      "Can protect employees and customers.",
+      "Supports continuity."
+    ],
+    disadvantages:[
+      "Premiums cost money.",
+      "Not every risk is insurable.",
+      "Claims are subject to policy terms and exclusions."
+    ],
+    exam:"Identify the risk first, then explain the suitable insurance or risk-control measure."
+  },
+
+  {
+    name:"Human Resource Management",
+    level:"SHS3",
+    icon:"👥",
+    summary:"Managing people from workforce planning through employment and development.",
+    meaning:"Human Resource Management involves planning, attracting, selecting, developing, motivating, rewarding and retaining employees while managing employment relationships.",
+    points:[
+      "Human resource planning determines future workforce needs.",
+      "Recruitment attracts potential applicants.",
+      "Selection identifies the most suitable candidate.",
+      "Induction helps new employees adjust to the organization.",
+      "Training develops knowledge and skills.",
+      "Performance management helps employees and managers improve results.",
+      "Industrial relations deal with relationships between employers, employees and their representatives."
+    ],
+    importance:[
+      "Ensures suitable people are available.",
+      "Improves employee performance.",
+      "Supports motivation.",
+      "Reduces avoidable turnover.",
+      "Improves workplace relationships."
+    ],
+    advantages:[
+      "Better recruitment decisions.",
+      "Improved productivity.",
+      "Employee development.",
+      "Better retention."
+    ],
+    disadvantages:[
+      "HR activities can be costly.",
+      "Poor HR decisions can create conflict.",
+      "Recruitment and training can take time."
+    ],
+    exam:"Differentiate recruitment from selection. Recruitment attracts candidates; selection chooses the most suitable candidate."
+  },
+
+  {
+    name:"Marketing",
+    level:"SHS3",
+    icon:"📣",
+    summary:"Activities used to identify, satisfy and retain customers profitably.",
+    meaning:"Marketing involves identifying customer needs and designing, pricing, promoting and distributing offerings to satisfy those needs.",
+    points:[
+      "Market research provides information for decisions.",
+      "Product decisions concern features, quality, packaging and branding.",
+      "Pricing determines the amount customers pay.",
+      "Promotion communicates value to the market.",
+      "Place/distribution makes products available to customers."
+    ],
+    importance:[
+      "Identifies customer needs.",
+      "Creates awareness.",
+      "Supports sales.",
+      "Builds relationships.",
+      "Helps businesses compete."
+    ],
+    advantages:[
+      "Higher customer awareness.",
+      "Better market knowledge.",
+      "Potential sales growth."
+    ],
+    disadvantages:[
+      "Marketing can be expensive.",
+      "Poor research can lead to wrong decisions.",
+      "Aggressive promotion may damage reputation."
+    ],
+    exam:"Apply the marketing mix to the particular product and target market given."
+  },
+
+  {
+    name:"Finance",
+    level:"SHS3",
+    icon:"💰",
+    summary:"Managing money and financial resources within a business.",
+    meaning:"Business finance concerns obtaining, allocating and controlling funds to achieve organizational objectives.",
+    points:[
+      "Capital is needed to establish and operate businesses.",
+      "Working capital supports day-to-day operations.",
+      "Budgets help plan and control financial resources.",
+      "Cash flow management helps ensure bills can be paid when due.",
+      "Financial statements provide information for decisions."
+    ],
+    importance:[
+      "Supports business operations.",
+      "Helps investment decisions.",
+      "Controls expenditure.",
+      "Supports planning."
+    ],
+    advantages:[
+      "Better financial control.",
+      "Improved decision-making.",
+      "Reduced waste."
+    ],
+    disadvantages:[
+      "Poor financial management can cause liquidity problems.",
+      "Borrowing can create repayment obligations.",
+      "Financial forecasting may be uncertain."
+    ],
+    exam:"Distinguish profit from cash. A profitable business can still experience cash-flow problems."
+  },
+
+  {
+    name:"Production and Operations",
+    level:"SHS3",
+    icon:"🏭",
+    summary:"Managing the process of converting inputs into goods and services.",
+    meaning:"Production and operations involve planning, organizing and controlling resources and processes used to produce goods or deliver services.",
+    points:[
+      "Inputs include materials, labour, capital and information.",
+      "Processes transform inputs into outputs.",
+      "Quality control helps identify defects.",
+      "Inventory management balances availability and cost.",
+      "Productivity concerns efficient use of resources."
+    ],
+    importance:[
+      "Improves efficiency.",
+      "Controls quality.",
+      "Supports customer satisfaction.",
+      "Reduces waste.",
+      "Helps control costs."
+    ],
+    advantages:[
+      "Improved productivity.",
+      "Better quality.",
+      "Reduced waste."
+    ],
+    disadvantages:[
+      "Equipment and technology can be expensive.",
+      "Production interruptions can be costly.",
+      "Poor quality can damage reputation."
+    ],
+    exam:"When solving production cases, identify the input/process/output problem before recommending a solution."
+  }
+];
+
+
+/* =========================================================
+   BASIC QUESTION BANK
+   ========================================================= */
+
+const objectiveBank = [
+["A business owned and controlled by one person is a",["partnership","sole proprietorship","public corporation","co-operative"],1],
+["The main purpose of planning is to",["avoid all risks","determine what should be achieved and how","remove employees","increase taxes"],1],
+["A person who buys the right to operate under an established business brand is commonly a",["franchisee","auditor","debtor","insurer"],0],
+["Selling goods to another country is known as",["importing","exporting","licensing","outsourcing"],1],
+["A payment made for insurance cover is called",["premium","commission","dividend","royalty"],0],
+["The process of attracting potential applicants for a job is",["selection","recruitment","induction","appraisal"],1],
+["Which is part of the marketing mix?",["Product","Payroll","Pension","Probation"],0],
+["Working capital is mainly used for",["daily business operations","buying shares only","paying dividends only","company registration only"],0],
+["Acceptance of an offer must generally be",["qualified and uncertain","unqualified agreement to the offer","made by a stranger","secret"],1],
+["A company generally has",["no legal identity","a separate legal identity","only one employee","no obligations"],1],
+["Which is an advantage of exporting?",["Access to foreign markets","No risk whatsoever","No transport costs","No regulations"],0],
+["Training mainly aims to",["develop employee knowledge and skills","punish workers","reduce all salaries","replace management"],0],
+["The function concerned with comparing actual results with standards is",["planning","controlling","staffing","marketing"],1],
+["Insurance mainly helps businesses to",["transfer specified financial risks","eliminate every risk","guarantee profit","avoid customers"],0],
+["Market research helps a business to",["understand customers and markets","remove competition by force","avoid accounting","stop production"],0],
+["A joint venture involves",["shared ownership or participation by parties","one person only","government taxation only","selling goods only"],0],
+["A wholly owned subsidiary gives the parent company",["no control","full ownership subject to applicable law","zero investment","no risk"],1],
+["E-business uses",["electronic technologies in business activities","only physical shops","only cash payments","only television"],0],
+["An employee grievance is",["a worker's complaint or concern","a product","a tax","a market"],0],
+["The process of helping a newly employed worker adjust to an organization is",["induction","exporting","auditing","pricing"],0],
+["A brand is mainly used to",["identify and distinguish an offering","calculate tax","hire workers","insure buildings"],0],
+["A budget is useful because it",["helps plan and control financial resources","guarantees profit","eliminates competition","replaces managers"],0],
+["Quality control aims to",["identify and reduce defects","increase defects","avoid customers","stop all production"],0],
+["Consideration in contract law generally refers to",["something of value exchanged","a business logo","an employee's uniform","a market survey"],0],
+["A partnership normally involves",["two or more persons carrying on business together","only government","one person only","customers only"],0],
+["Franchising normally involves the use of",["a business system and brand","only a bank account","a tax certificate","a personal vehicle"],0],
+["Licensing commonly gives another party permission to use",["intellectual property under agreed conditions","all company assets","the owner's home","all government property"],0],
+["The person who receives a franchise is the",["franchisee","franchisor","insurer","exporter"],0],
+["The party granting a franchise is the",["franchisor","franchisee","debtor","employee"],0],
+["A major disadvantage of rapid expansion is",["increased resource and management pressure","automatic failure","zero sales","no competition"],0],
+["A job description mainly explains",["duties and responsibilities of a job","the applicant's hobbies","company profits","customer complaints"],0],
+["A job specification mainly identifies",["qualities and qualifications required","the business logo","product prices","insurance premiums"],0],
+["Performance appraisal is used to",["assess employee performance","sell products","export goods","register companies"],0],
+["Collective bargaining involves negotiation between",["employers and employee representatives","customers and banks","insurers and tourists","suppliers and children"],0],
+["A pure risk mainly involves",["possibility of loss without a corresponding gain opportunity","guaranteed profit","guaranteed loss","only speculation"],0],
+["Promotion is used to",["communicate with the market","prepare payroll only","produce goods only","insure vehicles"],0],
+["Distribution/place concerns",["making products available to customers","employee discipline only","business registration","contract acceptance"],0],
+["Productivity is concerned with",["efficient use of resources","only advertising","only recruitment","only taxation"],0],
+["Cash flow refers to",["movement of cash into and out of a business","total employees","number of products","brand colour"],0],
+["A manager who assigns duties is performing",["organizing","exporting","pricing","licensing"],0],
+["Motivation is intended to",["encourage employees to perform effectively","increase defects","reduce communication","avoid planning"],0],
+["A disadvantage of sole proprietorship is",["unlimited liability in the traditional form","shared control with 20 partners","automatic public ownership","no decision-making"],0],
+["A company can generally continue despite changes in",["membership/shareholding, subject to its legal form","the weather only","advertising only","customer colour preferences"],0],
+["A major international business risk is",["exchange-rate fluctuation","perfect certainty","zero competition","no regulation"],0],
+["The person receiving goods before payment may be a",["debtor","creditor","franchisor","insurer"],0],
+["A creditor is someone to whom",["money is owed","a franchise is granted","goods are advertised","employees report"],0],
+["A business objective is",["a result the business aims to achieve","a random event","an insurance premium","a job applicant"],0],
+["Induction normally occurs",["when a worker joins an organization","only after retirement","before a business is formed","after liquidation"],0]
+];
+
+
+/* =========================================================
+   EXAM CASES
+   ========================================================= */
+
+const caseThemes = [
+  {
+    title:"Adom Foods and International Expansion",
+    case:"Adom Foods is a Ghanaian food-processing business that produces packaged plantain chips, roasted groundnuts and other snacks. The business began as a small family-owned enterprise and has gradually developed a strong reputation among customers in Accra and Kumasi. Management has recently received enquiries from retailers in neighbouring countries who want to stock its products. The managing director believes that entering foreign markets could increase sales and strengthen the company's brand, but the finance manager is concerned about transport costs, exchange-rate movements and the need to understand foreign customers.",
+    questions:[
+      ["(a)","Explain three factors Adom Foods should consider before entering the foreign markets.",5],
+      ["(b)","Explain four benefits the business may obtain from exporting its products.",5],
+      ["(c)","Recommend the most suitable initial international entry strategy for Adom Foods and justify your recommendation.",5]
+    ]
+  },
+  {
+    title:"Kojo Engineering and Business Risk",
+    case:"Kojo Engineering Services manufactures metal parts for local construction companies. The business recently purchased expensive machinery on credit. During the rainy season, flooding entered part of the workshop and damaged electrical equipment. At the same time, one of its experienced technicians left unexpectedly, causing delays in production. The managing director has realized that some of these events could seriously affect the firm's ability to meet customer orders and repay its obligations. He has asked the finance manager to prepare a risk-management plan.",
+    questions:[
+      ["(a)","Identify and explain three risks facing Kojo Engineering Services.",5],
+      ["(b)","Explain three ways insurance could assist the business in managing appropriate risks.",5],
+      ["(c)","Suggest three other risk-control measures management should introduce and justify your suggestions.",5]
+    ]
+  },
+  {
+    title:"Bright Future School and Human Resources",
+    case:"Bright Future School has expanded rapidly and now has more students than it did two years ago. The headteacher has discovered that some teachers are handling very large classes while other departments have vacant positions. Recruitment has been informal and some employees were appointed without clearly defined job responsibilities. Complaints have also increased because workers do not understand how their performance is assessed. Management therefore plans to introduce proper human resource planning, job descriptions, recruitment procedures, induction and performance appraisal.",
+    questions:[
+      ["(a)","Explain three reasons why Bright Future School needs human resource planning.",5],
+      ["(b)","Describe five important stages in a sound recruitment and selection process.",5],
+      ["(c)","Explain how performance appraisal could improve employee performance at the school.",5]
+    ]
+  },
+  {
+    title:"Kente Star and Franchising",
+    case:"Kente Star Restaurant operates three successful restaurants in Ghana. The owner has developed a recognizable brand, standardized recipes, staff training procedures and a distinctive customer-service system. A businessperson in another West African country has approached the owner and proposed opening a restaurant using the Kente Star name and operating methods. The owner is considering franchising because the expansion could occur without the company providing all the capital itself. However, she is concerned about maintaining quality and protecting the reputation of the brand.",
+    questions:[
+      ["(a)","Explain what franchising means in international business and identify the two principal parties involved.",5],
+      ["(b)","Explain three advantages Kente Star may obtain from franchising.",5],
+      ["(c)","Assess three risks of franchising and recommend controls that Kente Star could use.",5]
+    ]
+  },
+  {
+    title:"Nana Textiles and E-Business",
+    case:"Nana Textiles produces locally designed shirts and dresses. Most of its sales have traditionally been made through a physical shop. Younger customers, however, increasingly ask whether they can view designs online, place orders through their phones and make electronic payments. Management is considering creating an online store and using social media to promote new designs. The accountant supports the idea because it may increase market reach, while the operations manager is worried about cyber fraud, delivery problems and customer complaints.",
+    questions:[
+      ["(a)","Explain three ways e-business could benefit Nana Textiles.",5],
+      ["(b)","Discuss three challenges the business may face when introducing online operations.",5],
+      ["(c)","Recommend measures Nana Textiles should introduce to reduce the risks of e-business.",5]
+    ]
+  },
+  {
+    title:"Akosua Manufacturing and Production",
+    case:"Akosua Manufacturing produces school furniture for institutions across Ghana. Recently, customers have complained about broken desks and inconsistent sizes. Management discovered that some raw materials are arriving late and workers sometimes begin production without checking measurements. The production manager believes the business needs better inventory control, quality control and supervision. The finance manager also wants the company to reduce waste because material costs have increased.",
+    questions:[
+      ["(a)","Identify three production problems in the case and explain their likely effects.",5],
+      ["(b)","Explain three ways quality control can improve the company's performance.",5],
+      ["(c)","Recommend measures to reduce material waste and improve productivity.",5]
+    ]
+  },
+  {
+    title:"Golden Harvest and Contract Dispute",
+    case:"Golden Harvest Stores agreed with a supplier to purchase a large quantity of cooking oil at an agreed price. The supplier sent a written offer stating the quantity, price and delivery date. Golden Harvest replied that it accepted the offer but requested a different delivery date. The supplier did not immediately respond, but later sent the goods on the original delivery date. Golden Harvest refused to accept them, arguing that the supplier had breached the agreement. Both parties now disagree about whether a binding contract was formed on the original terms.",
+    questions:[
+      ["(a)","Identify the contract-law principles that should be considered in determining whether an agreement was formed.",5],
+      ["(b)","Explain why acceptance must generally correspond with the terms of an offer.",5],
+      ["(c)","Using the facts of the case, advise Golden Harvest on the issue and justify your answer.",5]
+    ]
+  },
+  {
+    title:"Prime Pharmacy and Marketing",
+    case:"Prime Pharmacy has operated successfully in a busy town for several years. A new competitor has opened nearby and offers discounts and home delivery. Prime Pharmacy has noticed a decline in some product sales. Management wants to attract younger customers without losing its existing customers. The marketing manager proposes conducting market research, improving the pharmacy's social-media communication and reviewing pricing and delivery arrangements. The owner believes that simply reducing every price would solve the problem.",
+    questions:[
+      ["(a)","Explain three reasons Prime Pharmacy should conduct market research before changing its strategy.",5],
+      ["(b)","Discuss how three elements of the marketing mix could be used to respond to the competitor.",5],
+      ["(c)","Evaluate the owner's suggestion that all prices should simply be reduced.",5]
+    ]
+  },
+  {
+    title:"Unity Furniture Partnership",
+    case:"Three friends decided to establish Unity Furniture to produce customized office furniture. They contributed different amounts of money and agreed verbally that each would participate in management. After two years, one partner began making major purchases without consulting the others. Another partner argued that profits should be shared according to capital contribution, while the third insisted that their original agreement should determine how profits are distributed. The disagreement has affected business decisions and some suppliers are now uncertain about who has authority to act for the business.",
+    questions:[
+      ["(a)","Explain three characteristics of partnership as a form of business organization.",5],
+      ["(b)","Discuss three advantages Unity Furniture may obtain from operating as a partnership.",5],
+      ["(c)","Recommend measures the partners should take to reduce future disputes.",5]
+    ]
+  },
+  {
+    title:"Volta Electronics and Finance",
+    case:"Volta Electronics has experienced rapid sales growth, but the owner has noticed that the business frequently struggles to pay suppliers on time. Customers often buy on credit and some debts remain unpaid for several months. At the same time, the business has purchased new equipment without preparing a detailed cash-flow forecast. Although the accountant reports that the business made a profit during the year, the owner is worried because the bank balance remains low.",
+    questions:[
+      ["(a)","Explain the difference between profit and cash flow using the case.",5],
+      ["(b)","Identify three possible causes of Volta Electronics' cash-flow difficulty.",5],
+      ["(c)","Recommend measures management can introduce to improve cash-flow management.",5]
+    ]
+  }
+];
+
+
+/* =========================================================
+   LONG CASE VARIATIONS
+   ========================================================= */
+
+function makeCase(setNo, questionNo){
+  const base = caseThemes[(setNo-1 + questionNo-1) % caseThemes.length];
+
+  const extra = [
+    "Management has therefore asked department heads to provide practical recommendations rather than simply listing textbook definitions.",
+    "The owners also want the decision to support long-term growth while protecting the reputation and financial stability of the business.",
+    "Students are expected to use the information in the case when developing their answers.",
+    "The board has requested that any recommendation should be supported by clear business reasons.",
+    "The business operates in a competitive environment and cannot afford to ignore changing customer expectations."
+  ][(setNo + questionNo) % 5];
+
+  return {
+    title:base.title + " — Set " + setNo,
+    case:base.case + " " + extra,
+    questions:base.questions
+  };
+}
+
+
+/* =========================================================
+   UTILITY
+   ========================================================= */
+
+function esc(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function uid(prefix){
+  return prefix + "-" +
+    Date.now().toString(36).toUpperCase() +
+    "-" +
+    Math.random().toString(36).slice(2,7).toUpperCase();
+}
+
+function nowText(){
+  return new Date().toLocaleString();
+}
+
+function getUsers(){
+  return load(STORAGE.USERS,[]);
+}
+
+function getSubmissions(){
+  return load(STORAGE.SUBMISSIONS,[]);
+}
+
+function getAttempts(){
+  return load(STORAGE.ATTEMPTS,[]);
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function showLogin(){
+  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("appShell").classList.add("hidden");
+}
+
+function enterApp(){
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("appShell").classList.remove("hidden");
+
+  updateIdentity();
+  renderTopics();
+  populateSelects();
+  refreshTeacherUI();
+  refreshFeedback();
+  refreshAdmin();
+  showView("homeView");
+}
+
+function performLogin(){
+
+  const name = document.getElementById("loginName").value.trim();
+  const error = document.getElementById("loginError");
+
+  if(!name){
+    error.textContent = "Please enter your name before entering BM Learn AI.";
+    error.classList.remove("hidden");
+    return;
+  }
+
+  if(name.length < 2){
+    error.textContent = "Please enter your full name.";
+    error.classList.remove("hidden");
+    return;
+  }
+
+  error.classList.add("hidden");
+
+  const users = getUsers();
+
+  let user = users.find(
+    u =>
+      u.name.toLowerCase() === name.toLowerCase() &&
+      u.role === selectedRole
+  );
+
+  if(!user){
+    user = {
+      id:uid(selectedRole === "teacher" ? "TCH" : "STD"),
+      name:name,
+      role:selectedRole,
+      createdAt:nowText()
+    };
+
+    users.push(user);
+    save(STORAGE.USERS,users);
+  }
+
+  currentUser = user;
+  save(STORAGE.USER,user);
+
+  enterApp();
+}
+
+function updateIdentity(){
+
+  if(!currentUser) return;
+
+  document.getElementById("helloText").textContent =
+    "Hello 👋 " + currentUser.name;
+
+  document.getElementById("roleText").textContent =
+    currentUser.role === "student" ? "🎓 Student" : "👨🏽‍🏫 Teacher";
+
+  document.getElementById("heroName").textContent =
+    currentUser.name;
+
+  document.getElementById("heroRole").textContent =
+    currentUser.role === "student" ? "🎓 Student" : "👨🏽‍🏫 Teacher";
+
+  document.getElementById("studentMenu")
+    .classList.toggle("hidden",currentUser.role !== "student");
+
+  document.getElementById("teacherMenu")
+    .classList.toggle("hidden",currentUser.role !== "teacher");
+
+  document.getElementById("submitStudentName").textContent =
+    currentUser.name;
+
+  document.getElementById("submitStudentId").textContent =
+    currentUser.id;
+
+  document.getElementById("teacherName").textContent =
+    currentUser.name;
+
+  document.getElementById("teacherId").textContent =
+    currentUser.id;
+}
+
+
+/* =========================================================
+   VIEW NAVIGATION
+   ========================================================= */
+
+function showView(id){
+
+  document.querySelectorAll(".view").forEach(v=>{
+    v.classList.remove("active");
+  });
+
+  const target = document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  closeDrawer();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(id === "feedbackView") refreshFeedback();
+  if(id === "teacherView") refreshTeacherUI();
+  if(id === "adminView") refreshAdmin();
+  if(id === "submitView") populateTeacherSelect();
+}
+
+function openDrawer(){
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("drawerShade").classList.add("open");
+}
+
+function closeDrawer(){
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawerShade").classList.remove("open");
+}
+
+
+/* =========================================================
+   TOPICS
+   ========================================================= */
+
+function renderTopics(){
+
+  const grid = document.getElementById("topicGrid");
+
+  grid.innerHTML = topics.map((topic,index)=>`
+    <div class="topic-card">
+      <div class="topic-number">${topic.icon} TOPIC ${index+1}</div>
+      <h3>${esc(topic.name)}</h3>
+      <p>${esc(topic.summary)}</p>
+      <small class="gold">${esc(topic.level)}</small>
+      <br>
+      <button class="small-btn blue topic-open" data-index="${index}">
+        Study Topic
+      </button>
+    </div>
+  `).join("");
+
+}
+
+function openTopic(index){
+
+  currentTopicIndex = Number(index);
+
+  const t = topics[currentTopicIndex];
+
+  document.getElementById("topicDetail").innerHTML = `
+
+    <div class="hero">
+      <h1>${t.icon} ${esc(t.name)}</h1>
+      <p>${esc(t.summary)}</p>
+      <div class="badge">${esc(t.level)}</div>
+    </div>
+
+    <div class="card">
+      <h2>Meaning</h2>
+      <p class="note">${esc(t.meaning)}</p>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>Key Points</h2>
+      <ul>
+        ${t.points.map(x=>`<li>${esc(x)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>Importance</h2>
+      <ul>
+        ${t.importance.map(x=>`<li>${esc(x)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>Advantages</h2>
+      <ul>
+        ${t.advantages.map(x=>`<li>${esc(x)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>Disadvantages / Challenges</h2>
+      <ul>
+        ${t.disadvantages.map(x=>`<li>${esc(x)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>📝 Examination Tip</h2>
+      <div class="notice">${esc(t.exam)}</div>
+    </div>
+
+    <div class="card" style="margin-top:13px;">
+      <h2>🧪 Trial Essay Question</h2>
+      <p>
+        Using a suitable business example, explain the meaning,
+        importance and challenges associated with <b>${esc(t.name)}</b>.
+      </p>
+      <button class="small-btn blue submit-topic-btn">
+        📤 Submit My Answer
+      </button>
+    </div>
+  `;
+
+  showView("topicDetailView");
+}
+
+
+/* =========================================================
+   SELECTS
+   ========================================================= */
+
+function populateSelects(){
+
+  const practice = document.getElementById("practiceTopic");
+  const subTopic = document.getElementById("submissionTopic");
+  const teacherTopic = document.getElementById("teacherQuestionTopic");
+
+  const options = topics.map((t,i)=>
+    `<option value="${i}">${i+1}. ${esc(t.name)}</option>`
+  ).join("");
+
+  practice.innerHTML = options;
+  subTopic.innerHTML = options;
+  teacherTopic.innerHTML = options;
+
+  const examSet = document.getElementById("examSet");
+
+  examSet.innerHTML = Array.from(
+    {length:10},
+    (_,i)=>`<option value="${i+1}">Exam Set ${i+1}</option>`
+  ).join("");
+
+  populateTeacherSelect();
+}
+
+function populateTeacherSelect(){
+
+  const select = document.getElementById("teacherSelect");
+
+  if(!select) return;
+
+  const teachers = getUsers().filter(u=>u.role==="teacher");
+
+  if(!teachers.length){
+    select.innerHTML =
+      `<option value="">No teacher profile found on this device</option>`;
+    return;
+  }
+
+  select.innerHTML =
+    `<option value="">Select a teacher</option>` +
+    teachers.map(t=>
+      `<option value="${esc(t.id)}">
+        ${esc(t.name)} — Teacher ID: ${esc(t.id)}
+      </option>`
+    ).join("");
+}
+
+
+/* =========================================================
+   PRACTICE
+   ========================================================= */
+
+function generatePractice(){
+
+  const topicIndex = Number(
+    document.getElementById("practiceTopic").value
+  );
+
+  const topic = topics[topicIndex];
+
+  const relevant = objectiveBank.filter(q=>{
+    const text = q[0].toLowerCase();
+    return true;
+  });
+
+  practiceQuestions = [...relevant]
+    .sort(()=>Math.random()-.5)
+    .slice(0,10);
+
+  document.getElementById("practiceArea").innerHTML = `
+
+    <div class="card">
+      <h2>${topic.icon} ${esc(topic.name)} Practice</h2>
+      <p class="note">
+        Answer the questions and explain your reasoning where necessary.
+      </p>
+    </div>
+
+    ${practiceQuestions.map((q,i)=>`
+
+      <div class="card question">
+        <strong>${i+1}. ${esc(q[0])}</strong>
+
+        ${q[1].map((option,j)=>`
+          <label class="answer">
+            <input
+              type="radio"
+              name="practice_${i}"
+              value="${j}">
+            ${String.fromCharCode(65+j)}. ${esc(option)}
+          </label>
+        `).join("")}
+
+      </div>
+
+    `).join("")}
+
+    <button id="checkPracticeBtn" class="primary">
+      Check Answers
+    </button>
+
+    <div id="practiceScore" style="margin-top:15px;"></div>
+  `;
+
+  const attempts = getAttempts();
+
+  attempts.push({
+    id:uid("ATT"),
+    studentId:currentUser ? currentUser.id : "",
+    studentName:currentUser ? currentUser.name : "",
+    topic:topic.name,
+    date:nowText()
+  });
+
+  save(STORAGE.ATTEMPTS,attempts);
+
+  document.getElementById("checkPracticeBtn")
+    .addEventListener("click",checkPractice);
+}
+
+function checkPractice(){
+
+  let score = 0;
+
+  practiceQuestions.forEach((q,i)=>{
+    const chosen =
+      document.querySelector(`input[name="practice_${i}"]:checked`);
+
+    if(chosen && Number(chosen.value) === q[2]){
+      score++;
+    }
+  });
+
+  const percentage =
+    Math.round((score/practiceQuestions.length)*100);
+
+  document.getElementById("practiceScore").innerHTML = `
+    <div class="success">
+      <b>Score:</b> ${score}/${practiceQuestions.length}
+      (${percentage}%)
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   EXAM GENERATOR
+   ========================================================= */
+
+function generateExam(){
+
+  const setNo =
+    Number(document.getElementById("examSet").value);
+
+  const objectives =
+    [...objectiveBank]
+    .sort(()=>Math.random()-.5)
+    .slice(0,50);
+
+  const caseQuestions =
+    Array.from({length:7},(_,i)=>
+      makeCase(setNo,i+1)
+    );
+
+  const paper = document.getElementById("examPaper");
+
+  paper.innerHTML = `
+
+    <div class="exam-paper">
+
+      <h2 style="text-align:center;">
+        BUSINESS MANAGEMENT
+      </h2>
+
+      <h3 style="text-align:center;">
+        WAEC-STYLE PRACTICE EXAMINATION — SET ${setNo}
+      </h3>
+
+      <p style="text-align:center;">
+        <b>BM Learn AI • Sir Koala 🐨</b>
+      </p>
+
+      <hr>
+
+      <h3>SECTION A — OBJECTIVE TEST</h3>
+
+      <p>
+        Answer all questions. Each question carries
+        <b>½ mark</b>.
+      </p>
+
+      ${objectives.map((q,i)=>`
+
+        <div class="question">
+          <strong>${i+1}. ${esc(q[0])}</strong>
+
+          ${q[1].map((option,j)=>`
+            <div class="mcq-option">
+              ${String.fromCharCode(65+j)}. ${esc(option)}
+            </div>
+          `).join("")}
+
+        </div>
+
+      `).join("")}
+
+      <hr>
+
+      <h3>SECTION B — STRUCTURED ESSAY / CASE STUDY</h3>
+
+      <p>
+        Answer Question One and any three other questions.
+        Each question carries <b>15 marks</b>.
+      </p>
+
+      ${caseQuestions.map((c,i)=>`
+
+        <div class="question">
+
+          <h3>
+            QUESTION ${i+1}
+          </h3>
+
+          <div class="case">
+            <strong>${esc(c.title)}</strong>
+            <p>${esc(c.case)}</p>
+          </div>
+
+          ${c.questions.map(q=>`
+            <p>
+              <strong>${esc(q[0])}</strong>
+              ${esc(q[1])}
+              <br>
+              <em>[${q[2]} marks]</em>
+            </p>
+          `).join("")}
+
+          <p>
+            <b>Total: 15 marks</b>
+          </p>
+
+        </div>
+
+      `).join("")}
+
+      <hr>
+
+      <h3>EXAMINATION REMINDER</h3>
+
+      <ul>
+        <li>Read each case carefully.</li>
+        <li>Use information from the case in your answer.</li>
+        <li>Explain points instead of merely listing them.</li>
+        <li>Where asked to recommend, justify the recommendation.</li>
+        <li>Where a case is given, apply Business Management concepts to the facts.</li>
+      </ul>
+
+    </div>
+  `;
+
+  const attempts = getAttempts();
+
+  attempts.push({
+    id:uid("EXAM"),
+    studentId:currentUser ? currentUser.id : "",
+    studentName:currentUser ? currentUser.name : "",
+    type:"Exam Set " + setNo,
+    date:nowText()
+  });
+
+  save(STORAGE.ATTEMPTS,attempts);
+}
+
+
+/* =========================================================
+   SCANNER
+   ========================================================= */
+
+function handleImage(event){
+
+  const file = event.target.files && event.target.files[0];
+
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    currentImageData = e.target.result;
+
+    const img = document.getElementById("imagePreview");
+
+    img.src = currentImageData;
+    img.style.display = "block";
+
+    document.getElementById("aiScanResult").innerHTML =
+      `<div class="success">
+        Image ready. Press <b>🧠 Send to AI & Solve</b>.
+      </div>`;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+async function sendToAI(){
+
+  const result = document.getElementById("aiScanResult");
+
+  if(!currentImageData){
+
+    result.innerHTML =
+      `<div class="warning">
+        Please take or upload a question image first.
+      </div>`;
+
+    return;
+  }
+
+  if(!AI_ENDPOINT){
+
+    result.innerHTML = `
+      <div class="notice">
+
+        <h3>🧠 AI Solver Ready</h3>
+
+        <p>
+          Your question image has been prepared successfully.
+        </p>
+
+        <p>
+          <b>Real AI connection is not configured yet.</b>
+        </p>
+
+        <p>
+          This is because a public HTML website should not contain a
+          secret AI API key. A secure backend endpoint is required before
+          the image can be sent to an AI service.
+        </p>
+
+        <hr>
+
+        <b>What happens after a backend is connected?</b>
+
+        <ol>
+          <li>Your image is sent securely.</li>
+          <li>The AI reads the question.</li>
+          <li>The AI reasons through the problem.</li>
+          <li>The answer and explanation are returned here.</li>
+        </ol>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  result.innerHTML =
+    `<div class="notice">🧠 Sending question to AI...</div>`;
+
+  try{
+
+    const response = await fetch(AI_ENDPOINT,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        image:currentImageData,
+        studentId:currentUser ? currentUser.id : "",
+        studentName:currentUser ? currentUser.name : ""
+      })
+    });
+
+    if(!response.ok){
+      throw new Error("AI server returned an error.");
+    }
+
+    const data = await response.json();
+
+    result.innerHTML = `
+      <div class="card">
+        <h3>🧠 AI Solution</h3>
+        <div class="note">
+          ${esc(data.answer || data.result || "No answer returned.")}
+        </div>
+      </div>
+    `;
+
+  }catch(error){
+
+    result.innerHTML = `
+      <div class="warning">
+        The AI service could not be reached.
+        Please check the secure backend connection.
+      </div>
+    `;
+  }
+}
+
+function clearScanner(){
+
+  currentImageData = "";
+
+  document.getElementById("questionImage").value = "";
+
+  document.getElementById("imagePreview").style.display = "none";
+
+  document.getElementById("imagePreview").src = "";
+
+  document.getElementById("aiScanResult").innerHTML = "";
+}
+
+
+/* =========================================================
+   OFFLINE BM ASSISTANT
+   ========================================================= */
+
+function answerAssistant(){
+
+  const input =
+    document.getElementById("assistantInput").value.trim();
+
+  const result =
+    document.getElementById("assistantResult");
+
+  if(!input){
+
+    result.innerHTML =
+      `<div class="warning">Please type a Business Management question.</div>`;
+
+    return;
+  }
+
+  const lower = input.toLowerCase();
+
+  let matched = topics.find(t=>{
+    return lower.includes(t.name.toLowerCase());
+  });
+
+  if(!matched){
+
+    if(lower.includes("franchis")){
+      matched = topics.find(t=>t.name==="International Business");
+    }
+
+    if(lower.includes("insurance") || lower.includes("risk")){
+      matched = topics.find(t=>t.name==="Business Risk and Insurance");
+    }
+
+    if(lower.includes("contract")){
+      matched = topics.find(t=>t.name==="Law of Contract");
+    }
+
+    if(lower.includes("recruit") || lower.includes("human resource")){
+      matched = topics.find(t=>t.name==="Human Resource Management");
+    }
+
+    if(lower.includes("marketing")){
+      matched = topics.find(t=>t.name==="Marketing");
+    }
+  }
+
+  if(matched){
+
+    result.innerHTML = `
+      <div class="card">
+        <h2>${matched.icon} ${esc(matched.name)}</h2>
+
+        <h3>Meaning</h3>
+        <p class="note">${esc(matched.meaning)}</p>
+
+        <h3>Key Points</h3>
+        <ul>
+          ${matched.points.map(x=>`<li>${esc(x)}</li>`).join("")}
+        </ul>
+
+        <div class="notice">
+          <b>Exam tip:</b> ${esc(matched.exam)}
+        </div>
+
+      </div>
+    `;
+
+  }else{
+
+    result.innerHTML = `
+      <div class="notice">
+
+        <h3>🤖 BM Assistant</h3>
+
+        <p>
+          I can help you reason through Business Management questions.
+        </p>
+
+        <p>
+          Try mentioning a topic such as:
+        </p>
+
+        <ul>
+          <li>Franchising</li>
+          <li>Law of Contract</li>
+          <li>Human Resource Management</li>
+          <li>Business Risk and Insurance</li>
+          <li>Marketing</li>
+          <li>Finance</li>
+          <li>E-Business</li>
+        </ul>
+
+      </div>
+    `;
+  }
+}
+
+
+/* =========================================================
+   STUDENT SUBMISSION
+   ========================================================= */
+
+function submitWork(){
+
+  if(!currentUser || currentUser.role !== "student"){
+    return;
+  }
+
+  const teacherId =
+    document.getElementById("teacherSelect").value;
+
+  const topicIndex =
+    Number(document.getElementById("submissionTopic").value);
+
+  const text =
+    document.getElementById("submissionText").value.trim();
+
+  const message =
+    document.getElementById("submitMessage");
+
+  if(!teacherId){
+
+    message.innerHTML =
+      `<div class="warning">Please select a teacher.</div>`;
+
+    return;
+  }
+
+  if(!text){
+
+    message.innerHTML =
+      `<div class="warning">Please enter your work.</div>`;
+
+    return;
+  }
+
+  const teacher =
+    getUsers().find(u=>u.id===teacherId);
+
+  if(!teacher){
+
+    message.innerHTML =
+      `<div class="warning">The selected teacher could not be found.</div>`;
+
+    return;
+  }
+
+  const submissions = getSubmissions();
+
+  submissions.push({
+    id:uid("SUB"),
+    studentId:currentUser.id,
+    studentName:currentUser.name,
+    teacherId:teacher.id,
+    teacherName:teacher.name,
+    topic:topics[topicIndex].name,
+    work:text,
+    date:nowText(),
+    status:"pending",
+    score:"",
+    comment:""
+  });
+
+  save(STORAGE.SUBMISSIONS,submissions);
+
+  document.getElementById("submissionText").value = "";
+
+  message.innerHTML = `
+    <div class="success">
+      <b>Work submitted successfully.</b>
+      <br>
+      Student: ${esc(currentUser.name)}
+      <br>
+      Teacher: ${esc(teacher.name)}
+      <br>
+      Status: Pending Review
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   TEACHER DASHBOARD
+   ========================================================= */
+
+function refreshTeacherUI(){
+
+  if(!currentUser || currentUser.role !== "teacher"){
+    return;
+  }
+
+  const submissions =
+    getSubmissions().filter(s=>s.teacherId===currentUser.id);
+
+  const pending =
+    submissions.filter(s=>s.status==="pending").length;
+
+  const reviewed =
+    submissions.filter(s=>s.status==="reviewed").length;
+
+  const students =
+    new Set(submissions.map(s=>s.studentId)).size;
+
+  document.getElementById("pendingCount").textContent = pending;
+  document.getElementById("reviewedCount").textContent = reviewed;
+  document.getElementById("studentCount").textContent = students;
+
+  const area =
+    document.getElementById("teacherSubmissionArea");
+
+  if(!submissions.length){
+
+    area.innerHTML = `
+      <div class="card">
+        <div class="notice">
+          No student submissions yet.
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  area.innerHTML = submissions
+    .slice()
+    .reverse()
+    .map(s=>`
+
+      <div class="submission">
+
+        <div class="submission-head">
+
+          <div>
+            <h3 style="margin:0;">
+              🎓 ${esc(s.studentName)}
+            </h3>
+
+            <small>
+              Student ID: ${esc(s.studentId)}
+            </small>
+          </div>
+
+          <span class="badge ${s.status==="reviewed" ? "reviewed":"pending"}">
+            ${esc(s.status)}
+          </span>
+
+        </div>
+
+        <p>
+          <b>Topic:</b> ${esc(s.topic)}
+          <br>
+          <b>Submitted:</b> ${esc(s.date)}
+        </p>
+
+        <div class="case">
+          <b>Student's Work</b>
+          <p>${esc(s.work)}</p>
+        </div>
+
+        ${
+          s.status==="reviewed"
+          ?
+          `<div class="feedback">
+            <b>Score:</b> ${esc(s.score)}
+            <br>
+            <b>Feedback:</b> ${esc(s.comment)}
+          </div>`
+          :
+          ""
+        }
+
+        <button
+          class="small-btn blue review-btn"
+          data-id="${esc(s.id)}"
+          style="margin-top:10px;">
+          ${s.status==="reviewed" ? "✏️ Edit Review" : "📝 Review Work"}
+        </button>
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================================================
+   REVIEW MODAL
+   ========================================================= */
+
+function openReview(id){
+
+  const submission =
+    getSubmissions().find(s=>s.id===id);
+
+  if(!submission) return;
+
+  currentReviewId = id;
+
+  document.getElementById("reviewStudentInfo").innerHTML = `
+    <b>Student:</b> ${esc(submission.studentName)}
+    <br>
+    <b>Student ID:</b> ${esc(submission.studentId)}
+    <br>
+    <b>Topic:</b> ${esc(submission.topic)}
+    <br>
+    <b>Submitted:</b> ${esc(submission.date)}
+    <hr>
+    <b>Work:</b>
+    <p>${esc(submission.work)}</p>
+  `;
+
+  document.getElementById("reviewScore").value =
+    submission.score || "";
+
+  document.getElementById("reviewComment").value =
+    submission.comment || "";
+
+  document.getElementById("reviewModal")
+    .classList.add("show");
+}
+
+function closeReview(){
+
+  currentReviewId = null;
+
+  document.getElementById("reviewModal")
+    .classList.remove("show");
+}
+
+function saveReview(){
+
+  if(!currentReviewId) return;
+
+  const score =
+    document.getElementById("reviewScore").value.trim();
+
+  const comment =
+    document.getElementById("reviewComment").value.trim();
+
+  if(!score || !comment){
+    alert("Please enter both a score and feedback.");
+    return;
+  }
+
+  const submissions = getSubmissions();
+
+  const index =
+    submissions.findIndex(s=>s.id===currentReviewId);
+
+  if(index === -1) return;
+
+  submissions[index].score = score;
+  submissions[index].comment = comment;
+  submissions[index].status = "reviewed";
+  submissions[index].reviewedAt = nowText();
+
+  save(STORAGE.SUBMISSIONS,submissions);
+
+  closeReview();
+  refreshTeacherUI();
+}
+
+
+/* =========================================================
+   STUDENT FEEDBACK
+   ========================================================= */
+
+function refreshFeedback(){
+
+  if(!currentUser || currentUser.role !== "student"){
+    return;
+  }
+
+  const submissions =
+    getSubmissions().filter(
+      s=>s.studentId===currentUser.id
+    );
+
+  const area =
+    document.getElementById("studentFeedbackArea");
+
+  if(!submissions.length){
+
+    area.innerHTML = `
+      <div class="card">
+        <div class="notice">
+          You have not submitted any work yet.
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  area.innerHTML = submissions
+    .slice()
+    .reverse()
+    .map(s=>`
+
+      <div class="submission">
+
+        <h3>${esc(s.topic)}</h3>
+
+        <p>
+          <b>Teacher:</b> ${esc(s.teacherName)}
+          <br>
+          <b>Submitted:</b> ${esc(s.date)}
+          <br>
+          <b>Status:</b> ${esc(s.status)}
+        </p>
+
+        <div class="case">
+          <b>Your Work</b>
+          <p>${esc(s.work)}</p>
+        </div>
+
+        ${
+          s.status==="reviewed"
+          ?
+          `<div class="feedback">
+            <b>Reviewed by:</b> ${esc(s.teacherName)}
+            <br>
+            <b>Score:</b> ${esc(s.score)}
+            <br><br>
+            <b>Teacher Feedback:</b>
+            <p>${esc(s.comment)}</p>
+          </div>`
+          :
+          `<div class="notice">
+            Your teacher has not reviewed this submission yet.
+          </div>`
+        }
+
+      </div>
+
+    `).join("");
+}
+
+
+/* =========================================================
+   TEACHER QUESTION GENERATOR
+   ========================================================= */
+
+function generateTeacherQuestion(){
+
+  const topicIndex =
+    Number(document.getElementById("teacherQuestionTopic").value);
+
+  const type =
+    document.getElementById("teacherQuestionType").value;
+
+  const topic = topics[topicIndex];
+
+  const examples = {
+    "Case Study":
+      `A growing business operating in Ghana is facing challenges related to ${topic.name.toLowerCase()}. Management has noticed that some decisions are affecting employees, customers and business performance. The managing director has asked the relevant manager to investigate the situation and recommend practical solutions. As a Business Management student, use the information given to answer the questions below.`,
+    "Structured Essay":
+      `Explain the meaning of ${topic.name}, discuss its importance to a business and examine challenges that may arise when management fails to handle it effectively.`,
+    "Objective":
+      `Which of the following best explains an important principle of ${topic.name}?`
+  };
+
+  document.getElementById("teacherQuestionResult").innerHTML = `
+    <div class="card">
+
+      <div class="badge">${esc(type)}</div>
+
+      <h2>${esc(topic.name)}</h2>
+
+      <div class="case">
+        ${esc(examples[type])}
+      </div>
+
+      ${
+        type==="Case Study"
+        ?
+        `<p>
+          <b>(a)</b> Explain three relevant factors in the case. [5 marks]
+        </p>
+        <p>
+          <b>(b)</b> Discuss three ways management can address the situation. [5 marks]
+        </p>
+        <p>
+          <b>(c)</b> Recommend the best course of action and justify your answer. [5 marks]
+        </p>`
+        :
+        type==="Structured Essay"
+        ?
+        `<p>
+          <b>(a)</b> Define ${esc(topic.name)}. [4 marks]
+        </p>
+        <p>
+          <b>(b)</b> Explain three reasons it is important. [5 marks]
+        </p>
+        <p>
+          <b>(c)</b> Discuss three challenges and suggest solutions. [6 marks]
+        </p>`
+        :
+        `<div class="answer">
+          A. It is concerned with managing the relevant business activities.
+        </div>
+        <div class="answer">
+          B. It has no effect on business performance.
+        </div>
+        <div class="answer">
+          C. It only applies to government.
+        </div>
+        <div class="answer">
+          D. It eliminates every business risk.
+        </div>`
+      }
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+function refreshAdmin(){
+
+  const users = getUsers();
+  const submissions = getSubmissions();
+  const attempts = getAttempts();
+
+  document.getElementById("adminUsers").textContent =
+    users.length;
+
+  document.getElementById("adminSubmissions").textContent =
+    submissions.length;
+
+  document.getElementById("adminAttempts").textContent =
+    attempts.length;
+
+  document.getElementById("adminUsersList").innerHTML =
+    users.length
+    ?
+    users.map(u=>`
+      <div class="submission">
+        <b>${u.role==="student" ? "🎓":"👨🏽‍🏫"} ${esc(u.name)}</b>
+        <br>
+        <small>
+          ${esc(u.role)} • ID: ${esc(u.id)}
+        </small>
+      </div>
+    `).join("")
+    :
+    `<div class="notice">No users recorded on this device.</div>`;
+}
+
+function clearData(){
+
+  const confirmed =
+    confirm(
+      "Clear all BM Learn AI prototype data on this device?"
+    );
+
+  if(!confirmed) return;
+
+  Object.values(STORAGE).forEach(key=>{
+    localStorage.removeItem(key);
+  });
+
+  location.reload();
+}
+
+
+/* =========================================================
+   CHANGE USER
+   ========================================================= */
+
+function changeUser(){
+
+  localStorage.removeItem(STORAGE.USER);
+
+  currentUser = null;
+
+  closeDrawer();
+
+  document.getElementById("loginName").value = "";
+
+  selectedRole = "student";
+
+  document.querySelectorAll(".role-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.role==="student"
+    );
+  });
+
+  showLogin();
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  /* LOGIN ROLE */
+
+  document.querySelectorAll(".role-btn").forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      selectedRole = btn.dataset.role;
+
+      document.querySelectorAll(".role-btn").forEach(b=>{
+        b.classList.toggle(
+          "active",
+          b===btn
+        );
+      });
+
+    });
+
+  });
+
+
+  /* LOGIN */
+
+  document.getElementById("loginBtn")
+    .addEventListener("click",performLogin);
+
+  document.getElementById("loginName")
+    .addEventListener("keydown",e=>{
+      if(e.key==="Enter"){
+        performLogin();
+      }
+    });
+
+
+  /* MENU */
+
+  document.getElementById("menuBtn")
+    .addEventListener("click",openDrawer);
+
+  document.getElementById("drawerClose")
+    .addEventListener("click",closeDrawer);
+
+  document.getElementById("drawerShade")
+    .addEventListener("click",closeDrawer);
+
+
+  /* NAVIGATION */
+
+  document.addEventListener("click",e=>{
+
+    const nav =
+      e.target.closest("[data-view]");
+
+    if(nav){
+
+      const view =
+        nav.getAttribute("data-view");
+
+      showView(view);
+      return;
+    }
+
+    const topic =
+      e.target.closest(".topic-open");
+
+    if(topic){
+
+      openTopic(topic.dataset.index);
+      return;
+    }
+
+    const review =
+      e.target.closest(".review-btn");
+
+    if(review){
+
+      openReview(review.dataset.id);
+      return;
+    }
+
+    const submitTopic =
+      e.target.closest(".submit-topic-btn");
+
+    if(submitTopic){
+
+      if(currentUser && currentUser.role==="student"){
+        showView("submitView");
+      }else{
+        alert("Log in as a student to submit work.");
+      }
+
+      return;
+    }
+
+  });
+
+
+  document.getElementById("backTopicsBtn")
+    .addEventListener("click",()=>{
+      showView("topicsView");
+    });
+
+
+  /* PRACTICE */
+
+  document.getElementById("generatePracticeBtn")
+    .addEventListener("click",generatePractice);
+
+
+  /* EXAM */
+
+  document.getElementById("generateExamBtn")
+    .addEventListener("click",generateExam);
+
+  document.getElementById("printExamBtn")
+    .addEventListener("click",()=>{
+      window.print();
+    });
+
+
+  /* SCANNER */
+
+  document.getElementById("questionImage")
+    .addEventListener("change",handleImage);
+
+  document.getElementById("sendAiBtn")
+    .addEventListener("click",sendToAI);
+
+  document.getElementById("clearScanBtn")
+    .addEventListener("click",clearScanner);
+
+
+  /* ASSISTANT */
+
+  document.getElementById("assistantBtn")
+    .addEventListener("click",answerAssistant);
+
+
+  /* SUBMISSION */
+
+  document.getElementById("submitWorkBtn")
+    .addEventListener("click",submitWork);
+
+
+  /* REVIEW */
+
+  document.getElementById("saveReviewBtn")
+    .addEventListener("click",saveReview);
+
+  document.getElementById("closeReviewBtn")
+    .addEventListener("click",closeReview);
+
+
+  /* TEACHER */
+
+  document.getElementById("teacherGenerateQuestionBtn")
+    .addEventListener("click",generateTeacherQuestion);
+
+
+  /* ADMIN */
+
+  document.getElementById("clearDataBtn")
+    .addEventListener("click",clearData);
+
+
+  /* CHANGE USER */
+
+  document.getElementById("changeUserBtn")
+    .addEventListener("click",changeUser);
+
+
+  /* EXISTING LOGIN */
+
+  const storedUser = load(STORAGE.USER,null);
+
+  if(storedUser && storedUser.name && storedUser.role){
+
+    currentUser = storedUser;
+    enterApp();
+
+  }else{
+
+    showLogin();
+
+  }
+
+});
+</script>
+
+</body>
+</html>

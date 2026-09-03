@@ -99,6 +99,16 @@ body.role-teacher .notice.ok{background:#0c392a;border-color:#1c6a50}
 body.role-teacher input,body.role-teacher select,body.role-teacher textarea{background:#071f16;border-color:#1f5a41}
 body.role-teacher th{color:#8bffb0}
 body.role-teacher table td,body.role-teacher table th{border-color:#1f5a41}
+
+@media print{
+ body,body.role-teacher{background:#fff!important;color:#000!important}
+ header,#drawer,#loginScreen,.menu-btn,.toast,.modal,.toolbar button{display:none!important}
+ main{max-width:100%;padding:0}
+ .card,.hero,.case,.q,.content{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+ .hero:after{display:none}
+ a,button{color:#000}
+}
+
 </style>
 </head>
 <body>
@@ -154,16 +164,19 @@ const AI_ENDPOINT = "";
 const topics = [
  {id:1,name:"Forms of Business",range:"1–3",desc:"Sole proprietor, partnership, companies and state-owned enterprises."},
  {id:4,name:"Functions of Management",range:"4",desc:"Planning, organising, leading, controlling and coordination."},
- {id:5,name:"Business Development",range:"5",desc:"Entrepreneurship, growth, innovation and business opportunities."},
+ {id:5,name:"Business Development",range:"5",desc:"Growth, internal & external environment, SWOT, PESTLE, business ethics and CSR."},
+ {id:21,name:"Entrepreneurship",range:"5b",desc:"Entrepreneurs, business ideas, business plans, challenges and support in Ghana."},
  {id:6,name:"International Business & E-Business",range:"6",desc:"Global trade, exporting, importing and digital business."},
  {id:7,name:"Functional Areas of Management",range:"7–8",desc:"Major functional areas and their contribution to business performance."},
  {id:9,name:"Law of Contract",range:"9–10",desc:"Formation, essential elements, breach, remedies and dispute resolution."},
+ {id:22,name:"Communication in Business",range:"10b",desc:"Business communication, barriers, channels and effective communication."},
  {id:11,name:"Business Risk & Insurance",range:"11",desc:"Risk identification, management and insurance principles."},
  {id:12,name:"Human Resource Management",range:"12",desc:"Recruitment, selection, training, performance and employee relations."},
  {id:13,name:"Leadership & Leadership Theories",range:"13–17",desc:"Leadership theories, styles, power, centralisation and decentralisation."},
  {id:18,name:"Marketing",range:"18",desc:"Marketing, segmentation, target markets, marketing mix and strategy."},
- {id:19,name:"Finance",range:"19",desc:"Business finance, sources of finance and financial decisions."},
- {id:20,name:"Production & Operations",range:"20",desc:"Production systems, quality, productivity, inventory and operations."}
+ {id:19,name:"Finance",range:"19",desc:"Business finance, sources of finance, cash flow and investment decisions."},
+ {id:20,name:"Production & Operations",range:"20",desc:"Production systems, quality, productivity, inventory and operations."},
+ {id:23,name:"Government & Business",range:"21",desc:"How government influences business through policy, tax, regulation and SOEs."}
 ];
 
 const legalCases = [
@@ -316,6 +329,36 @@ function attempts(){try{return JSON.parse(localStorage.getItem("bm_attempts")||"
 function saveAttempts(a){try{localStorage.setItem("bm_attempts",JSON.stringify(a))}catch(e){}}
 function feedbacks(){try{return JSON.parse(localStorage.getItem("bm_feedback")||"[]")}catch(e){return[]}}
 function saveFeedback(a){try{localStorage.setItem("bm_feedback",JSON.stringify(a))}catch(e){}}
+function getProgress(){try{return JSON.parse(localStorage.getItem("bm_progress")||"{}")}catch(e){return{}}}
+function saveProgress(p){try{localStorage.setItem("bm_progress",JSON.stringify(p))}catch(e){}}
+function markTopicProgress(id,status){const p=getProgress();p[id]=status||"read";saveProgress(p);updateStreak()}
+function getTopicStatus(id){const p=getProgress();return p[id]||"none"}
+function countProgress(){const p=getProgress();let n=0;topics.forEach(t=>{if(p[t.id]==="read"||p[t.id]==="mastered")n++});return n}
+function getStreak(){try{return JSON.parse(localStorage.getItem("bm_streak")||'{"count":0,"last":""}')}catch(e){return{count:0,last:""}}}
+function updateStreak(){
+  const s=getStreak(),today=new Date().toISOString().slice(0,10);
+  if(s.last===today)return;
+  const y=new Date();y.setDate(y.getDate()-1);const yest=y.toISOString().slice(0,10);
+  s.count=(s.last===yest)?(s.count||0)+1:1;s.last=today;
+  try{localStorage.setItem("bm_streak",JSON.stringify(s))}catch(e){}
+}
+function getBadges(){
+  const badges=[],prog=countProgress(),atts=attempts(),streak=getStreak().count||0;
+  if(prog>=1)badges.push("First topic read");
+  if(prog>=5)badges.push("5 topics covered");
+  if(prog>=topics.length)badges.push("All topics visited");
+  if(atts.length>=1)badges.push("First test done");
+  if(atts.some(a=>a.score>=16))badges.push("High scorer (16+/20)");
+  if(streak>=3)badges.push("3-day streak");
+  if(streak>=7)badges.push("7-day streak");
+  return badges;
+}
+function saveAppState(){
+  try{localStorage.setItem("bm_app_state",JSON.stringify({page:state.page,selectedTopic:state.selectedTopic,examSet:state.examSet,practiceIndex:state.practiceIndex,testMode:state.testMode}))}catch(e){}
+}
+function loadAppState(){
+  try{const s=JSON.parse(localStorage.getItem("bm_app_state")||"null");if(s){if(s.page)state.page=s.page;if(s.selectedTopic!=null)state.selectedTopic=s.selectedTopic;if(s.examSet!=null)state.examSet=s.examSet;if(s.practiceIndex!=null)state.practiceIndex=s.practiceIndex;if(s.testMode)state.testMode=s.testMode}}catch(e){}
+}
 function teachers(){
   try{
     const saved=JSON.parse(localStorage.getItem("bm_teachers")||"[]");
@@ -341,7 +384,7 @@ function registerTeacher(u){
 function examSetNumber(){return state.examSet+1}
 
 
-let state={page:"home",role:"student",selectedTopic:null,practiceIndex:0,practiceScore:0,examSet:0,scanData:""};
+let state={page:"home",role:"student",selectedTopic:null,practiceIndex:0,practiceScore:0,examSet:0,scanData:"",testMode:"objectives",showModelAnswers:false};
 
 function login(){
  const name=document.getElementById("loginName").value.trim();
@@ -350,13 +393,21 @@ function login(){
  saveUser(u); if(u.role==="teacher") registerTeacher(u); boot();
 }
 function boot(){
- const u=getUser()||{name:document.getElementById("loginName").value.trim()||"User",role:state.role,id:"U-temp"};
+ let u=getUser();
+ if(!u||!u.name){
+  const name=(document.getElementById("loginName").value||"").trim();
+  if(!name){document.getElementById("loginScreen").classList.remove("hidden");return;}
+  u={name:name,role:state.role,id:"U-temp"};
+ }
+
  state.role=u.role;
+ loadAppState();
  document.body.classList.toggle("role-teacher",u.role==="teacher");
  document.getElementById("loginScreen").classList.add("hidden");
  document.getElementById("appHeader").classList.remove("hidden");document.getElementById("app").classList.remove("hidden");
  document.getElementById("hello").textContent="Hello 👋 "+u.name;
  document.getElementById("rolePill").textContent=u.role==="teacher"?"👨🏽‍🏫 TEACHER":"🎓 STUDENT";
+ updateStreak();
  renderDrawer();render();
 }
 function renderDrawer(){
@@ -366,8 +417,8 @@ function renderDrawer(){
   ["topics","📚 Topics","Detailed study notes"],
   ["practice","🧠 Practice","Hard objective practice"],
   ...(isT?[["exams","📝 Build an Exam","10 WAEC-style sets"]]:[["test","🧪 Build a Test","Build and practise a test"]]),
-  ["scan","📷 Scan Question","AI-ready question solver"],
-  ["assistant","🤖 AI Assistant","Study reasoning help"],
+  ["scan","📷 Scan Question","Photo of a question (offline notes)"],
+  ["assistant","🤖 Thinking Assistant","Step-by-step reasoning framework"],
   ...(isT?[["submissions","📥 Student Work","Review student submissions"],["questionbank","🗂 Teacher Question Bank","500 hard objectives + essays"],["admin","🛡 Admin Portal","Prototype admin controls"]]:[["submit","📤 Submit to Teacher","Send work for review"],["feedback","💬 Teacher Feedback","See returned work"]])
  ];
  const d=document.getElementById("drawer");
@@ -378,24 +429,28 @@ function render(){
  const app=document.getElementById("app");
  const pages={home:pageHome,topics:pageTopics,practice:pagePractice,test:pageStudentTest,exams:pageExams,scan:pageScan,assistant:pageAssistant,submit:pageSubmit,feedback:pageFeedback,submissions:pageSubmissions,questionbank:pageQuestionBank,admin:pageAdmin};
  (pages[state.page]||pageHome)(app);
+ saveAppState();
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function section(title,body){return `<div class="section-title"><h2>${title}</h2></div>${body}`}
 function pageHome(app){
  const u=getUser(), subs=submissions().filter(x=>u&&x.studentId===u.id), fb=feedbacks().filter(x=>u&&x.studentId===u.id);
+ const prog=countProgress(), streak=getStreak().count||0, badges=getBadges();
  app.innerHTML=`
+ <div class="notice ok">📡 <b>Works offline on this device.</b> All notes, practice and tests run without internet. Data stays in this browser until you clear it. (A paid backend is only needed later for cross-device sync.)</div>
  <section class="hero"><h1>Welcome to <span>BM Learn AI</span> 🐨</h1><p>Smart, detailed and challenging Business Management preparation for Ghana SHS students and teachers. Learn the concept, apply it, analyse the case and prepare for WASSCE.</p>
- <div class="toolbar"><button class="primary" data-page="topics">📚 Start Learning</button>${u&&u.role==="student"?'<button class="secondary" data-page="test">🧪 Build a Test</button>':'<button class="secondary" data-page="exams">📝 Build an Exam</button>'}</div></section>
+ <div class="toolbar"><button class="primary" data-page="topics">📚 Start Learning</button>${u&&u.role==="student"?'<button class="secondary" data-page="test">🧪 Build a Test</button>':'<button class="secondary" data-page="exams">📝 Build an Exam</button>'}<button class="secondary" onclick="window.print()">🖨 Print page</button></div></section>
  ${section("Your Learning Hub",`<div class="grid">
- <div class="card"><div class="stat">${topics.length}</div><h3>Curriculum Areas</h3><p>Regrouped topic structure, including Forms of Business, Law of Contract and Leadership.</p></div>
- <div class="card"><div class="stat">500</div><h3>Hard Objectives</h3><p>10 sets × 50 challenging questions designed for serious WASSCE practice.</p></div>
- <div class="card"><div class="stat">10</div><h3>Exam Sets</h3><p>Long Q1 case studies plus structured Questions 2–7.</p></div>
- <div class="card"><div class="stat">${subs.length}</div><h3>My Submissions</h3><p>${u&&u.role==="student"?"Work sent to teachers on this device.":"Student submissions available in Teacher Dashboard."}</p></div>
+ <div class="card"><div class="stat">${topics.length}</div><h3>Curriculum Areas</h3><p>Forms of Business, Contract, Leadership, Entrepreneurship, Communication, Government & more.</p></div>
+ <div class="card"><div class="stat">${prog}/${topics.length}</div><h3>Topics Progress</h3><p>Topics you have marked as read on this device.</p></div>
+ <div class="card"><div class="stat">${streak}</div><h3>Study Streak</h3><p>Days in a row you opened or studied on this device.</p></div>
+ <div class="card"><div class="stat">500</div><h3>Hard Objectives</h3><p>10 sets × 50 challenging questions for serious WASSCE practice.</p></div>
+ <div class="card"><div class="stat">${subs.length}</div><h3>My Submissions</h3><p>${u&&u.role==="student"?"Work sent to teachers on this device.":"Student submissions on this device."}</p></div>
  <div class="card"><div class="stat">${fb.length}</div><h3>Feedback</h3><p>Teacher feedback returned to you.</p></div>
- <div class="card"><div class="stat">🐨</div><h3>Sir Koala</h3><p>Study with definitions, examples, cases, exam tips and critical-thinking questions.</p></div>
  </div>`)}
+ ${badges.length?section("Badges",`<div style="display:flex;flex-wrap:wrap;gap:8px">${badges.map(b=>`<span class="pill">🏅 ${esc(b)}</span>`).join("")}</div>`):""}
  ${u&&u.role==="student"?`<div class="notice">🎓 <b>Student identity:</b> every submission uses your name <b>${esc(u.name)}</b> and a local student ID, so a teacher can identify who submitted the work.</div>`:""}
- <div class="footer">BM Learn AI • <b>Sir Koala 🐨</b> • WAEC-style practice, not an official WAEC paper.</div>`;
+ <div class="footer">BM Learn AI • <b>Sir Koala 🐨</b> • WAEC-style practice, not an official WAEC paper. • Offline-first prototype.</div>`;
 }
 function topicDetail(t){
  const common=`<div class="content"><p><span class="pill">Topic ${t.range}</span></p>`;
@@ -403,15 +458,18 @@ function topicDetail(t){
  if(t.id===1) body=formsContent();
  else if(t.id===4) body=managementContent();
  else if(t.id===5) body=businessDevContent();
+ else if(t.id===21) body=entrepreneurshipContent();
  else if(t.id===6) body=internationalContent();
  else if(t.id===7) body=functionalContent();
  else if(t.id===9) body=contractContent();
+ else if(t.id===22) body=communicationContent();
  else if(t.id===11) body=riskContent();
  else if(t.id===12) body=hrContent();
  else if(t.id===13) body=leadershipContent();
  else if(t.id===18) body=marketingContent();
  else if(t.id===19) body=financeContent();
  else if(t.id===20) body=productionContent();
+ else if(t.id===23) body=governmentContent();
  else body=`<h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p>`;
  return common+body+`</div>`;
 }
@@ -442,7 +500,152 @@ function formsContent(){return `
 <h3>Exam focus</h3><p>Always compare forms using ownership, liability, continuity, capital, control and legal personality. In an essay, link the recommended form to the facts rather than merely listing advantages.</p>
 <h3>Trial questions</h3><ol><li>Compare sole proprietorship and partnership under five headings.</li><li>Explain why a growing business may convert from sole proprietorship to a company.</li><li>Assess whether an SOE should be judged only by profit.</li></ol>`}
 function managementContent(){return `<h3>Functions of Management</h3><p>Management involves coordinating people and resources through planning, organising, leading and controlling to achieve objectives efficiently and effectively.</p><h3>Planning</h3><p>Deciding objectives in advance and determining actions, resources, timing and responsibility.</p><h3>Organising</h3><p>Arranging tasks, authority, people and resources into a workable structure.</p><h3>Leading</h3><p>Influencing, directing, motivating and communicating with employees to achieve goals.</p><h3>Controlling</h3><p>Setting standards, measuring actual performance, comparing results and taking corrective action.</p><h3>Coordination</h3><p>Integrating activities of departments and individuals so that efforts support one another.</p><h3>Critical thinking</h3><p>A manager who plans well but never checks actual performance has created a control gap. A strong answer should explain the link between the functions rather than treating them as isolated activities.</p><h3>Trial questions</h3><ol><li>Explain how planning and controlling are interdependent.</li><li>Assess the effects of poor organising on business performance.</li><li>Design a management response to a department that repeatedly misses targets.</li></ol>`}
-function businessDevContent(){return `<h3>Business Development</h3><p>Business development involves identifying opportunities, building relationships and implementing strategies that create sustainable growth.</p><h3>Key areas</h3><ul><li>Opportunity identification and market research.</li><li>Customer relationship development.</li><li>Strategic partnerships.</li><li>New products and markets.</li><li>Digital channels and innovation.</li><li>Competitive analysis.</li></ul><h3>Growth options</h3><p>Market penetration, market development, product development and diversification are useful ways to analyse growth decisions.</p><h3>Risks</h3><p>Growth can create financing pressure, operational complexity, quality problems, staffing gaps and strategic overreach.</p><h3>Trial questions</h3><ol><li>Explain four sources of business opportunities.</li><li>Assess the risks of rapid expansion.</li><li>Recommend a growth strategy for a small Ghanaian enterprise.</li></ol>`}
+function businessDevContent(){return `
+<h3>Business Development</h3>
+<p>Business development involves identifying opportunities, building relationships and implementing strategies that create sustainable growth. It covers opportunity identification, market research, customer relationships, strategic partnerships, new products and markets, digital channels, innovation and competitive analysis. Growth decisions are commonly analysed using market penetration, market development, product development and diversification. Rapid growth can create financing pressure, operational complexity, quality problems, staffing gaps and strategic overreach.</p>
+
+<h3>Internal Environment of Business</h3>
+<p>The internal environment consists of factors <b>inside</b> the organisation that management can influence or control. These factors shape the firm’s ability to pursue opportunities and respond to threats.</p>
+<h4>Main internal factors</h4>
+<ul>
+<li><b>Resources:</b> financial resources (cash, credit, retained earnings), physical resources (buildings, machinery, inventory), human resources (skills, experience, motivation) and technological resources (systems, software, production methods).</li>
+<li><b>Structure and systems:</b> organisational structure, reporting lines, decision-making processes, information systems and control systems.</li>
+<li><b>Culture and leadership:</b> shared values, attitudes, leadership style, communication patterns and employee commitment.</li>
+<li><b>Capabilities and core competencies:</b> distinctive skills, processes or knowledge that give the firm an advantage (for example strong brand, efficient logistics or specialist technical skill).</li>
+<li><b>Operations and processes:</b> production methods, quality systems, supply-chain arrangements and service delivery processes.</li>
+<li><b>Marketing and customer base:</b> existing products, brand reputation, distribution channels and customer loyalty.</li>
+<li><b>Finance and performance:</b> profitability, liquidity, cost structure and access to additional capital.</li>
+</ul>
+<p>A strong internal environment supports growth; weaknesses (skill gaps, weak cash flow, outdated technology or rigid structure) limit what the firm can realistically achieve.</p>
+
+<h3>Application of the SWOT Tool to Analyse the Internal Environment</h3>
+<p>SWOT analysis examines <b>Strengths, Weaknesses, Opportunities and Threats</b>. For the <b>internal environment</b>, the focus is on <b>Strengths</b> and <b>Weaknesses</b> — the factors the firm largely controls.</p>
+<h4>Strengths (internal positives)</h4>
+<ul>
+<li>Skilled and experienced workforce</li>
+<li>Strong brand reputation or customer loyalty</li>
+<li>Efficient production or low unit costs</li>
+<li>Modern technology or proprietary know-how</li>
+<li>Healthy cash flow or access to finance</li>
+<li>Effective leadership and clear organisational culture</li>
+<li>Reliable suppliers or well-managed inventory</li>
+</ul>
+<h4>Weaknesses (internal negatives)</h4>
+<ul>
+<li>Limited capital or poor cash-flow management</li>
+<li>Outdated machinery or weak quality control</li>
+<li>Skill shortages or high staff turnover</li>
+<li>Narrow product range or weak marketing</li>
+<li>Rigid hierarchy that slows decisions</li>
+<li>Dependence on a single product, customer or supplier</li>
+<li>Weak financial controls or inadequate records</li>
+</ul>
+<div class="case"><b>Ghanaian example — applying SWOT to the internal environment</b><br>
+A small fruit-juice processor in Kumasi might list as <b>strengths</b>: good local fruit supply contracts, a recognised brand in Ashanti Region, and experienced production staff. <b>Weaknesses</b> might include limited packaging machinery, weak national distribution, and dependence on seasonal cash flow. Management can then decide whether to invest in packaging capacity, seek a distributor partnership, or improve working-capital management before expanding.</div>
+<p><b>Exam tip:</b> When asked to analyse the internal environment using SWOT, clearly separate strengths from weaknesses, link each point to the firm’s facts, and show how the analysis informs a decision (for example whether the firm is ready to expand).</p>
+
+<h3>External Environment of Business</h3>
+<p>The external environment consists of factors <b>outside</b> the organisation that management cannot fully control but must monitor and respond to. These factors create opportunities and threats.</p>
+<h4>Main external factors</h4>
+<ul>
+<li><b>Economic:</b> inflation, interest rates, exchange rates, unemployment, growth in national income and consumer purchasing power.</li>
+<li><b>Political and legal:</b> government policy, taxation, regulation, licensing, trade agreements and political stability.</li>
+<li><b>Social and cultural:</b> demographics, lifestyles, education levels, attitudes to work and consumption patterns.</li>
+<li><b>Technological:</b> new production methods, digital platforms, automation, communication technology and research developments.</li>
+<li><b>Competitive:</b> number and strength of rivals, threat of new entrants, substitute products and bargaining power of buyers and suppliers.</li>
+<li><b>Environmental / ecological:</b> climate, natural resources, pollution rules and sustainability expectations.</li>
+<li><b>Global:</b> international trade conditions, foreign competition and cross-border market opportunities.</li>
+</ul>
+<p>Because the external environment changes, businesses need continuous environmental scanning and flexible strategies.</p>
+
+<h3>Application of the SWOT and PESTLE Tools to Analyse the External Environment</h3>
+<p>For the <b>external environment</b>, SWOT focuses on <b>Opportunities</b> and <b>Threats</b>. PESTLE (sometimes written PESTEL) provides a structured way to scan the wider macro-environment.</p>
+<h4>PESTLE factors</h4>
+<ul>
+<li><b>Political:</b> government stability, policy changes, public spending, trade policy.</li>
+<li><b>Economic:</b> growth, inflation, interest rates, exchange rates, disposable income.</li>
+<li><b>Social:</b> population structure, education, health, lifestyle trends, cultural values.</li>
+<li><b>Technological:</b> innovation, automation, digital commerce, research and development.</li>
+<li><b>Legal:</b> employment law, consumer protection, competition law, environmental regulations, company law.</li>
+<li><b>Environmental:</b> climate change, resource scarcity, pollution controls, green consumer demand.</li>
+</ul>
+<h4>Linking PESTLE to SWOT Opportunities and Threats</h4>
+<ul>
+<li><b>Opportunities</b> arise when external changes favour the firm (for example rising middle-class demand, new export markets, supportive government programmes, or digital platforms that reduce marketing cost).</li>
+<li><b>Threats</b> arise when external changes harm the firm (for example currency depreciation that raises import costs, stronger competitors, tighter regulations, or changing consumer tastes).</li>
+</ul>
+<div class="case"><b>Ghanaian example — SWOT + PESTLE on the external environment</b><br>
+A Ghanaian school-uniform manufacturer might identify <b>opportunities</b>: growth in private schools (Social), government support for local manufacturing (Political), and online ordering platforms (Technological). <b>Threats</b> might include cheaper imported uniforms (Competitive/Economic), rising cotton prices linked to exchange-rate movements (Economic), and stricter labour or safety rules (Legal). Using both tools helps the firm decide whether to upgrade quality, enter e-commerce, or seek local-content incentives.</div>
+<p><b>Exam tip:</b> Do not merely list PESTLE headings. Apply each relevant factor to the business, then translate the findings into clear opportunities or threats that can guide strategy.</p>
+
+<h3>Business Ethics</h3>
+<p>Business ethics refers to the moral principles and standards that guide behaviour in business. Ethical conduct concerns honesty, fairness, respect for stakeholders, compliance with the spirit as well as the letter of the law, and responsibility for the consequences of decisions.</p>
+<h4>Why ethics matter</h4>
+<ul>
+<li>Builds trust with customers, employees, suppliers and the community.</li>
+<li>Protects reputation and long-term brand value.</li>
+<li>Reduces legal and regulatory risk.</li>
+<li>Supports employee morale and retention.</li>
+<li>Helps the firm attract investors and partners who value integrity.</li>
+</ul>
+<h4>Common ethical issues</h4>
+<ul>
+<li>Honesty in advertising and product claims</li>
+<li>Fair treatment of employees (wages, safety, non-discrimination)</li>
+<li>Avoidance of bribery and corruption</li>
+<li>Respect for customer privacy and data</li>
+<li>Environmental responsibility</li>
+<li>Fair dealing with suppliers and competitors</li>
+<li>Accurate financial reporting</li>
+</ul>
+<p>Unethical behaviour may produce short-term gains but often damages trust, invites sanctions and undermines sustainability. Ethical decision-making asks not only “Is it legal?” but also “Is it fair, honest and responsible toward stakeholders?”</p>
+
+<h3>Corporate Social Responsibility (CSR)</h3>
+<p>Corporate Social Responsibility is the voluntary commitment of a business to operate in ways that contribute positively to society and the environment beyond the minimum legal requirements. CSR recognises that businesses affect many stakeholders — employees, customers, communities, the environment and future generations — and should take responsibility for those effects.</p>
+<h4>Main areas of CSR</h4>
+<ul>
+<li><b>Economic responsibility:</b> remaining viable and creating value.</li>
+<li><b>Legal responsibility:</b> obeying laws and regulations.</li>
+<li><b>Ethical responsibility:</b> doing what is right even when not required by law.</li>
+<li><b>Philanthropic / discretionary responsibility:</b> supporting community projects, education, health and environmental initiatives.</li>
+</ul>
+<h4>Benefits of CSR</h4>
+<ul>
+<li>Improved corporate image and brand reputation</li>
+<li>Stronger customer loyalty and goodwill</li>
+<li>Better employee motivation, attraction and retention</li>
+<li>Positive relationships with communities and regulators</li>
+<li>Possible long-term cost savings (for example energy efficiency)</li>
+<li>Differentiation from competitors</li>
+<li>Reduced risk of protests, boycotts or stricter regulation</li>
+</ul>
+<h4>Challenges of CSR</h4>
+<ul>
+<li>Additional short-term costs (training, cleaner technology, community projects)</li>
+<li>Difficulty measuring social and environmental impact</li>
+<li>Risk of “greenwashing” or insincere claims that damage credibility</li>
+<li>Pressure from shareholders who prioritise short-term profit</li>
+<li>Balancing competing stakeholder expectations</li>
+<li>Limited resources, especially for small enterprises</li>
+<li>Need for genuine integration into strategy rather than occasional donations</li>
+</ul>
+<div class="case"><b>Ghanaian application</b><br>
+A mining or manufacturing firm may invest in community schools, health clinics, local employment and environmental rehabilitation. Benefits include social licence to operate and improved relations with host communities. Challenges include cost, ensuring projects are sustainable, and demonstrating that CSR is more than public relations.</div>
+
+<h3>Linking the topics for exam answers</h3>
+<p>Strong answers connect the ideas: the internal environment (strengths and weaknesses) interacts with the external environment (opportunities and threats analysed via SWOT and PESTLE). Ethical standards and CSR influence how the firm uses its strengths and responds to external pressures. Growth and business-development decisions should be grounded in this analysis rather than in optimism alone.</p>
+
+<h3>Trial questions</h3>
+<ol>
+<li>Explain four sources of business opportunities.</li>
+<li>Assess the risks of rapid expansion.</li>
+<li>Recommend a growth strategy for a small Ghanaian enterprise.</li>
+<li>Distinguish the internal environment from the external environment of a business.</li>
+<li>Using SWOT, analyse the internal environment of a named or described business.</li>
+<li>Explain how PESTLE analysis helps a firm identify opportunities and threats.</li>
+<li>Discuss the meaning and importance of business ethics.</li>
+<li>Explain the benefits and challenges of Corporate Social Responsibility for a growing Ghanaian firm.</li>
+</ol>`}
 function internationalContent(){return `<h3>International Business and E-Business</h3><p>International business involves commercial activities across national borders. E-business uses digital technologies to support buying, selling, communication, service and internal processes.</p>
 <h3>Market Entry Decisions</h3><p>A business entering another country should consider <b>which market to enter, when to enter, the scale of entry and the entry mode</b>. Entry modes differ in investment, risk, control, speed and profit potential. The Ghana SHS Business Management curriculum specifically covers franchising, joint ventures, licensing and wholly owned subsidiaries.</p>
 <h3>1. Exporting</h3><p><b>Meaning:</b> Producing goods/services in the home country and selling them to customers in another country. It may be direct or use foreign distributors/agents.</p><p><b>Advantages:</b> relatively low initial investment; lower commitment than establishing foreign production; allows the firm to test demand; can use existing home-country production capacity.</p><p><b>Disadvantages:</b> transport and logistics costs; tariffs or import restrictions may apply; less control over foreign distribution; exchange-rate and payment risks; weaker local market knowledge.</p><p><b>Best applied when:</b> the firm is new to internationalisation, has limited capital, wants to test a market, or can efficiently produce at home.</p><div class="case"><b>Sample case — Ghanaian food processor</b><br>A Ghanaian fruit-juice producer receives orders from retailers in Togo. Instead of building a factory in Togo, it produces in Ghana and ships finished juice to the retailers. This is exporting. The firm can test demand before committing major foreign investment.</div>
@@ -465,7 +668,36 @@ function contractContent(){return `<h3>Law of Contract</h3><p>A contract is an a
 <h3>Exam tip</h3><p>For a case, identify the legal issue first, state the rule, apply the facts, then conclude. Do not write only the definition.</p>
 <h3>Trial questions</h3><ol><li>Explain five essential elements of a valid contract and illustrate each.</li><li>Distinguish a condition from a warranty and discuss the remedies.</li><li>Using Hadley v Baxendale, explain remoteness of damages.</li></ol>`}
 function riskContent(){return `<h3>Business Risk and Insurance</h3><p>Business risk is uncertainty about events that may cause loss, prevent objectives or create unexpected costs. Risk management identifies, assesses, controls and monitors exposures.</p><h3>Types of risk</h3><ul><li>Pure and speculative risk.</li><li>Strategic, operational, financial and compliance risk.</li><li>Internal and external risk.</li></ul><h3>Risk responses</h3><p>Avoid, reduce/control, transfer, accept/retain and share risk where appropriate.</p><h3>Insurance principles</h3><ul><li>Utmost good faith.</li><li>Insurable interest.</li><li>Indemnity for relevant policies.</li><li>Contribution.</li><li>Subrogation.</li><li>Proximate cause.</li></ul><h3>Trial questions</h3><ol><li>Differentiate risk avoidance from risk transfer.</li><li>Explain five insurance principles.</li><li>Develop a risk register for a small business.</li></ol>`}
-function hrContent(){return `<h3>Human Resource Management</h3><p>HRM is the systematic management of people so that employee capability, motivation and behaviour support organisational objectives.</p><h3>Core activities</h3><ul><li>Human resource planning.</li><li>Job analysis, recruitment and selection.</li><li>Induction and training.</li><li>Performance management.</li><li>Compensation and rewards.</li><li>Employee relations, welfare and discipline.</li><li>Career and succession planning.</li></ul><h3>Good recruitment</h3><p>Start with job analysis, prepare a realistic specification, use fair selection criteria, assess candidates consistently and document decisions.</p><h3>Trial questions</h3><ol><li>Distinguish recruitment from selection.</li><li>Explain why induction matters.</li><li>Assess the consequences of poor performance management.</li></ol>`}
+function hrContent(){return `
+<h3>Human Resource Management</h3>
+<p>HRM is the systematic management of people so that employee capability, motivation and behaviour support organisational objectives. In Ghanaian SHS Business Management, HRM covers planning for people, attracting them, developing them and managing their performance and welfare.</p>
+<h3>Core activities</h3>
+<ul>
+<li>Human resource planning (forecasting demand and supply of labour).</li>
+<li>Job analysis, job description and person specification.</li>
+<li>Recruitment and selection.</li>
+<li>Induction and training.</li>
+<li>Performance management and appraisal.</li>
+<li>Compensation, rewards and motivation.</li>
+<li>Employee relations, welfare, health and safety, and discipline.</li>
+<li>Career and succession planning.</li>
+</ul>
+<h3>Job analysis</h3>
+<p>Job analysis is the systematic study of a job to identify its duties, responsibilities, working conditions and the competencies required. It produces a <b>job description</b> (what the job involves) and a <b>person specification</b> (the qualities the ideal candidate should have). Without job analysis, recruitment becomes guesswork.</p>
+<h3>Recruitment vs selection</h3>
+<p><b>Recruitment</b> is attracting a pool of suitable candidates. <b>Selection</b> is choosing the most suitable person from that pool. Good practice uses consistent criteria, structured interviews and documented decisions to reduce bias and improve person–job fit.</p>
+<h3>Induction and training</h3>
+<p>Induction introduces the new employee to the organisation, role, colleagues and rules. Training develops knowledge and skills. Poor induction and training are linked to high early turnover and quality problems — a common issue in rapidly growing Ghanaian firms that hire urgently for export or seasonal orders.</p>
+<h3>Performance management</h3>
+<p>Setting clear expectations, monitoring performance, giving feedback and linking results to development or rewards. Weak performance systems leave employees unclear about standards and managers unable to correct problems early.</p>
+<div class="case"><b>Ghanaian example</b><br>A garment exporter hires ten machine operators in two weeks without job analysis or structured interviews to meet an overseas order. Within months several resign and defect rates rise. The HR lesson: urgent hiring still needs basic job analysis, clear selection criteria and induction if quality and retention matter.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Distinguish recruitment from selection.</li>
+<li>Explain why induction matters for a new employee and for the firm.</li>
+<li>Assess the consequences of poor performance management.</li>
+<li>Explain the purpose of job analysis before advertising a vacancy.</li>
+</ol>`}
 function leadershipContent(){return `<h3>Leadership</h3><p>Leadership is the process of influencing people to work willingly and effectively toward shared objectives.</p><h3>Leadership theories</h3><ul><li><b>Trait theory:</b> focuses on qualities associated with effective leaders. Limitation: traits alone do not explain every situation.</li><li><b>Behavioural theory:</b> focuses on what leaders do, such as task and people-oriented behaviours.</li><li><b>Contingency/situational theory:</b> effectiveness depends on the match between leadership behaviour and the situation.</li><li><b>Path-goal approach:</b> leaders clarify the path to goals, remove obstacles and adapt behaviour to followers and tasks.</li></ul>
 <h3>Leadership styles</h3><h4>Autocratic</h4><p>Leader makes decisions with limited subordinate participation. Useful in emergencies or where quick direction is required; may reduce participation and commitment.</p>
 <h4>Democratic</h4><p>Employees participate in decisions. Can improve commitment and ideas, but may be slower.</p>
@@ -492,12 +724,206 @@ function marketingContent(){return `<h3>Marketing — detailed notes</h3><p>Mark
 <h3>Challenges of marketing</h3><ul><li>Changing customer tastes.</li><li>Strong competition.</li><li>Limited research budgets.</li><li>Digital misinformation and reputation risk.</li><li>Rising advertising costs.</li><li>Regulatory and ethical requirements.</li><li>Difficulty measuring some promotional effects.</li><li>Economic conditions and purchasing-power changes.</li></ul>
 <h3>Ghanaian application</h3><p>A Ghanaian jersey shop could segment by age, football interest, income and purchase behaviour; select students and football fans as target groups; position authentic jerseys as premium products; and adjust product, price, place and promotion accordingly.</p>
 <h3>Trial questions</h3><ol><li>Explain four bases of market segmentation with examples.</li><li>Assess the factors a business should consider before selecting a target market.</li><li>Develop a 7Ps strategy for a Ghanaian service business.</li></ol>`}
-function financeContent(){return `<h3>Business Finance</h3><p>Business finance concerns obtaining, allocating and controlling funds to achieve business objectives.</p><h3>Sources</h3><ul><li>Owner's capital/equity.</li><li>Retained earnings.</li><li>Bank loans and overdrafts.</li><li>Trade credit.</li><li>Leasing.</li><li>Share capital for suitable companies.</li></ul><h3>Financial decisions</h3><p>Businesses must consider liquidity, profitability, risk, cost of capital, cash-flow timing and investment returns.</p><h3>Trial questions</h3><ol><li>Distinguish equity from debt finance.</li><li>Explain why a profitable business can still fail from poor cash flow.</li><li>Assess factors affecting an investment decision.</li></ol>`}
-function productionContent(){return `<h3>Production and Operations</h3><p>Production transforms inputs into goods or services. Operations management coordinates resources, processes, quality, capacity, inventory and delivery.</p><h3>Key issues</h3><ul><li>Product/service design.</li><li>Capacity planning.</li><li>Process selection and layout.</li><li>Quality management.</li><li>Inventory control.</li><li>Productivity and efficiency.</li><li>Maintenance and scheduling.</li></ul><h3>Productivity</h3><p>Productivity relates output to resources used. Increasing output is not automatically an improvement if inputs, defects or waste rise disproportionately.</p><h3>Trial questions</h3><ol><li>Distinguish productivity from production.</li><li>Explain five causes of poor quality.</li><li>Recommend ways a small manufacturer can reduce waste.</li></ol>`}
+function financeContent(){return `
+<h3>Business Finance</h3>
+<p>Business finance concerns obtaining, allocating and controlling funds to achieve business objectives. Good financial management balances liquidity (ability to pay short-term obligations), profitability and risk.</p>
+<h3>Sources of finance</h3>
+<ul>
+<li><b>Owner's capital / equity</b> — permanent capital; no fixed repayment, but owners expect a return and may share control.</li>
+<li><b>Retained earnings</b> — profits kept in the business; no interest, but limited by past performance.</li>
+<li><b>Bank loans and overdrafts</b> — debt finance; interest cost and repayment pressure; overdrafts suit short-term needs.</li>
+<li><b>Trade credit</b> — buying now and paying suppliers later; useful for working capital if terms are favourable.</li>
+<li><b>Leasing</b> — use of an asset without full ownership purchase; spreads cost but may be more expensive long term.</li>
+<li><b>Share capital</b> — for companies; can raise larger sums but dilutes ownership.</li>
+<li><b>Microfinance, family and other lawful sources</b> — often important for small Ghanaian enterprises.</li>
+</ul>
+<h3>Equity vs debt</h3>
+<p><b>Equity</b> is ownership finance (no contractual repayment). <b>Debt</b> must be repaid with interest and increases financial risk if cash flow is weak. A profitable firm can still fail if cash arrives too slowly to meet debt and supplier obligations.</p>
+<h3>Cash-flow problems</h3>
+<p>Profit is not the same as cash. A business that sells on long credit while paying suppliers quickly can run out of cash even when accounts show a profit. Solutions include faster collection, better credit control, negotiating supplier terms, and matching the type of finance to the need (short-term finance for working capital, longer-term finance for machinery).</p>
+<h3>Investment decisions</h3>
+<p>When choosing projects or assets, management should consider expected cash inflows and outflows, risk, cost of capital, strategic fit and alternatives. Simple comparison of total profit is not enough if timing and risk differ.</p>
+<div class="case"><b>Ghanaian example</b><br>A bakery is profitable on paper but customers pay after 60 days while flour suppliers demand payment in 14 days. A short-term loan may ease the immediate gap, but the underlying problem is the mismatch in credit terms — so collection and supplier negotiation matter as much as borrowing.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Distinguish equity from debt finance.</li>
+<li>Explain why a profitable business can still fail from poor cash flow.</li>
+<li>Assess factors affecting an investment decision.</li>
+<li>Recommend suitable sources of finance for a small Ghanaian firm buying new equipment.</li>
+</ol>`}
+function productionContent(){return `
+<h3>Production and Operations</h3>
+<p>Production transforms inputs (materials, labour, machines, information) into goods or services. Operations management coordinates resources, processes, quality, capacity, inventory and delivery so that customer needs are met efficiently.</p>
+<h3>Key issues</h3>
+<ul>
+<li>Product and service design</li>
+<li>Capacity planning (how much can we produce?)</li>
+<li>Process selection and layout</li>
+<li>Quality management</li>
+<li>Inventory control</li>
+<li>Productivity and efficiency</li>
+<li>Maintenance and scheduling</li>
+</ul>
+<h3>Productivity vs production</h3>
+<p><b>Production</b> is the volume of output. <b>Productivity</b> relates output to the resources used (for example units per worker or per cedi of cost). Raising output while waste and defects rise may increase production but reduce true productivity and damage the brand.</p>
+<h3>Quality</h3>
+<p>Quality means meeting agreed standards and customer expectations. Causes of poor quality include weak design, untrained staff, poor materials, inadequate maintenance, rushed processes and weak inspection or process control. Prevention (getting it right first time) is usually stronger than relying only on final inspection.</p>
+<h3>Inventory</h3>
+<p>Too little inventory risks stock-outs and lost sales; too much ties up cash and storage space and risks damage or obsolescence. Good operations balance availability with cost.</p>
+<div class="case"><b>Ghanaian example</b><br>A school-uniform manufacturer increases output quickly to meet term demand but skips proper sizing checks. Defect rates and returns rise. Customers switch to competitors. The lesson: capacity expansion without quality control harms both productivity and reputation.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Distinguish productivity from production.</li>
+<li>Explain five causes of poor quality.</li>
+<li>Recommend ways a small manufacturer can reduce waste.</li>
+<li>Explain why increasing output is not always an improvement in performance.</li>
+</ol>`}
+function entrepreneurshipContent(){return `
+<h3>Entrepreneurship</h3>
+<p>Entrepreneurship is the process of identifying a business opportunity, organising resources and taking calculated risks to create and grow a venture. An <b>entrepreneur</b> is the person who initiates and drives that process.</p>
+<h3>Characteristics of successful entrepreneurs</h3>
+<ul>
+<li>Opportunity-seeking and initiative</li>
+<li>Willingness to take calculated (not reckless) risks</li>
+<li>Creativity and problem-solving</li>
+<li>Persistence and resilience</li>
+<li>Self-confidence and decision-making ability</li>
+<li>Ability to mobilise and manage resources</li>
+<li>Customer focus and adaptability</li>
+</ul>
+<h3>Sources of business ideas</h3>
+<ul>
+<li>Personal skills, hobbies and experience</li>
+<li>Customer complaints and unmet needs</li>
+<li>Changes in technology, fashion or regulation</li>
+<li>Gaps in local markets (for example packaging, logistics, digital services)</li>
+<li>Research, trade fairs and observation of successful models elsewhere</li>
+</ul>
+<h3>The business plan (outline)</h3>
+<p>A business plan is a structured document that describes the business idea, market, operations, organisation, finance and risk. Typical sections include: executive summary, business description, market analysis, marketing plan, operations plan, management team, financial projections and funding needs. Even a short plan helps the entrepreneur test whether the idea is realistic before committing large resources.</p>
+<h3>Challenges facing entrepreneurs in Ghana</h3>
+<ul>
+<li>Limited access to affordable finance</li>
+<li>High cost or unstable supply of inputs</li>
+<li>Infrastructure constraints (power, transport, internet in some areas)</li>
+<li>Regulatory and tax compliance burdens for small firms</li>
+<li>Competition from imports and larger firms</li>
+<li>Skills gaps in management, marketing and record-keeping</li>
+<li>Difficulty building trust and reliable customer/supplier networks</li>
+</ul>
+<h3>Support and success factors</h3>
+<p>Training, mentoring, microfinance, trade associations, digital platforms and careful cash-flow management all help. Successful ventures usually start with a clear customer need, control costs early, keep simple records and reinvest profits carefully.</p>
+<div class="case"><b>Ghanaian example</b><br>A young graduate notices that small restaurants struggle to get reliable bulk packaging. She starts a small packaging supply business, begins with a narrow product range, keeps tight credit control and expands only after cash flow stabilises. The idea came from observing a real customer problem, not from copying a foreign model blindly.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Explain five characteristics of a successful entrepreneur.</li>
+<li>Identify four sources of business ideas with local examples.</li>
+<li>Outline the main sections of a simple business plan and explain why each matters.</li>
+<li>Assess three challenges facing young entrepreneurs in Ghana and suggest how each might be reduced.</li>
+</ol>`}
+function communicationContent(){return `
+<h3>Communication in Business</h3>
+<p>Business communication is the process of exchanging information, ideas and instructions so that organisational objectives can be achieved. Effective communication supports planning, coordination, motivation, customer service and control.</p>
+<h3>Types / directions of communication</h3>
+<ul>
+<li><b>Downward:</b> from managers to subordinates (instructions, policies, feedback).</li>
+<li><b>Upward:</b> from subordinates to managers (reports, suggestions, problems).</li>
+<li><b>Horizontal / lateral:</b> between people or departments at similar levels (coordination).</li>
+<li><b>Diagonal / external:</b> across levels or with outsiders (customers, suppliers, regulators).</li>
+</ul>
+<h3>Formal vs informal</h3>
+<p><b>Formal</b> communication follows official channels and records (memos, reports, meetings, official email). <b>Informal</b> communication (the grapevine) is unofficial; it can spread information quickly but may also spread rumour. Good managers use formal channels clearly and do not ignore informal networks.</p>
+<h3>Channels and media</h3>
+<p>Face-to-face, telephone, written letters/memos, email, messaging apps, notice boards, reports and meetings. The choice depends on urgency, complexity, need for a record, cost and the audience.</p>
+<h3>Barriers to effective communication</h3>
+<ul>
+<li>Unclear language or jargon</li>
+<li>Noise and physical distractions</li>
+<li>Emotional barriers (fear, anger, distrust)</li>
+<li>Status differences that discourage upward feedback</li>
+<li>Information overload</li>
+<li>Poor listening</li>
+<li>Cultural or language differences</li>
+<li>Wrong choice of channel (for example a long complicated instruction sent only by brief text message)</li>
+</ul>
+<h3>Improving communication</h3>
+<ul>
+<li>Be clear and concise; define key terms</li>
+<li>Choose the right channel and timing</li>
+<li>Encourage feedback and questions</li>
+<li>Listen actively</li>
+<li>Keep appropriate records</li>
+<li>Match the message to the audience</li>
+<li>Reduce unnecessary hierarchy barriers where possible</li>
+</ul>
+<div class="case"><b>Ghanaian example</b><br>A multi-branch retail firm issues a price-change instruction only by WhatsApp voice note. Some branch managers miss it; others misunderstand the start date. Customers are charged differently in different shops. A short written notice plus confirmation from each branch would have reduced the error.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Distinguish downward, upward and horizontal communication.</li>
+<li>Explain four barriers to effective communication in a business.</li>
+<li>Recommend how a manager can improve communication when introducing a new work procedure.</li>
+<li>Assess the advantages and disadvantages of informal communication in an organisation.</li>
+</ol>`}
+function governmentContent(){return `
+<h3>Government and Business</h3>
+<p>Government influences business through laws, policies, taxes, spending, regulation and ownership of enterprises. Understanding this relationship helps explain both opportunities and constraints facing private firms and state-owned enterprises in Ghana.</p>
+<h3>Ways government affects business</h3>
+<ul>
+<li><b>Regulation and law:</b> company law, employment law, consumer protection, environmental rules, licensing.</li>
+<li><b>Taxation:</b> corporate tax, VAT, customs duties — affect costs, prices and investment decisions.</li>
+<li><b>Spending and procurement:</b> government contracts can be a major market for suppliers.</li>
+<li><b>Monetary and macroeconomic policy:</b> interest rates, exchange-rate conditions and inflation affect borrowing and demand.</li>
+<li><b>Trade policy:</b> tariffs, export promotion, regional trade agreements (for example within ECOWAS).</li>
+<li><b>Infrastructure and public services:</b> power, roads, education and health affect business costs and productivity.</li>
+<li><b>Ownership:</b> state-owned enterprises and public–private arrangements.</li>
+<li><b>Support programmes:</b> training, SME schemes, agricultural support, industrial policy.</li>
+</ul>
+<h3>Why government intervenes</h3>
+<ul>
+<li>Protect consumers and workers</li>
+<li>Raise revenue</li>
+<li>Promote fair competition and control monopoly power</li>
+<li>Encourage development in priority sectors</li>
+<li>Correct market failures and provide public goods</li>
+<li>Stabilise the economy</li>
+</ul>
+<h3>Effects on business</h3>
+<p>Supportive policy can lower barriers and open markets. Heavy or unpredictable regulation, high taxes or unstable macro conditions can raise costs and discourage investment. Firms need to scan the policy environment (part of PESTLE) when planning expansion, pricing and financing.</p>
+<div class="case"><b>Application</b><br>A local manufacturer of school materials may benefit from government procurement and “buy local” preferences, but must also comply with quality standards and tax rules. A change in import duties on raw materials can raise costs overnight — so external monitoring matters.</div>
+<h3>Trial questions</h3>
+<ol>
+<li>Explain four ways government influences business activity.</li>
+<li>Discuss two benefits and two challenges of government regulation for private firms.</li>
+<li>Assess how tax and trade policy can affect a Ghanaian exporter.</li>
+</ol>`}
 
 function pageTopics(app){
- if(state.selectedTopic){const t=topics.find(x=>x.id===state.selectedTopic);app.innerHTML=`<button class="secondary" data-action="backTopics">← All topics</button><h2 style="margin-top:18px">${esc(t.name)}</h2>${topicDetail(t)}<div class="toolbar"><button class="primary" data-action="markRead">✅ Mark Topic Read</button><button class="secondary" data-page="practice">🧠 Practise This Knowledge</button></div>`;return}
- app.innerHTML=`<section class="hero"><h1>📚 Business Management Topics</h1><p>Each area is structured for understanding, application, analysis, examples, exam tips and trial questions.</p></section><div class="grid">${topics.map(t=>`<button class="card topic-card" data-topic="${t.id}" style="text-align:left;color:white"><div class="topic-no">TOPIC ${t.range}</div><h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p><span class="badge">Open detailed notes →</span></button>`).join("")}</div>`}
+ if(state.selectedTopic){
+  const t=topics.find(x=>x.id===state.selectedTopic);
+  if(!t){state.selectedTopic=null;saveAppState();}
+  else{
+   const st=getTopicStatus(t.id);
+   const statusBadge=st!=="none"?'<span class="badge done">✓ '+esc(st)+'</span>':"";
+   app.innerHTML='<button class="secondary" data-action="backTopics">← All topics</button>'+
+    '<h2 style="margin-top:18px">'+esc(t.name)+' '+statusBadge+'</h2>'+
+    topicDetail(t)+
+    '<div class="toolbar">'+
+    '<button class="primary" data-action="markRead">✅ Mark Topic Read</button>'+
+    '<button class="secondary" data-page="practice">🧠 Practise This Knowledge</button>'+
+    '<button class="secondary" onclick="window.print()">🖨 Print notes</button>'+
+    '</div>';
+   return;
+  }
+ }
+ const prog=countProgress();
+ app.innerHTML='<section class="hero"><h1>📚 Business Management Topics</h1><p>Each area is structured for understanding, application, analysis, examples, exam tips and trial questions.</p>'+
+  '<div class="notice">Progress on this device: <b>'+prog+'/'+topics.length+'</b> topics marked as read.</div></section>'+
+  '<div class="grid">'+topics.map(function(t){
+    const st=getTopicStatus(t.id);
+    const badge=(st==="read"||st==="mastered")?'<span class="badge done">✓ '+esc(st)+'</span>':'<span class="badge">Open notes →</span>';
+    return '<button class="card topic-card" data-topic="'+t.id+'" style="text-align:left;color:white"><div class="topic-no">TOPIC '+esc(t.range)+'</div><h3>'+esc(t.name)+'</h3><p>'+esc(t.desc)+'</p>'+badge+'</button>';
+  }).join("")+'</div>';
+}
 function pagePractice(app){
  const i=state.practiceIndex%objTopics.length, q=objTopics[i];
  app.innerHTML=`<section class="hero"><h1>🧠 Hard Practice</h1><p>Questions are designed to test discrimination, application and reasoning — not simple recall.</p><div class="notice">Question ${i+1} of ${objTopics.length} • Score: ${state.practiceScore}</div></section>
@@ -535,15 +961,31 @@ function renderEssayTest(){
  const u=getUser();
  const draftKey="bm_essay_draft_"+(u?u.id:"anon")+"_"+state.essayCaseIndex;
  let draft={}; try{draft=JSON.parse(localStorage.getItem(draftKey)||"{}")}catch(e){draft={}}
- const totalMarks=c.questions.reduce((s,q)=>s+q.marks,0);
- body.innerHTML=`<div class="card" style="margin-top:14px">
- <div class="toolbar"><button class="gold" data-action="newEssayCase">🔄 Generate a Different Essay</button><span class="badge" id="essayTimer">⏱ 00:00</span></div>
- <h3>${esc(c.title)}</h3><div class="case">${esc(c.case)}</div>
- <p class="notice">5 questions • ${totalMarks} marks total. Your answers auto-save on this device as you type.</p>
- ${c.questions.map((q,i)=>`<div class="q"><p><b>${String.fromCharCode(97+i)}. ${esc(q.text)} (${q.marks} marks)</b></p><textarea data-essay-answer="${i}" placeholder="Type your answer here...">${esc(draft[i]||"")}</textarea><div style="text-align:right;font-size:11px;color:#8099b9" id="wc${i}">${(draft[i]||"").trim()?(draft[i].trim().split(/\s+/).length+" words"):"0 words"}</div></div>`).join("")}
- <label>Send completed essay to</label><select id="essayTeacherSelect">${teachers().map(t=>`<option value="${esc(t.name)}">${esc(t.name)} — ${esc(t.subject)}</option>`).join("")}</select>
- <div class="toolbar"><button class="primary" data-action="submitEssayTest">📨 Submit Essay to Teacher</button><button class="secondary" data-action="clearEssayDraft">🗑 Clear Draft</button></div>
- </div>`;
+ const totalMarks=c.questions.reduce(function(s,q){return s+q.marks},0);
+ const showMA=!!state.showModelAnswers;
+ let qsHtml="";
+ c.questions.forEach(function(q,i){
+   const ans=draft[i]||"";
+   const words=ans.trim()?ans.trim().split(/\s+/).length:0;
+   const guide=showMA?'<div class="answer"><i>Marking guide:</i> '+esc(q.guide)+'</div>':"";
+   qsHtml+='<div class="q"><p><b>'+String.fromCharCode(97+i)+'. '+esc(q.text)+' ('+q.marks+' marks)</b></p>'+
+    '<textarea data-essay-answer="'+i+'" placeholder="Type your answer here...">'+esc(ans)+'</textarea>'+
+    '<div style="text-align:right;font-size:11px;color:#8099b9" id="wc'+i+'">'+words+' words</div>'+guide+'</div>';
+ });
+ const teacherOpts=teachers().map(function(t){return '<option value="'+esc(t.name)+'">'+esc(t.name)+' — '+esc(t.subject)+'</option>';}).join("");
+ const notice=showMA?"Marking guides are visible — try answering first before relying on them.":"Marking guides are hidden so you can attempt the questions first.";
+ body.innerHTML='<div class="card" style="margin-top:14px">'+
+  '<div class="toolbar">'+
+  '<button class="gold" data-action="newEssayCase">🔄 Generate a Different Essay</button>'+
+  '<button class="secondary" data-action="toggleModelAnswers">'+(showMA?"🙈 Hide marking guides":"📋 Show marking guides")+'</button>'+
+  '<span class="badge" id="essayTimer">⏱ 00:00</span>'+
+  '</div>'+
+  '<h3>'+esc(c.title)+'</h3><div class="case">'+esc(c.case)+'</div>'+
+  '<p class="notice">5 questions • '+totalMarks+' marks total. Your answers auto-save on this device as you type. '+notice+'</p>'+
+  qsHtml+
+  '<label>Send completed essay to</label><select id="essayTeacherSelect">'+teacherOpts+'</select>'+
+  '<div class="toolbar"><button class="primary" data-action="submitEssayTest">📨 Submit Essay to Teacher</button><button class="secondary" data-action="clearEssayDraft">🗑 Clear Draft</button></div>'+
+  '</div>';
  startEssayTimer();
 }
 function startEssayTimer(){
@@ -627,7 +1069,7 @@ function pageScan(app){
  <div class="notice warn">🔐 Security: this public HTML does not contain an API key. Real AI solving requires a secure backend endpoint. If no endpoint is configured, the app will not pretend that AI has solved the image.</div>`;
 }
 function pageAssistant(app){
- app.innerHTML=`<section class="hero"><h1>🤖 Thinking Assistant</h1><p>Use this workspace to break down a Business Management problem. The offline guide does not claim to be a live AI model.</p></section>
+ app.innerHTML=`<section class="hero"><h1>🤖 Thinking Assistant</h1><p>Use this workspace to break down a Business Management problem step by step. This is an offline thinking framework — not a live AI model and not connected to any paid backend.</p></section>
  <div class="card" style="margin-top:15px"><label>What are you struggling with?</label><textarea id="assistQ" placeholder="Example: Explain why decentralisation may improve local responsiveness."></textarea><button class="primary" data-action="assist" style="margin-top:10px">🧠 Analyse</button><div id="assistResult"></div></div>`;
 }
 function pageSubmit(app){
@@ -681,9 +1123,25 @@ document.addEventListener("click",e=>{
  const topic=e.target.closest("[data-topic]");if(topic){state.selectedTopic=Number(topic.dataset.topic);state.page="topics";render();return}
  const role=e.target.closest("[data-role]");if(role){document.querySelectorAll(".role-btn").forEach(x=>x.classList.remove("active"));role.classList.add("active");state.role=role.dataset.role;return}
  const action=e.target.closest("[data-action]")?.dataset.action;
- if(action==="logout"){try{localStorage.removeItem("bm_user")}catch(ex){}location.reload()}
+ if(action==="logout"){
+  try{
+    localStorage.removeItem("bm_user");
+    localStorage.removeItem("bm_app_state");
+  }catch(ex){}
+  state.page="home"; state.selectedTopic=null; state.role="student";
+  document.body.classList.remove("role-teacher");
+  document.getElementById("appHeader").classList.add("hidden");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("drawer").classList.add("hidden");
+  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("loginName").value="";
+  document.body.style.overflow="";
+  toast("Logged out");
+  return;
+}
  if(action==="backTopics"){state.selectedTopic=null;render()}
- if(action==="markRead"){const t=state.selectedTopic;try{localStorage.setItem("bm_read_"+t,"1")}catch(ex){}toast("Topic marked as read ✅")}
+ if(action==="markRead"){const t=state.selectedTopic;if(t!=null){markTopicProgress(t,"read");toast("Topic marked as read ✅");render()}}
+if(action==="toggleModelAnswers"){state.showModelAnswers=!state.showModelAnswers;if(state.page==="test"&&state.testMode==="essay")renderEssayTest();else render()}
  if(action==="practiceNext"){state.practiceIndex=(state.practiceIndex+1)%objTopics.length;render()}
  if(action==="practicePrev"){state.practiceIndex=(state.practiceIndex-1+objTopics.length)%objTopics.length;render()}
  if(action==="practiceReset"){state.practiceScore=0;state.practiceIndex=0;render()}
@@ -778,12 +1236,20 @@ document.getElementById("modal").addEventListener("click",e=>{
  document.getElementById("modal").classList.add("hidden");toast("Feedback returned to "+x.studentName+" ✅");render();
 });
 
-/* App now always starts at the login screen. Session auto-restore removed
-   intentionally so every visit requires the user to press "Enter BM Learn AI". */
+/* Restore session on refresh so the user stays logged in.
+   Only show the login screen when no saved user exists. */
 (function init(){
- document.getElementById("loginScreen").classList.remove("hidden");
- document.getElementById("appHeader").classList.add("hidden");
- document.getElementById("app").classList.add("hidden");
+  const u = getUser();
+  const valid = u && u.name && u.id && u.role;
+  if (valid) {
+    boot();
+  } else {
+    try{localStorage.removeItem("bm_user");}catch(e){}
+    document.getElementById("loginScreen").classList.remove("hidden");
+    document.getElementById("appHeader").classList.add("hidden");
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("drawer").classList.add("hidden");
+  }
 })();
 </script>
 </body>

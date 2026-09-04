@@ -592,7 +592,8 @@ function login(){
    state.page="home"; state.selectedTopic=null; state.history=[];
  }
  try{localStorage.setItem("bm_last_name",name)}catch(e){}
- saveUser(u); if(u.role==="teacher") registerTeacher(u); boot();
+ saveUser(u); try{sessionStorage.setItem("bm_session_active","1")}catch(e){}
+ if(u.role==="teacher") registerTeacher(u); boot();
 }
 
 function boot(){
@@ -1868,6 +1869,7 @@ document.addEventListener("click",e=>{
   try{
     localStorage.removeItem("bm_user");
     localStorage.removeItem("bm_app_state");
+    sessionStorage.removeItem("bm_session_active");
   }catch(ex){}
   state.page="home"; state.selectedTopic=null; state.role="student"; state.history=[];
   document.body.classList.remove("role-teacher");
@@ -2022,18 +2024,31 @@ document.getElementById("modal").addEventListener("click",e=>{
 /* Restore session on refresh so the user stays logged in.
    Only show the login screen when no saved user exists. */
 (function init(){
-  // Always show login on open so a new person can sign in.
-  // Do not auto-enter as the previous user.
+  // sessionStorage survives REFRESH but clears when the tab/preview is fully closed.
+  // localStorage remembers the user profile for pre-fill and same-user progress.
+  // So: refresh → stay in app; new TrebEdit preview / new tab → login screen.
   try{
     const last = localStorage.getItem("bm_last_name") || "";
     const input = document.getElementById("loginName");
     if(input && last) input.value = last;
   }catch(e){}
-  document.getElementById("loginScreen").classList.remove("hidden");
-  document.getElementById("appHeader").classList.add("hidden");
-  document.getElementById("app").classList.add("hidden");
-  document.getElementById("drawer").classList.add("hidden");
-  document.body.classList.remove("role-teacher");
+
+  let u = null;
+  try{ u = JSON.parse(localStorage.getItem("bm_user") || "null"); }catch(e){ u = null; }
+  let active = false;
+  try{ active = sessionStorage.getItem("bm_session_active") === "1"; }catch(e){ active = false; }
+
+  const valid = u && u.name && u.id && (u.role === "student" || u.role === "teacher");
+  if(valid && active){
+    boot();
+  } else {
+    // Show login. Keep bm_user for name pre-fill / stable id on next login, but do not enter app.
+    document.getElementById("loginScreen").classList.remove("hidden");
+    document.getElementById("appHeader").classList.add("hidden");
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("drawer").classList.add("hidden");
+    document.body.classList.remove("role-teacher");
+  }
 })();
 </script>
 </body>

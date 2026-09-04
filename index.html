@@ -8,8 +8,10 @@
 <style>
 :root{
  --navy:#06142d;--navy2:#0b1e3d;--blue:#147cff;--blue2:#36a3ff;
- --gold:#f5c84c;--gold2:#ffe08a;--white:#f8fbff;--muted:#a9b9d2;
+ --gold:#f5c84c;--gold2:#ffe08a;--white:#f8fbff;
+ --muted:#b7c7de;--text:#d8e4f4;
  --card:#10284c;--card2:#15345f;--green:#27d58b;--red:#ff5f76;
+ --border:rgba(255,255,255,.12);
  --shadow:0 16px 45px rgba(0,0,0,.28);--radius:20px
 }
 *{box-sizing:border-box}
@@ -19,7 +21,7 @@ button{cursor:pointer}
 body{overflow-x:hidden}
 .hidden{display:none!important}
 #loginScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at 50% 0,#164f9b 0,#07172f 45%,#030b19 100%)}
-.login-card{width:min(520px,100%);padding:28px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(9,28,58,.94);box-shadow:var(--shadow);text-align:center}
+.login-card{width:min(520px,100%);padding:28px;border:1px solid var(--border);border-radius:28px;background:rgba(9,28,58,.94);box-shadow:var(--shadow);text-align:center}
 .logo{width:70px;height:70px;border-radius:22px;display:grid;place-items:center;margin:0 auto 10px;background:linear-gradient(135deg,var(--blue),#0b4fa8);font-size:36px;box-shadow:0 10px 30px rgba(20,124,255,.28)}
 .brand{font-weight:900;font-size:28px}.brand span{color:var(--gold)}
 .sub{color:var(--muted);line-height:1.55}
@@ -39,14 +41,14 @@ header{position:sticky;top:0;z-index:50;background:rgba(6,20,45,.94);backdrop-fi
 .hello{margin-left:auto;font-weight:800;font-size:14px}.role-pill{font-size:11px;color:var(--gold);border:1px solid rgba(245,200,76,.35);padding:6px 9px;border-radius:999px}
 .menu-btn{width:42px;height:42px;border:1px solid #29466c;border-radius:12px;background:#0c2243;color:white;font-size:20px}
 main{max-width:1180px;margin:auto;padding:18px 16px 50px}
-.hero{border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:24px;background:linear-gradient(135deg,#0d3264,#092143 62%,#111c34);box-shadow:var(--shadow);overflow:hidden;position:relative}
+.hero{border:1px solid var(--border);border-radius:28px;padding:24px;background:linear-gradient(135deg,#0d3264,#092143 62%,#111c34);box-shadow:var(--shadow);overflow:hidden;position:relative}
 .hero:after{content:"🐨";position:absolute;right:20px;bottom:-12px;font-size:90px;opacity:.12;pointer-events:none}
 .hero h1{margin:0 0 8px;font-size:clamp(26px,7vw,44px)}.hero h1 span{color:var(--gold)}
-.hero p{max-width:700px;color:#c4d2e7;line-height:1.6}
+.hero p{max-width:700px;color:var(--text);line-height:1.6}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
 @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{background:linear-gradient(145deg,var(--card),#0c2140);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
-.card h3{margin:0 0 7px}.card p{color:var(--muted);line-height:1.5;margin:0 0 12px;font-size:14px}
+.card{background:linear-gradient(145deg,var(--card),#0c2140);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.card h3{margin:0 0 7px}.card p{color:var(--text);line-height:1.5;margin:0 0 12px;font-size:14px}
 .stat{font-size:25px;font-weight:900;color:var(--gold)}
 .section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:25px 0 12px}.section-title h2{margin:0}
 .topic-card{min-height:150px}.topic-no{color:var(--gold);font-weight:900;font-size:12px}.topic-card h3{font-size:17px;margin:7px 0}
@@ -54,19 +56,19 @@ main{max-width:1180px;margin:auto;padding:18px 16px 50px}
 input,select,textarea{width:100%;background:#081a35;color:white;border:1px solid #29466c;border-radius:13px;padding:12px;outline:none}
 textarea{min-height:130px;resize:vertical}
 label{display:block;font-size:12px;font-weight:800;color:#c6d5e9;margin:10px 0 6px}
-.content p,.content li{color:#d3deee;line-height:1.65}.content h3{color:var(--gold2);margin-top:22px}.content h4{color:#9ed2ff}.content strong{color:white}
+.content p,.content li{color:var(--text);line-height:1.7}.content h3{color:var(--gold2);margin-top:22px}.content h4{color:#9ed2ff}.content strong{color:white}
 .pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#12335d;color:#a9d6ff;font-size:11px;font-weight:800;margin:3px}
-.case{border-left:4px solid var(--gold);padding:14px 16px;background:#0b1d39;border-radius:12px;margin:12px 0;color:#dce7f7;line-height:1.65}
-.q{border:1px solid #27476f;border-radius:15px;padding:15px;margin:11px 0;background:#0b2040}.q p{margin:0 0 9px;line-height:1.55}
-.answer{margin-top:8px;padding:10px;border-radius:10px;background:#07172f;color:#bcd1eb}
+.case{border-left:4px solid var(--gold);padding:14px 16px;background:#0b1d39;border-radius:12px;margin:12px 0;color:var(--text);line-height:1.7}
+.q{border:1px solid #27476f;border-radius:15px;padding:15px;margin:11px 0;background:#0b2040}.q p{margin:0 0 9px;line-height:1.55;color:var(--text)}
+.answer{margin-top:8px;padding:10px;border-radius:10px;background:#07172f;color:var(--text)}
 .drawer{position:fixed;z-index:90;right:12px;top:66px;width:min(350px,calc(100% - 24px));max-height:calc(100dvh - 82px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#071a35;border:1px solid #29466c;border-radius:20px;box-shadow:var(--shadow);padding:10px}
 .nav-item{display:block;width:100%;text-align:left;border:0;background:transparent;color:#e8f1fc;padding:13px;border-radius:12px;font-weight:800}
-.nav-item:hover{background:#0f2b52}.nav-item small{display:block;color:#8099b9;font-weight:500;margin-top:2px}
-.notice{padding:12px 14px;border-radius:13px;background:#102f57;border:1px solid #285581;color:#cfe2fa;margin:12px 0;line-height:1.5}
+.nav-item:hover{background:#0f2b52}.nav-item small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
+.notice{padding:12px 14px;border-radius:13px;background:#102f57;border:1px solid #285581;color:var(--text);margin:12px 0;line-height:1.5}
 .notice.warn{background:#3c2f0e;border-color:#6b5b1e}.notice.ok{background:#0c392a;border-color:#1c6a50}
 table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid #254363;text-align:left;vertical-align:top}th{color:var(--gold)}
 .modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:16px}.modal-box{width:min(700px,100%);max-height:90vh;overflow:auto;background:#092044;border:1px solid #31527b;border-radius:22px;padding:20px}
-.footer{text-align:center;color:#7891b2;font-size:12px;padding:30px 0}.footer b{color:var(--gold)}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0}.footer b{color:var(--gold)}
 .toast{position:fixed;z-index:300;left:50%;bottom:22px;transform:translateX(-50%);background:#0b2343;border:1px solid #31527b;color:white;padding:11px 15px;border-radius:999px;box-shadow:var(--shadow);font-size:13px}
 .badge{font-size:10px;padding:4px 7px;border-radius:999px;background:#16395f;color:#a9d7ff}.done{color:var(--green)}
 @media(max-width:600px){.hello{font-size:12px}.role-pill{display:none}.grid{grid-template-columns:1fr 1fr}.hero{padding:19px}.header-title{font-size:14px}}
@@ -79,7 +81,7 @@ body.role-teacher .hero{background:linear-gradient(135deg,#0d3d2c,#0a2e22 62%,#0
 body.role-teacher .hero:after{opacity:.10;pointer-events:none}
 body.role-teacher .hero h1 span{color:#8bffb0}
 body.role-teacher .role-pill{color:#8bffb0;border-color:rgba(139,255,176,.35)}
-body.role-teacher .card{background:linear-gradient(145deg,#0f3626,#0b2a1e);border-color:rgba(139,255,176,.1)}
+body.role-teacher .card{background:linear-gradient(145deg,#0f3626,#0b2a1e);border-color:rgba(139,255,176,.22)}
 body.role-teacher .stat{color:#8bffb0}
 body.role-teacher .primary{background:linear-gradient(135deg,#1ca672,#0a6b46);box-shadow:0 8px 20px rgba(28,166,114,.25)}
 body.role-teacher .gold{background:linear-gradient(135deg,#8bffb0,#2fbf82);color:#04150f}
@@ -108,6 +110,30 @@ body.role-teacher table td,body.role-teacher table th{border-color:#1f5a41}
  .hero:after{display:none}
  a,button{color:#000}
 }
+
+
+.welcome-banner{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:16px 18px;border-radius:20px;border:1px solid rgba(245,200,76,.35);background:linear-gradient(135deg,#123d72,#0d2b52 55%,#10284c);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.welcome-avatar{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:36px;background:linear-gradient(145deg,#ffe08a,#f5c84c);box-shadow:0 6px 18px rgba(245,200,76,.25);flex-shrink:0}
+.welcome-hello{font-size:20px;font-weight:900;line-height:1.25}
+.welcome-hello b{color:var(--gold)}
+.welcome-sub{color:var(--text);font-size:14px;line-height:1.45;margin-top:4px}
+body.role-teacher .welcome-banner{border-color:rgba(139,255,176,.35);background:linear-gradient(135deg,#0d3d2c,#0a2e22 55%,#0f3626)}
+body.role-teacher .welcome-avatar{background:linear-gradient(145deg,#8bffb0,#2fbf82)}
+body.role-teacher .welcome-hello b{color:#8bffb0}
+@media(max-width:600px){.welcome-avatar{width:52px;height:52px;font-size:28px}.welcome-hello{font-size:17px}}
+
+
+.back-btn{margin-right:2px;font-size:22px;font-weight:900;line-height:1}
+.back-btn:active{transform:scale(.96)}
+
+
+/* Reading focus: clearer text on long notes */
+.content{color:var(--text)}
+.content p,.content li{font-size:15px}
+.topic-reading .hero{opacity:.92}
+label{color:var(--muted)}
+th{color:var(--gold)}
+.done{color:var(--green)}
 
 </style>
 </head>
@@ -163,15 +189,15 @@ const AI_ENDPOINT = "";
 
 const topics = [
  {id:1,name:"Forms of Business",range:"1–3",desc:"Sole proprietor, partnership, companies and state-owned enterprises."},
- {id:4,name:"Functions of Management",range:"4",desc:"Planning, organising, leading, controlling and coordination."},
+ {id:4,name:"Functions of Management",range:"4",desc:"Planning, organising, leading, controlling, coordination — full process and interlinks."},
  {id:5,name:"Business Development",range:"5",desc:"Growth, internal & external environment, SWOT, PESTLE, business ethics and CSR."},
  {id:21,name:"Entrepreneurship",range:"5b",desc:"Entrepreneurs, business ideas, business plans, challenges and support in Ghana."},
  {id:6,name:"International Business & E-Business",range:"6",desc:"Global trade, exporting, importing and digital business."},
- {id:7,name:"Functional Areas of Management",range:"7–8",desc:"Major functional areas and their contribution to business performance."},
+ {id:7,name:"Functional Areas of Management",range:"7–8",desc:"Marketing, finance, HR, operations — roles and interdependence."},
  {id:9,name:"Law of Contract",range:"9–10",desc:"Formation, essential elements, breach, remedies and dispute resolution."},
  {id:22,name:"Communication in Business",range:"10b",desc:"Business communication, barriers, channels and effective communication."},
- {id:11,name:"Business Risk & Insurance",range:"11",desc:"Risk identification, management and insurance principles."},
- {id:12,name:"Human Resource Management",range:"12",desc:"Recruitment, selection, training, performance and employee relations."},
+ {id:11,name:"Business Risk & Insurance",range:"11",desc:"Types of risk, risk responses, insurance principles and business cover."},
+ {id:12,name:"Human Resource Management",range:"12",desc:"HR planning, job analysis, recruitment, selection, induction, training, appraisal and welfare."},
  {id:13,name:"Leadership & Leadership Theories",range:"13–17",desc:"Leadership theories, styles, power, centralisation and decentralisation."},
  {id:18,name:"Marketing",range:"18",desc:"Marketing, segmentation, target markets, marketing mix and strategy."},
  {id:19,name:"Finance",range:"19",desc:"Business finance, sources of finance, cash flow and investment decisions."},
@@ -199,6 +225,59 @@ const examSets = [
  {case:"Mansa Trading Ltd is considering converting its growing business into a company. The founder currently operates as a sole proprietor and enjoys complete control, but personal liability worries her because the business has borrowed money to expand. A potential investor wants limited liability and an ownership interest that can continue even if one owner leaves. Another investor is interested in a partnership because it could be easier to establish. The founder asks an adviser to compare the available forms of business before making a decision.",qs:["Explain three advantages and two disadvantages of operating as a sole proprietor. (5 marks)","Explain four features of a company that distinguish it from a sole proprietorship. (4 marks)","Advise the founder on the most suitable form of business, giving reasons based on the case. (6 marks)"]},
  {case:"Coastal Manufacturing Ltd imports some raw materials and sells finished goods to Ghanaian and regional customers. A sudden depreciation of the cedi increases the local-currency cost of imported inputs. At the same time, a competitor begins offering cheaper substitutes. Management is considering changing suppliers, reviewing prices, improving product differentiation and entering an online sales channel. The finance manager wants to protect cash flow, while the marketing manager wants to maintain customer loyalty. The managing director asks for an integrated response rather than a single departmental solution.",qs:["Explain three effects of currency depreciation on Coastal Manufacturing Ltd. (5 marks)","Discuss four marketing responses the company could use against the competitor. (4 marks)","Develop an integrated recommendation covering finance, marketing and operations. (6 marks)"]},
  {case:"A public enterprise responsible for an essential service has been criticised for delays, rising operating costs and weak accountability. Government wants the enterprise to improve efficiency while continuing to serve the public interest. Some stakeholders propose stronger managerial autonomy and performance targets; others fear that commercial pressures could reduce access for low-income citizens. Management is reviewing governance, financing, leadership and customer-service practices before submitting a reform proposal.",qs:["Explain four characteristics of a state-owned enterprise. (5 marks)","Discuss two advantages and two challenges of state ownership. (4 marks)","Propose a balanced reform plan that improves efficiency without abandoning the public-service objective. (6 marks)"]}
+];
+
+
+const definitionBank = [
+ {term:"Management",def:"Coordinating people and resources through planning, organising, leading and controlling to achieve objectives efficiently and effectively."},
+ {term:"Planning",def:"Deciding in advance what is to be done, how, when, by whom and with what resources."},
+ {term:"Organising",def:"Arranging tasks, people, authority and resources into a structure that can carry out plans."},
+ {term:"Leading",def:"Influencing, guiding, motivating and communicating so people work willingly toward objectives."},
+ {term:"Controlling",def:"Measuring actual performance, comparing it with standards and taking corrective action."},
+ {term:"Coordination",def:"Orderly synchronisation of individual and departmental efforts toward common objectives."},
+ {term:"Sole proprietorship",def:"A business owned and controlled by one person, usually with unlimited liability and no separate legal personality."},
+ {term:"Partnership",def:"A business carried on by two or more persons who agree to operate together and share profits."},
+ {term:"Company",def:"An incorporated business recognised by law as a separate legal person; members may have limited liability."},
+ {term:"Unlimited liability",def:"The owner’s personal assets may be used to settle business debts."},
+ {term:"Limited liability",def:"Members’ liability for company debts is limited, usually to unpaid amounts on their shares."},
+ {term:"Offer",def:"A definite promise capable of acceptance that can form a contract."},
+ {term:"Acceptance",def:"Final and unqualified assent to the terms of an offer."},
+ {term:"Consideration",def:"Something of legal value given in exchange for a promise in a simple contract."},
+ {term:"Breach of contract",def:"Failure to perform a contractual obligation without lawful excuse."},
+ {term:"Market segmentation",def:"Dividing a broad market into groups with similar needs, characteristics or behaviours."},
+ {term:"Target market",def:"The customer group a firm deliberately selects to serve."},
+ {term:"Marketing mix",def:"The controllable tools used to serve a target market — commonly Product, Price, Place and Promotion (and People, Process, Physical evidence for services)."},
+ {term:"SWOT analysis",def:"A structured review of Strengths, Weaknesses, Opportunities and Threats."},
+ {term:"PESTLE",def:"A scan of Political, Economic, Social, Technological, Legal and Environmental factors in the external environment."},
+ {term:"Centralisation",def:"Concentration of decision authority at higher levels of the organisation."},
+ {term:"Decentralisation",def:"Distribution of meaningful decision authority to lower levels or local units."},
+ {term:"Recruitment",def:"Attracting a pool of suitable candidates to apply for a vacancy."},
+ {term:"Selection",def:"Choosing the most suitable candidate from those who applied."},
+ {term:"Job analysis",def:"Systematic study of a job’s duties, responsibilities and required competencies."},
+ {term:"Induction",def:"Introducing a new employee to the organisation, job, colleagues, rules and culture."},
+ {term:"Productivity",def:"The relationship between output and the resources used to produce it."},
+ {term:"Business risk",def:"Uncertainty about events that may cause loss or prevent objectives being met."},
+ {term:"Insurable interest",def:"A financial interest in the subject matter of insurance such that the insured would suffer loss from the insured event."},
+ {term:"Indemnity",def:"Compensation aimed at restoring the insured to the pre-loss financial position, not creating a profit."},
+ {term:"Entrepreneur",def:"A person who identifies an opportunity, organises resources and takes calculated risks to create and grow a venture."},
+ {term:"Corporate social responsibility",def:"A firm’s voluntary commitment to operate in ways that benefit society and the environment beyond minimum legal requirements."},
+ {term:"Transformational leadership",def:"Leadership that inspires change through vision, intellectual stimulation and individualised consideration."},
+ {term:"Transactional leadership",def:"Leadership based on exchanges — rewards for performance and corrective action for deviations."}
+];
+
+const commandWords = [
+ {word:"Explain",mean:"Make the meaning clear; give reasons or details so the idea is understood.",tip:"Define briefly, then develop with points and a short example."},
+ {word:"Distinguish",mean:"Show clear differences between two or more concepts.",tip:"State each idea, then contrast them point by point."},
+ {word:"Describe",mean:"Give the main features or characteristics.",tip:"Say what it is and outline its key features without deep evaluation."},
+ {word:"Outline",mean:"Present the main points only, in a logical order.",tip:"Keep it structured and brief — main points, not full essays."},
+ {word:"Discuss",mean:"Examine a topic from more than one side with supporting points.",tip:"Present arguments, maybe advantages and limitations, then a short conclusion."},
+ {word:"Examine",mean:"Look closely at a topic and bring out important aspects.",tip:"Go deeper than describe — analyse key elements."},
+ {word:"Analyse",mean:"Break into parts and show how the parts relate or affect outcomes.",tip:"Identify factors, show links to performance or the case facts."},
+ {word:"Assess / Evaluate",mean:"Judge the value, importance or effectiveness using criteria.",tip:"Weigh strengths and weaknesses, then give a reasoned judgement."},
+ {word:"Recommend / Advise",mean:"Suggest a course of action and justify it.",tip:"State the recommendation clearly, then give reasons linked to the case."},
+ {word:"Compare",mean:"Show similarities and differences.",tip:"Use paired points; do not only list features of one side."},
+ {word:"Identify / State",mean:"Name or point out briefly.",tip:"Be concise — often one clear line per point is enough."},
+ {word:"Illustrate",mean:"Clarify with an example or case.",tip:"Choose a relevant business example, preferably Ghanaian where possible."}
 ];
 
 const essayCaseBank = [
@@ -353,6 +432,119 @@ function getBadges(){
   if(streak>=7)badges.push("7-day streak");
   return badges;
 }
+
+function classList(){try{return JSON.parse(localStorage.getItem("bm_classlist")||"[]")}catch(e){return[]}}
+function saveClassList(a){try{localStorage.setItem("bm_classlist",JSON.stringify(a))}catch(e){}}
+function homework(){try{return JSON.parse(localStorage.getItem("bm_homework")||"null")}catch(e){return null}}
+function saveHomework(h){try{localStorage.setItem("bm_homework",JSON.stringify(h))}catch(e){}}
+function checklist(){try{return JSON.parse(localStorage.getItem("bm_checklist")||"{}")}catch(e){return{}}}
+function saveChecklist(c){try{localStorage.setItem("bm_checklist",JSON.stringify(c))}catch(e){}}
+function toggleChecklist(id){const c=checklist();c[id]=!c[id];saveChecklist(c)}
+
+
+
+
+function shuffleInPlace(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const t=arr[i];arr[i]=arr[j];arr[j]=t;
+  }
+  return arr;
+}
+const practiceTopicFilters = [
+  {id:"all",name:"All topics",match:function(){return true;}},
+  {id:"forms",name:"Forms of business",match:function(q){return /sole|partner|company|propriet|liability|state-owned|SOE|ownership|legal personality/i.test(q.join(" "));}},
+  {id:"contract",name:"Law of contract",match:function(q){return /offer|accept|consideration|contract|breach|damages|remoteness|counter-offer|invitation to treat|mediation|arbitration|L'Estrange|Carlill|Hadley|Balfour/i.test(q.join(" "));}},
+  {id:"leadership",name:"Leadership",match:function(q){return /leader|leadership|transformational|transactional|servant|autocratic|democratic|centralis|decentralis|span of control|delegat/i.test(q.join(" "));}},
+  {id:"marketing",name:"Marketing",match:function(q){return /segment|target market|marketing|positioning|undifferentiated|niche|psychographic|demographic|behavioural|marketing mix/i.test(q.join(" "));}},
+  {id:"hr",name:"HRM",match:function(q){return /recruit|selection|job analysis|induction|training|appraisal|performance management|HR |human resource/i.test(q.join(" "));}},
+  {id:"finance",name:"Finance",match:function(q){return /cash flow|equity|debt|finance|loan|capital budgeting|working capital|receivable/i.test(q.join(" "));}},
+  {id:"risk",name:"Risk & insurance",match:function(q){return /risk|insur|indemnity|insurable interest|subrogation|proximate/i.test(q.join(" "));}},
+  {id:"operations",name:"Production & operations",match:function(q){return /productiv|production|quality|defect|inventory|output|operations|capacity/i.test(q.join(" "));}},
+  {id:"management",name:"Management functions",match:function(q){return /planning|organising|controlling|coordination|management function|strategic analysis/i.test(q.join(" "));}}
+];
+function practiceExplanation(stem, correctText){
+  const s=(stem+" "+correctText).toLowerCase();
+  if(/counter-offer|hyde/i.test(s)) return "A counter-offer rejects the original offer, so the original terms are no longer open to accept.";
+  if(/unilateral|carlill|acceptance by performance/i.test(s)) return "A unilateral offer can be accepted by performing the stated conditions.";
+  if(/intention|balfour|domestic/i.test(s)) return "Domestic or social promises are usually presumed not to create legal relations.";
+  if(/remoteness|hadley|foreseeable/i.test(s)) return "Recoverable loss must arise naturally from the breach or be within reasonable contemplation at contracting.";
+  if(/l'estrange|signed|exclusion/i.test(s)) return "Absent fraud or misrepresentation, a person who signs a contractual document is generally bound by its terms.";
+  if(/segment/i.test(s)) return "Segmentation divides the market into groups with similar needs so the firm can serve them more effectively.";
+  if(/target market|targeting|concentrated|undifferentiated/i.test(s)) return "Targeting is choosing which segment(s) to serve after the market has been divided.";
+  if(/transformational/i.test(s)) return "Transformational leadership uses vision, inspiration and development to drive change—not only rewards for targets.";
+  if(/transactional/i.test(s)) return "Transactional leadership is based on exchange: rewards for performance and correction of deviations.";
+  if(/centralis|decentralis/i.test(s)) return "Centralisation concentrates authority at the top; decentralisation pushes meaningful decisions downward.";
+  if(/recruitment/i.test(s) && /selection/i.test(s)) return "Recruitment attracts applicants; selection chooses among them.";
+  if(/job analysis/i.test(s)) return "Job analysis clarifies duties and required competencies before advertising and interviewing.";
+  if(/productiv/i.test(s)) return "Productivity links output to resources used; more output is not automatically better if waste or defects rise.";
+  if(/indemnity/i.test(s)) return "Indemnity aims to restore the insured financially after a covered loss, not to create a profit.";
+  if(/insurable interest/i.test(s)) return "You can only insure something in which you have a genuine financial interest.";
+  if(/unlimited liability|sole propriet/i.test(s)) return "In a typical sole proprietorship the owner can be personally liable for business debts.";
+  if(/limited liability|company/i.test(s)) return "A company is a separate legal person; members often have limited liability subject to the law.";
+  if(/cash flow|profitable/i.test(s)) return "Profit is not the same as cash—timing of receipts and payments can create shortages.";
+  if(/equity|debt finance/i.test(s)) return "Equity is ownership capital; debt must be repaid with interest and increases financial risk.";
+  return "Best fit: “"+correctText+"”. Match the exact principle in the question and eliminate options that describe a related but different idea.";
+}
+function buildPracticeItem(raw){
+  const stem=raw[0];
+  const options=raw.slice(1,5).map(function(t,i){return {t:t,correct:i===0};});
+  shuffleInPlace(options);
+  const correctIndex=options.findIndex(function(o){return o.correct;});
+  const correctText=raw[1];
+  const explain=raw[5]||practiceExplanation(stem, correctText);
+  return {stem:stem,options:options.map(function(o){return o.t;}),correctIndex:correctIndex,correctText:correctText,explain:explain,raw:raw};
+}
+function filteredObjTopics(){
+  const id=state.practiceTopic||"all";
+  const f=practiceTopicFilters.find(function(x){return x.id===id;})||practiceTopicFilters[0];
+  return objTopics.filter(function(q){return f.match(q);});
+}
+function ensurePracticeDeck(){
+  const source=filteredObjTopics();
+  if(!source.length){
+    state.practiceDeck=[];
+    return;
+  }
+  if(state.practiceDeck && state.practiceDeck.length && state.practiceDeckFilter===state.practiceTopic) return;
+  const order=source.map(function(_,i){return i;});
+  shuffleInPlace(order);
+  state.practiceDeck=order.map(function(i){return buildPracticeItem(source[i]);});
+  state.practiceDeckFilter=state.practiceTopic||"all";
+  state.practiceIndex=0;
+}
+function reshufflePractice(){
+  state.practiceDeck=null;
+  state.practiceDeckFilter=null;
+  state.practiceScore=0;
+  state.practiceIndex=0;
+  state.practiceFeedback=null;
+  ensurePracticeDeck();
+}
+function pushHistory(){
+  const snap={page:state.page,selectedTopic:state.selectedTopic,testMode:state.testMode};
+  const last=state.history[state.history.length-1];
+  if(last && last.page===snap.page && last.selectedTopic===snap.selectedTopic && last.testMode===snap.testMode) return;
+  state.history.push(snap);
+  if(state.history.length>30) state.history.shift();
+}
+function goBack(){
+  if(!state.history.length){
+    state.page="home"; state.selectedTopic=null; render(); return;
+  }
+  // current page is not in history as "previous"; pop until different
+  let prev=null;
+  while(state.history.length){
+    prev=state.history.pop();
+    if(prev.page!==state.page || prev.selectedTopic!==state.selectedTopic) break;
+    prev=null;
+  }
+  if(!prev){ state.page="home"; state.selectedTopic=null; render(); return; }
+  state.page=prev.page;
+  state.selectedTopic=prev.selectedTopic;
+  if(prev.testMode) state.testMode=prev.testMode;
+  render();
+}
 function saveAppState(){
   try{localStorage.setItem("bm_app_state",JSON.stringify({page:state.page,selectedTopic:state.selectedTopic,examSet:state.examSet,practiceIndex:state.practiceIndex,testMode:state.testMode}))}catch(e){}
 }
@@ -384,14 +576,25 @@ function registerTeacher(u){
 function examSetNumber(){return state.examSet+1}
 
 
-let state={page:"home",role:"student",selectedTopic:null,practiceIndex:0,practiceScore:0,examSet:0,scanData:"",testMode:"objectives",showModelAnswers:false};
+let state={page:"home",role:"student",selectedTopic:null,practiceIndex:0,practiceScore:0,examSet:0,scanData:"",testMode:"objectives",showModelAnswers:false,timedTest:false,testTimeLeft:0,lastTestReview:null,defIndex:0,history:[],practiceDeck:null,practiceDeckFilter:null,practiceTopic:"all",practiceFeedback:null};
 
 function login(){
  const name=document.getElementById("loginName").value.trim();
  if(!name){toast("Please enter your name.");return}
+ const prev=getUser();
  const u={name,role:state.role,id:"U-"+btoa(unescape(encodeURIComponent(name))).replace(/[^A-Za-z0-9]/g,"").slice(0,10)+"-"+Math.random().toString(36).slice(2,6)};
+ // Keep stable id if same name+role logs in again on this device
+ if(prev && prev.name===name && prev.role===state.role && prev.id){
+   u.id=prev.id;
+ } else {
+   // Different person: start at home, do not restore previous page
+   try{localStorage.removeItem("bm_app_state")}catch(e){}
+   state.page="home"; state.selectedTopic=null; state.history=[];
+ }
+ try{localStorage.setItem("bm_last_name",name)}catch(e){}
  saveUser(u); if(u.role==="teacher") registerTeacher(u); boot();
 }
+
 function boot(){
  let u=getUser();
  if(!u||!u.name){
@@ -416,10 +619,13 @@ function renderDrawer(){
   ["home","🏠 Home","Dashboard"],
   ["topics","📚 Topics","Detailed study notes"],
   ["practice","🧠 Practice","Hard objective practice"],
-  ...(isT?[["exams","📝 Build an Exam","10 WAEC-style sets"]]:[["test","🧪 Build a Test","Build and practise a test"]]),
+  ...(isT?[["exams","📝 Build an Exam","10 WAEC-style sets"]]:[["test","🧪 Build a Test","Timed & practice tests"]]),
+  ["definitions","📖 Definitions","Key terms flashcards"],
+  ["commands","✍️ Command Words","Explain, assess, recommend…"],
+  ["progress","📊 My Progress","Checklist, scores, badges"],
   ["scan","📷 Scan Question","Photo of a question (offline notes)"],
   ["assistant","🤖 Thinking Assistant","Step-by-step reasoning framework"],
-  ...(isT?[["submissions","📥 Student Work","Review student submissions"],["questionbank","🗂 Teacher Question Bank","500 hard objectives + essays"],["admin","🛡 Admin Portal","Prototype admin controls"]]:[["submit","📤 Submit to Teacher","Send work for review"],["feedback","💬 Teacher Feedback","See returned work"]])
+  ...(isT?[["submissions","📥 Student Work","Review student submissions"],["questionbank","🗂 Teacher Question Bank","500 hard objectives + essays"],["classlist","👥 Class List","Students on this device"],["homework","📋 Set Homework","Task for students"],["admin","🛡 Admin Portal","Prototype admin controls"]]:[["submit","📤 Submit to Teacher","Send work for review"],["feedback","💬 Teacher Feedback","See returned work"]])
  ];
  const d=document.getElementById("drawer");
  d.innerHTML=items.map(x=>`<button class="nav-item" data-page="${x[0]}">${x[1]}<small>${x[2]}</small></button>`).join("")+
@@ -427,8 +633,16 @@ function renderDrawer(){
 }
 function render(){
  const app=document.getElementById("app");
- const pages={home:pageHome,topics:pageTopics,practice:pagePractice,test:pageStudentTest,exams:pageExams,scan:pageScan,assistant:pageAssistant,submit:pageSubmit,feedback:pageFeedback,submissions:pageSubmissions,questionbank:pageQuestionBank,admin:pageAdmin};
+ const pages={home:pageHome,topics:pageTopics,practice:pagePractice,test:pageStudentTest,exams:pageExams,scan:pageScan,assistant:pageAssistant,submit:pageSubmit,feedback:pageFeedback,submissions:pageSubmissions,questionbank:pageQuestionBank,admin:pageAdmin,definitions:pageDefinitions,commands:pageCommands,progress:pageProgress,classlist:pageClassList,homework:pageHomework};
  (pages[state.page]||pageHome)(app);
+ // In-page back control for easier return without opening the menu
+ if(state.page!=="home" || state.selectedTopic){
+   const bar=document.createElement("div");
+   bar.className="toolbar";
+   bar.style.marginBottom="8px";
+   bar.innerHTML='<button class="secondary" data-action="goBack" style="flex:0 0 auto;min-width:120px">← Back</button>';
+   app.insertBefore(bar, app.firstChild);
+ }
  saveAppState();
  window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -437,9 +651,15 @@ function pageHome(app){
  const u=getUser(), subs=submissions().filter(x=>u&&x.studentId===u.id), fb=feedbacks().filter(x=>u&&x.studentId===u.id);
  const prog=countProgress(), streak=getStreak().count||0, badges=getBadges();
  app.innerHTML=`
- <div class="notice ok">📡 <b>Works offline on this device.</b> All notes, practice and tests run without internet. Data stays in this browser until you clear it. (A paid backend is only needed later for cross-device sync.)</div>
+ <div class="welcome-banner">
+  <div class="welcome-avatar" aria-hidden="true">👩‍🏫</div>
+  <div class="welcome-text">
+   <div class="welcome-hello">Hello 👋 <b>${esc(u?u.name:"Student")}</b></div>
+   <div class="welcome-sub">Ready to master Business Management today? Let’s learn, practise and excel for WASSCE.</div>
+  </div>
+ </div>
  <section class="hero"><h1>Welcome to <span>BM Learn AI</span> 🐨</h1><p>Smart, detailed and challenging Business Management preparation for Ghana SHS students and teachers. Learn the concept, apply it, analyse the case and prepare for WASSCE.</p>
- <div class="toolbar"><button class="primary" data-page="topics">📚 Start Learning</button>${u&&u.role==="student"?'<button class="secondary" data-page="test">🧪 Build a Test</button>':'<button class="secondary" data-page="exams">📝 Build an Exam</button>'}<button class="secondary" onclick="window.print()">🖨 Print page</button></div></section>
+ <div class="toolbar"><button class="primary" data-page="topics">📚 Start Learning</button>${u&&u.role==="student"?'<button class="secondary" data-page="test">🧪 Build a Test</button><button class="secondary" data-page="definitions">📖 Definitions</button><button class="secondary" data-page="progress">📊 Progress</button>':'<button class="secondary" data-page="exams">📝 Build an Exam</button><button class="secondary" data-page="homework">📋 Homework</button>'}<button class="secondary" data-page="commands">✍️ Command words</button><button class="secondary" onclick="window.print()">🖨 Print page</button></div></section>
  ${section("Your Learning Hub",`<div class="grid">
  <div class="card"><div class="stat">${topics.length}</div><h3>Curriculum Areas</h3><p>Forms of Business, Contract, Leadership, Entrepreneurship, Communication, Government & more.</p></div>
  <div class="card"><div class="stat">${prog}/${topics.length}</div><h3>Topics Progress</h3><p>Topics you have marked as read on this device.</p></div>
@@ -449,6 +669,7 @@ function pageHome(app){
  <div class="card"><div class="stat">${fb.length}</div><h3>Feedback</h3><p>Teacher feedback returned to you.</p></div>
  </div>`)}
  ${badges.length?section("Badges",`<div style="display:flex;flex-wrap:wrap;gap:8px">${badges.map(b=>`<span class="pill">🏅 ${esc(b)}</span>`).join("")}</div>`):""}
+ ${(function(){const hw=homework();return hw?`<div class="notice warn"><b>📋 Homework:</b> ${esc(hw.title)}<br>${esc(hw.body)}<br><small>Set by ${esc(hw.teacher)} • ${esc(hw.date)}</small></div>`:""})()}
  ${u&&u.role==="student"?`<div class="notice">🎓 <b>Student identity:</b> every submission uses your name <b>${esc(u.name)}</b> and a local student ID, so a teacher can identify who submitted the work.</div>`:""}
  <div class="footer">BM Learn AI • <b>Sir Koala 🐨</b> • WAEC-style practice, not an official WAEC paper. • Offline-first prototype.</div>`;
 }
@@ -499,7 +720,127 @@ function formsContent(){return `
 <h4>Sources of finance</h4><p>Government allocations/equity, internally generated funds, loans, grants and other approved sources.</p>
 <h3>Exam focus</h3><p>Always compare forms using ownership, liability, continuity, capital, control and legal personality. In an essay, link the recommended form to the facts rather than merely listing advantages.</p>
 <h3>Trial questions</h3><ol><li>Compare sole proprietorship and partnership under five headings.</li><li>Explain why a growing business may convert from sole proprietorship to a company.</li><li>Assess whether an SOE should be judged only by profit.</li></ol>`}
-function managementContent(){return `<h3>Functions of Management</h3><p>Management involves coordinating people and resources through planning, organising, leading and controlling to achieve objectives efficiently and effectively.</p><h3>Planning</h3><p>Deciding objectives in advance and determining actions, resources, timing and responsibility.</p><h3>Organising</h3><p>Arranging tasks, authority, people and resources into a workable structure.</p><h3>Leading</h3><p>Influencing, directing, motivating and communicating with employees to achieve goals.</p><h3>Controlling</h3><p>Setting standards, measuring actual performance, comparing results and taking corrective action.</p><h3>Coordination</h3><p>Integrating activities of departments and individuals so that efforts support one another.</p><h3>Critical thinking</h3><p>A manager who plans well but never checks actual performance has created a control gap. A strong answer should explain the link between the functions rather than treating them as isolated activities.</p><h3>Trial questions</h3><ol><li>Explain how planning and controlling are interdependent.</li><li>Assess the effects of poor organising on business performance.</li><li>Design a management response to a department that repeatedly misses targets.</li></ol>`}
+function managementContent(){return `
+<h3>Functions of Management</h3>
+<p>Management is the process of coordinating people and resources through <b>planning, organising, leading and controlling</b> to achieve organisational objectives efficiently and effectively. In WASSCE answers, treat the functions as linked, not as four separate lists.</p>
+
+<h3>1. Planning</h3>
+<p>Planning means deciding in advance <b>what</b> is to be done, <b>how</b>, <b>when</b>, <b>by whom</b> and with <b>what resources</b>.</p>
+<h4>Steps in planning</h4>
+<ol>
+<li>Analyse the present situation and the environment.</li>
+<li>Set clear, realistic objectives.</li>
+<li>Identify alternative courses of action.</li>
+<li>Evaluate alternatives and choose the best option.</li>
+<li>Prepare plans, budgets and timetables.</li>
+<li>Communicate the plan and prepare for implementation.</li>
+</ol>
+<h4>Types of plans (useful distinctions)</h4>
+<ul>
+<li><b>Strategic plans</b> — long-term direction of the whole organisation.</li>
+<li><b>Tactical / operational plans</b> — medium- or short-term plans for departments or activities.</li>
+<li><b>Standing plans</b> — policies, procedures and rules used repeatedly.</li>
+<li><b>Single-use plans</b> — budgets, projects and programmes for a specific purpose.</li>
+</ul>
+<h4>Importance of planning</h4>
+<ul>
+<li>Gives direction and reduces uncertainty.</li>
+<li>Helps allocate resources efficiently.</li>
+<li>Provides standards for control.</li>
+<li>Improves coordination between departments.</li>
+<li>Encourages managers to think ahead and anticipate problems.</li>
+</ul>
+<h4>Limitations</h4>
+<ul>
+<li>Plans can become rigid if the environment changes quickly.</li>
+<li>Planning takes time and information that small firms may lack.</li>
+<li>Poor forecasts can lead to wrong decisions.</li>
+</ul>
+
+<h3>2. Organising</h3>
+<p>Organising is arranging tasks, people, authority and resources into a structure that can carry out the plan.</p>
+<h4>Key activities</h4>
+<ul>
+<li>Dividing work into jobs and departments (division of labour).</li>
+<li>Grouping related activities (departmentation).</li>
+<li>Assigning authority and responsibility.</li>
+<li>Creating reporting relationships (chain of command).</li>
+<li>Providing resources and establishing coordination mechanisms.</li>
+</ul>
+<h4>Important organising concepts</h4>
+<ul>
+<li><b>Authority</b> — the right to give orders and make decisions.</li>
+<li><b>Responsibility</b> — the obligation to perform assigned work.</li>
+<li><b>Accountability</b> — being answerable for results; it is not fully transferred when work is delegated.</li>
+<li><b>Span of control</b> — the number of subordinates a manager supervises effectively.</li>
+<li><b>Centralisation / decentralisation</b> — how far decision authority is kept at the top or pushed downward.</li>
+</ul>
+<h4>Effects of poor organising</h4>
+<ul>
+<li>Duplication of work or gaps in responsibility.</li>
+<li>Confusion about who decides what.</li>
+<li>Slow decisions and weak coordination.</li>
+<li>Conflict between departments.</li>
+<li>Wasted resources and low morale.</li>
+</ul>
+
+<h3>3. Leading (Directing)</h3>
+<p>Leading is influencing, guiding, motivating and communicating with people so that they work willingly toward objectives.</p>
+<h4>Elements of leading</h4>
+<ul>
+<li><b>Supervision</b> — overseeing day-to-day work.</li>
+<li><b>Motivation</b> — creating willingness to perform (pay, recognition, meaningful work, fair treatment).</li>
+<li><b>Communication</b> — clear instructions, feedback and listening.</li>
+<li><b>Leadership style</b> — autocratic, democratic, laissez-faire, etc., chosen according to the situation.</li>
+</ul>
+<h4>Why leading matters</h4>
+<p>Even a good plan and structure fail if people are confused, demotivated or poorly guided. Leading turns plans into action through people.</p>
+
+<h3>4. Controlling</h3>
+<p>Controlling is measuring actual performance, comparing it with standards and taking corrective action where necessary.</p>
+<h4>Steps in control</h4>
+<ol>
+<li>Set standards (from plans, budgets, quality targets, deadlines).</li>
+<li>Measure actual performance.</li>
+<li>Compare actual results with standards and identify deviations.</li>
+<li>Take corrective action (or revise unrealistic standards).</li>
+</ol>
+<h4>Types of control</h4>
+<ul>
+<li><b>Feedforward (preliminary)</b> — prevent problems before work starts (e.g. checking materials).</li>
+<li><b>Concurrent</b> — monitor while work is in progress.</li>
+<li><b>Feedback</b> — review results after the activity.</li>
+</ul>
+<h4>Importance</h4>
+<ul>
+<li>Shows whether objectives are being achieved.</li>
+<li>Reveals waste, errors and delays early.</li>
+<li>Links performance to accountability.</li>
+<li>Provides information for better future planning.</li>
+</ul>
+
+<h3>5. Coordination</h3>
+<p>Coordination is the orderly synchronisation of individual and departmental efforts so that they support common objectives. It is sometimes treated as a separate function and sometimes as the result of good planning, organising, leading and controlling.</p>
+<p>Without coordination, marketing may promise deliveries that production cannot meet, or finance may refuse funds that operations urgently need.</p>
+
+<h3>How the functions interlink (exam focus)</h3>
+<ul>
+<li>Planning sets the targets that controlling later measures.</li>
+<li>Organising creates the structure through which plans are carried out.</li>
+<li>Leading motivates people to implement the organised work.</li>
+<li>Controlling shows whether plans worked and feeds information back into the next planning cycle.</li>
+</ul>
+<div class="case"><b>Ghanaian example</b><br>A school-uniform manufacturer plans to raise output before the academic year (planning). It creates a second production shift and appoints a supervisor (organising). The supervisor motivates workers with clear targets and fair overtime (leading). Weekly defect and delivery reports are compared with targets and problems are corrected (controlling). Marketing, production and HR must stay coordinated or orders will be late.</div>
+
+<h3>Trial questions</h3>
+<ol>
+<li>Explain the steps in the planning process.</li>
+<li>Distinguish authority, responsibility and accountability.</li>
+<li>Explain how planning and controlling are interdependent.</li>
+<li>Assess the effects of poor organising on business performance.</li>
+<li>Design a management response to a department that repeatedly misses targets, using all four main functions.</li>
+</ol>`}
+
 function businessDevContent(){return `
 <h3>Business Development</h3>
 <p>Business development involves identifying opportunities, building relationships and implementing strategies that create sustainable growth. It covers opportunity identification, market research, customer relationships, strategic partnerships, new products and markets, digital channels, innovation and competitive analysis. Growth decisions are commonly analysed using market penetration, market development, product development and diversification. Rapid growth can create financing pressure, operational complexity, quality problems, staffing gaps and strategic overreach.</p>
@@ -659,7 +1000,56 @@ function internationalContent(){return `<h3>International Business and E-Busines
 <h3>Exam application guide</h3><ol><li>If capital is limited and the firm wants to test demand → consider exporting.</li><li>If valuable intellectual property can be transferred under controls → consider licensing.</li><li>If a proven business model can be replicated by local operators → consider franchising.</li><li>If local knowledge and shared risk are important → consider a joint venture.</li><li>If maximum control and long-term commitment are essential → consider a wholly-owned subsidiary.</li></ol>
 <h3>E-business benefits</h3><ul><li>Wider reach.</li><li>24/7 access.</li><li>Data-driven marketing.</li><li>Convenience and potential cost savings.</li></ul>
 <h3>Challenges</h3><p>Cybersecurity, privacy, logistics, digital exclusion, payment risk, fraud and regulatory compliance.</p><h3>Trial questions</h3><ol><li>Distinguish exporting from foreign direct investment.</li><li>Compare licensing, franchising and joint venture using control, risk and investment.</li><li>A Ghanaian firm with substantial capital wants maximum control over a strategically important foreign market. Recommend an entry mode and justify it.</li></ol>`}
-function functionalContent(){return `<h3>Functional Areas of Management</h3><p>Major functions include marketing, finance, human resources, production/operations and related information systems. Each has specialist tasks but none operates effectively in isolation.</p><h3>Why coordination matters</h3><p>Marketing creates demand; operations must fulfil it; finance must fund decisions; HR supplies capability. A marketing campaign that doubles orders without operations capacity can reduce service quality.</p><h3>Trial questions</h3><ol><li>Explain the interdependence of marketing and production.</li><li>Assess the role of finance in functional decision-making.</li><li>Explain how HR can support organisational strategy.</li></ol>`}
+function functionalContent(){return `
+<h3>Functional Areas of Management</h3>
+<p>Functional areas are the specialised departments or activity groups through which management work is carried out. The main ones in Business Management are <b>marketing, finance, human resource management, production/operations</b>, and supporting areas such as administration and information systems.</p>
+
+<h3>1. Marketing function</h3>
+<p>Identifies customer needs, designs offers, prices products, promotes them and distributes them. It creates demand and customer relationships. Key tasks include market research, segmentation, targeting, the marketing mix and customer service.</p>
+
+<h3>2. Finance function</h3>
+<p>Obtains funds, allocates them, controls spending and reports financial performance. It covers sourcing finance, budgeting, cash-flow management, investment decisions, record-keeping and financial control. Without sound finance, other functions cannot operate for long.</p>
+
+<h3>3. Human resource function</h3>
+<p>Supplies and develops the people the organisation needs: HR planning, recruitment, selection, training, performance management, rewards, welfare and employee relations.</p>
+
+<h3>4. Production / operations function</h3>
+<p>Transforms inputs into goods or services. It deals with capacity, process design, quality, inventory, scheduling, maintenance and productivity. Operations must deliver what marketing promises at a cost finance can support.</p>
+
+<h3>5. Other supporting areas</h3>
+<ul>
+<li><b>Administration / office management</b> — records, communication systems, office services.</li>
+<li><b>Information / IT systems</b> — data for decisions, digital processes, security.</li>
+<li><b>Research and development</b> — in firms that innovate products or processes.</li>
+<li><b>Purchasing / procurement</b> — obtaining materials and services on the right terms.</li>
+</ul>
+
+<h3>Why the functions must work together</h3>
+<p>No function succeeds alone:</p>
+<ul>
+<li>Marketing creates demand that operations must fulfil.</li>
+<li>Operations needs finance for machinery and materials, and HR for skilled workers.</li>
+<li>Finance needs realistic sales and cost data from marketing and operations.</li>
+<li>HR must recruit for the skills operations and marketing actually need.</li>
+</ul>
+<div class="case"><b>Example of poor coordination</b><br>A marketing campaign doubles orders for a juice company, but production was not told and lacks bottles and operators. Deliveries are late, customers complain, and the brand is damaged. The failure is not marketing alone — it is weak cross-functional coordination.</div>
+
+<h3>Implications for managers</h3>
+<ul>
+<li>Decisions in one area create constraints or opportunities in others.</li>
+<li>Plans, budgets and meetings should link the functions.</li>
+<li>Performance measures should not reward one department for harming another (e.g. sales volume that creates unmanageable quality problems).</li>
+</ul>
+
+<h3>Trial questions</h3>
+<ol>
+<li>Explain the main responsibilities of any four functional areas of management.</li>
+<li>Discuss the interdependence of marketing and production.</li>
+<li>Assess the role of finance in functional decision-making.</li>
+<li>Explain how HR can support organisational strategy.</li>
+<li>Using a business example, show what happens when functional areas fail to coordinate.</li>
+</ol>`}
+
 function contractContent(){return `<h3>Law of Contract</h3><p>A contract is an agreement recognised by law as creating enforceable obligations. For SHS analysis, distinguish a social promise from a legally enforceable agreement.</p><h3>Essential elements</h3><ol><li><b>Offer:</b> a definite promise capable of acceptance. An invitation to treat is generally an invitation to others to make offers.</li><li><b>Acceptance:</b> final and unqualified assent to the offer, communicated or completed according to the nature of the offer.</li><li><b>Consideration:</b> something of legal value supporting a simple contract; it need not normally be economically adequate, but must be sufficient in law.</li><li><b>Intention to create legal relations:</b> parties must intend legal consequences; domestic/social arrangements are commonly presumed not to have that intention.</li><li><b>Capacity:</b> parties must have legal capacity, subject to rules protecting certain persons.</li><li><b>Legality:</b> the purpose and terms must not be illegal or contrary to public policy.</li><li><b>Certainty/completeness:</b> obligations should be sufficiently clear.</li><li><b>Genuine consent:</b> consent may be affected by factors such as misrepresentation, duress or undue influence.</li><li><b>Formalities:</b> some transactions require special form under law.</li></ol>
 <h3>Relevant legal cases</h3>${legalCases.map(c=>`<div class="case"><b>${c.title} — ${c.cite}</b><br><span class="pill">${c.point}</span><br>${c.text}</div>`).join("")}
 <h3>Breach of contract</h3><p>Breach occurs when a party fails to perform a contractual obligation. It may be <b>actual</b> (failure when performance is due) or <b>anticipatory</b> (clear indication before the due date that the party will not perform). A condition is generally a major term; breach may allow termination plus damages. A warranty is generally a lesser term; breach normally gives damages rather than termination. The actual legal effect depends on the contract and applicable law.</p>
@@ -667,37 +1057,219 @@ function contractContent(){return `<h3>Law of Contract</h3><p>A contract is an a
 <h3>Dispute resolution</h3><p><b>Negotiation</b> is direct discussion. <b>Mediation</b> uses a neutral facilitator who normally does not impose a decision. <b>Conciliation</b> similarly assists settlement and may involve a more interventionist conciliator depending on the process. <b>Arbitration</b> involves a neutral arbitrator determining the dispute under the parties' agreement and applicable rules.</p>
 <h3>Exam tip</h3><p>For a case, identify the legal issue first, state the rule, apply the facts, then conclude. Do not write only the definition.</p>
 <h3>Trial questions</h3><ol><li>Explain five essential elements of a valid contract and illustrate each.</li><li>Distinguish a condition from a warranty and discuss the remedies.</li><li>Using Hadley v Baxendale, explain remoteness of damages.</li></ol>`}
-function riskContent(){return `<h3>Business Risk and Insurance</h3><p>Business risk is uncertainty about events that may cause loss, prevent objectives or create unexpected costs. Risk management identifies, assesses, controls and monitors exposures.</p><h3>Types of risk</h3><ul><li>Pure and speculative risk.</li><li>Strategic, operational, financial and compliance risk.</li><li>Internal and external risk.</li></ul><h3>Risk responses</h3><p>Avoid, reduce/control, transfer, accept/retain and share risk where appropriate.</p><h3>Insurance principles</h3><ul><li>Utmost good faith.</li><li>Insurable interest.</li><li>Indemnity for relevant policies.</li><li>Contribution.</li><li>Subrogation.</li><li>Proximate cause.</li></ul><h3>Trial questions</h3><ol><li>Differentiate risk avoidance from risk transfer.</li><li>Explain five insurance principles.</li><li>Develop a risk register for a small business.</li></ol>`}
-function hrContent(){return `
-<h3>Human Resource Management</h3>
-<p>HRM is the systematic management of people so that employee capability, motivation and behaviour support organisational objectives. In Ghanaian SHS Business Management, HRM covers planning for people, attracting them, developing them and managing their performance and welfare.</p>
-<h3>Core activities</h3>
+function riskContent(){return `
+<h3>Business Risk and Insurance</h3>
+<p>Business risk is the possibility that events will cause loss, raise costs, reduce income or prevent the organisation from achieving its objectives. Risk management is the process of identifying, assessing, controlling and monitoring those exposures.</p>
+
+<h3>Why risk management matters</h3>
 <ul>
-<li>Human resource planning (forecasting demand and supply of labour).</li>
-<li>Job analysis, job description and person specification.</li>
-<li>Recruitment and selection.</li>
-<li>Induction and training.</li>
-<li>Performance management and appraisal.</li>
-<li>Compensation, rewards and motivation.</li>
-<li>Employee relations, welfare, health and safety, and discipline.</li>
-<li>Career and succession planning.</li>
+<li>Protects profits and cash flow.</li>
+<li>Supports continuity when problems occur.</li>
+<li>Protects employees, customers and assets.</li>
+<li>Improves planning and investor/lender confidence.</li>
+<li>Reduces the chance of catastrophic loss.</li>
 </ul>
-<h3>Job analysis</h3>
-<p>Job analysis is the systematic study of a job to identify its duties, responsibilities, working conditions and the competencies required. It produces a <b>job description</b> (what the job involves) and a <b>person specification</b> (the qualities the ideal candidate should have). Without job analysis, recruitment becomes guesswork.</p>
-<h3>Recruitment vs selection</h3>
-<p><b>Recruitment</b> is attracting a pool of suitable candidates. <b>Selection</b> is choosing the most suitable person from that pool. Good practice uses consistent criteria, structured interviews and documented decisions to reduce bias and improve person–job fit.</p>
-<h3>Induction and training</h3>
-<p>Induction introduces the new employee to the organisation, role, colleagues and rules. Training develops knowledge and skills. Poor induction and training are linked to high early turnover and quality problems — a common issue in rapidly growing Ghanaian firms that hire urgently for export or seasonal orders.</p>
-<h3>Performance management</h3>
-<p>Setting clear expectations, monitoring performance, giving feedback and linking results to development or rewards. Weak performance systems leave employees unclear about standards and managers unable to correct problems early.</p>
-<div class="case"><b>Ghanaian example</b><br>A garment exporter hires ten machine operators in two weeks without job analysis or structured interviews to meet an overseas order. Within months several resign and defect rates rise. The HR lesson: urgent hiring still needs basic job analysis, clear selection criteria and induction if quality and retention matter.</div>
+
+<h3>Types of risk</h3>
+<ul>
+<li><b>Pure risk</b> — chance of loss or no loss (e.g. fire, theft). Insurable in many cases.</li>
+<li><b>Speculative risk</b> — chance of loss or gain (e.g. launching a new product, investing). Usually not insured by ordinary policies.</li>
+<li><b>Strategic risk</b> — from wrong major decisions or market shifts.</li>
+<li><b>Operational risk</b> — from processes, people, systems or supply failures.</li>
+<li><b>Financial risk</b> — from credit, cash flow, interest rates or exchange rates.</li>
+<li><b>Compliance / legal risk</b> — from breaking laws or regulations.</li>
+<li><b>Internal vs external</b> — arising inside the firm (fraud, machine breakdown) or outside (flood, policy change, competitor action).</li>
+</ul>
+
+<h3>Risk management process</h3>
+<ol>
+<li><b>Identify</b> risks (brainstorming, checklists, inspection, past records).</li>
+<li><b>Assess</b> likelihood and possible impact.</li>
+<li><b>Select responses</b> (see below).</li>
+<li><b>Implement</b> controls and policies.</li>
+<li><b>Monitor</b> and review regularly.</li>
+</ol>
+
+<h3>Risk responses</h3>
+<ul>
+<li><b>Avoid</b> — do not undertake the activity (e.g. refuse a very unsafe contract).</li>
+<li><b>Reduce / control</b> — lower likelihood or impact (training, maintenance, security, quality checks, fire extinguishers).</li>
+<li><b>Transfer</b> — shift financial impact to another party (insurance, some contracts, outsourcing under clear terms).</li>
+<li><b>Accept / retain</b> — bear the risk consciously, often for small losses (self-insurance, contingency funds).</li>
+<li><b>Share</b> — joint ventures or partnerships that split exposure.</li>
+</ul>
+
+<h3>Insurance as risk transfer</h3>
+<p>Insurance is a contract in which the insurer agrees, for a premium, to compensate the insured for specified losses. It transfers part of the financial consequence of pure risks; it does not remove the need for prevention.</p>
+
+<h3>Principles of insurance (learn with meaning)</h3>
+<ul>
+<li><b>Utmost good faith (uberrimae fidei)</b> — both parties must disclose material facts honestly.</li>
+<li><b>Insurable interest</b> — the insured must stand to suffer a financial loss from the event insured against (e.g. you insure your own vehicle, not a stranger’s).</li>
+<li><b>Indemnity</b> — compensation aims to restore the insured to the pre-loss financial position, not to create profit (applies to most non-life policies).</li>
+<li><b>Contribution</b> — if more than one policy covers the same loss, insurers share the claim fairly.</li>
+<li><b>Subrogation</b> — after paying a claim, the insurer may take over the insured’s rights to recover from a third party who caused the loss.</li>
+<li><b>Proximate cause</b> — the dominant effective cause of the loss determines whether the policy responds.</li>
+</ul>
+
+<h3>Common business insurances</h3>
+<ul>
+<li>Fire and special perils</li>
+<li>Motor / commercial vehicle</li>
+<li>Burglary / theft</li>
+<li>Public liability</li>
+<li>Marine / goods in transit</li>
+<li>Employer’s liability / workmen-related covers where applicable</li>
+</ul>
+
+<div class="case"><b>Ghanaian example</b><br>Kesse Farms stores a large quantity of maize in one warehouse with no fire-suppression system; delivery trucks are uninsured. A fire or road accident could wipe out income for the season. Risk reduction (fire equipment, split storage) plus risk transfer (insurance on stock and vehicles) is stronger than hoping losses will not occur.</div>
+
+<h3>Exam tips</h3>
+<ul>
+<li>Do not treat insurance as a substitute for careful operations — examiners reward answers that combine prevention and transfer.</li>
+<li>Define each insurance principle and apply it to a short fact pattern.</li>
+<li>When a case lists several dangers, classify them and match a suitable response to each.</li>
+</ul>
+
 <h3>Trial questions</h3>
 <ol>
-<li>Distinguish recruitment from selection.</li>
-<li>Explain why induction matters for a new employee and for the firm.</li>
-<li>Assess the consequences of poor performance management.</li>
-<li>Explain the purpose of job analysis before advertising a vacancy.</li>
+<li>Differentiate risk avoidance from risk transfer with examples.</li>
+<li>Explain five principles of insurance.</li>
+<li>Identify four risks a small manufacturer might face and recommend a response for each.</li>
+<li>Explain why a profitable business still needs insurance.</li>
+<li>Develop a simple risk register (risk, likelihood, impact, response) for a school canteen business.</li>
 </ol>`}
+
+function hrContent(){return `
+<h3>Human Resource Management (HRM)</h3>
+<p>HRM is the systematic management of people so that their skills, motivation and behaviour help the organisation achieve its objectives. For SHS Business Management, you must be able to explain each major HR activity, give reasons why it matters, and apply it to a case.</p>
+
+<h3>Objectives of HRM</h3>
+<ul>
+<li>Ensure the right number of people with the right skills are available.</li>
+<li>Attract, select and retain suitable employees.</li>
+<li>Develop employee competence through training.</li>
+<li>Maintain fair rewards, welfare and discipline.</li>
+<li>Support high performance and positive employee relations.</li>
+<li>Comply with labour laws and promote a safe workplace.</li>
+</ul>
+
+<h3>1. Human resource planning</h3>
+<p>HR planning forecasts the organisation’s future demand for labour and compares it with the expected supply (internal and external), then plans how to close gaps.</p>
+<h4>Why it matters</h4>
+<ul>
+<li>Prevents sudden shortages or costly overstaffing.</li>
+<li>Supports expansion, new products or new branches.</li>
+<li>Allows time for training and succession.</li>
+</ul>
+<p><b>Process (simple):</b> analyse current staff → forecast future needs → forecast supply → identify surplus/shortage → plan recruitment, training, redeployment or redundancy.</p>
+
+<h3>2. Job analysis, job description and person specification</h3>
+<p><b>Job analysis</b> is the systematic study of a job to find out its duties, responsibilities, working conditions and required competencies.</p>
+<ul>
+<li><b>Job description</b> — states the job title, duties, responsibilities, reporting relationships and conditions.</li>
+<li><b>Person specification</b> — states the qualifications, skills, experience and personal qualities the ideal candidate should have.</li>
+</ul>
+<p>Without job analysis, advertising and interviews become guesswork and person–job mismatch rises.</p>
+
+<h3>3. Recruitment</h3>
+<p>Recruitment is the process of attracting a pool of suitable candidates to apply for a vacancy.</p>
+<h4>Sources</h4>
+<ul>
+<li><b>Internal:</b> promotion, transfer, employee referrals — cheaper, motivates staff, but may limit new ideas.</li>
+<li><b>External:</b> newspapers, online adverts, employment agencies, campuses, walk-ins — wider choice, but costlier and needs more screening.</li>
+</ul>
+<h4>Good recruitment practice</h4>
+<ul>
+<li>Base the advert on the job description and person specification.</li>
+<li>State the role, requirements and how to apply clearly.</li>
+<li>Avoid discriminatory wording.</li>
+<li>Attract enough qualified applicants without unnecessary cost.</li>
+</ul>
+
+<h3>4. Selection</h3>
+<p>Selection is choosing the most suitable candidate from those who applied. Recruitment attracts; selection chooses.</p>
+<h4>Common selection methods</h4>
+<ul>
+<li>Application forms / CVs screening</li>
+<li>Interviews (structured interviews are fairer and more reliable)</li>
+<li>Tests (skills, aptitude, trade tests)</li>
+<li>References and background checks</li>
+<li>Medical checks where lawful and relevant</li>
+</ul>
+<h4>Why structured selection matters</h4>
+<p>It improves person–job fit, reduces early resignations, protects quality and reduces claims of unfairness.</p>
+
+<h3>5. Induction (orientation)</h3>
+<p>Induction introduces the new employee to the organisation, the job, colleagues, rules, safety and culture.</p>
+<h4>Benefits</h4>
+<ul>
+<li>Helps the employee settle quickly and become productive.</li>
+<li>Reduces anxiety, errors and early turnover.</li>
+<li>Communicates standards, values and safety rules.</li>
+<li>Builds a sense of belonging.</li>
+</ul>
+<p>Rushing people onto the job with no induction is a common cause of defects and resignations in growing Ghanaian firms.</p>
+
+<h3>6. Training and development</h3>
+<p><b>Training</b> improves skills for the current job. <b>Development</b> prepares people for future roles and broader responsibility.</p>
+<h4>Methods</h4>
+<ul>
+<li>On-the-job: coaching, mentoring, job rotation, apprenticeship.</li>
+<li>Off-the-job: workshops, classroom courses, online learning.</li>
+</ul>
+<h4>Benefits</h4>
+<ul>
+<li>Higher productivity and quality</li>
+<li>Fewer accidents and errors</li>
+<li>Better customer service</li>
+<li>Improved morale and retention</li>
+<li>Stronger internal promotion pool</li>
+</ul>
+
+<h3>7. Performance management and appraisal</h3>
+<p>Performance management sets expectations, monitors work, gives feedback and uses results for improvement, reward or correction. <b>Appraisal</b> is the formal review of an employee’s performance over a period.</p>
+<h4>Uses of appraisal</h4>
+<ul>
+<li>Feedback and improvement plans</li>
+<li>Training needs identification</li>
+<li>Promotion and reward decisions</li>
+<li>Documentation for discipline where necessary</li>
+</ul>
+<p>Weak appraisal systems leave staff unclear about standards and managers unable to correct problems early.</p>
+
+<h3>8. Compensation, rewards and motivation</h3>
+<p>Compensation includes wages/salaries, allowances, benefits and non-financial rewards (recognition, responsibility, growth). Fair and transparent reward systems support motivation; unfair systems damage trust.</p>
+
+<h3>9. Employee relations, welfare, health and safety, discipline</h3>
+<ul>
+<li><b>Employee relations:</b> maintaining cooperation between management and staff; handling grievances.</li>
+<li><b>Welfare:</b> facilities and support that improve well-being (transport help, canteen, medical support where provided).</li>
+<li><b>Health and safety:</b> safe tools, training, protective equipment, accident prevention — a legal and moral duty.</li>
+<li><b>Discipline:</b> rules and fair procedures to correct misconduct; should be consistent, documented and lawful.</li>
+</ul>
+
+<h3>10. Career and succession planning</h3>
+<p>Career planning helps employees see a path for growth. Succession planning prepares replacements for key positions so the business does not collapse when a critical person leaves.</p>
+
+<div class="case"><b>Ghanaian case application</b><br>A garment exporter hires ten machine operators within two weeks to meet an overseas order. There is no job analysis, interviews are unstructured, and induction is skipped. Within two months four workers resign and defect rates rise. A strong exam answer would link the problems to weak job analysis, poor selection, no induction and missing training — then recommend a corrected HR process before the next hiring round.</div>
+
+<h3>Exam tips</h3>
+<ul>
+<li>Always distinguish <b>recruitment</b> (attract) from <b>selection</b> (choose).</li>
+<li>Link HR activities to performance outcomes (quality, turnover, productivity), not only definitions.</li>
+<li>In case questions, identify the HR weakness in the facts, state the correct practice, then recommend action.</li>
+</ul>
+
+<h3>Trial questions</h3>
+<ol>
+<li>Distinguish recruitment from selection and explain two methods of each.</li>
+<li>Explain the purpose of job analysis before advertising a vacancy.</li>
+<li>Discuss four benefits of induction to the employee and the organisation.</li>
+<li>Assess the consequences of poor performance management.</li>
+<li>A firm must hire quickly for an export order. Advise management on an HR process that balances speed with quality of hire.</li>
+</ol>`}
+
 function leadershipContent(){return `<h3>Leadership</h3><p>Leadership is the process of influencing people to work willingly and effectively toward shared objectives.</p><h3>Leadership theories</h3><ul><li><b>Trait theory:</b> focuses on qualities associated with effective leaders. Limitation: traits alone do not explain every situation.</li><li><b>Behavioural theory:</b> focuses on what leaders do, such as task and people-oriented behaviours.</li><li><b>Contingency/situational theory:</b> effectiveness depends on the match between leadership behaviour and the situation.</li><li><b>Path-goal approach:</b> leaders clarify the path to goals, remove obstacles and adapt behaviour to followers and tasks.</li></ul>
 <h3>Leadership styles</h3><h4>Autocratic</h4><p>Leader makes decisions with limited subordinate participation. Useful in emergencies or where quick direction is required; may reduce participation and commitment.</p>
 <h4>Democratic</h4><p>Employees participate in decisions. Can improve commitment and ideas, but may be slower.</p>
@@ -752,32 +1324,75 @@ function financeContent(){return `
 <li>Recommend suitable sources of finance for a small Ghanaian firm buying new equipment.</li>
 </ol>`}
 function productionContent(){return `
-<h3>Production and Operations</h3>
-<p>Production transforms inputs (materials, labour, machines, information) into goods or services. Operations management coordinates resources, processes, quality, capacity, inventory and delivery so that customer needs are met efficiently.</p>
-<h3>Key issues</h3>
+<h3>Production and Operations Management</h3>
+<p>Production is the process of transforming inputs (materials, labour, machines, information) into goods or services. Operations management plans, organises and controls that transformation so that customer needs are met efficiently, on time and at acceptable quality.</p>
+
+<h3>Objectives of operations</h3>
 <ul>
-<li>Product and service design</li>
-<li>Capacity planning (how much can we produce?)</li>
-<li>Process selection and layout</li>
-<li>Quality management</li>
-<li>Inventory control</li>
-<li>Productivity and efficiency</li>
-<li>Maintenance and scheduling</li>
+<li>Produce the required quantity on time</li>
+<li>Meet quality standards</li>
+<li>Use resources efficiently (high productivity, low waste)</li>
+<li>Keep inventory at sensible levels</li>
+<li>Maintain a safe and reliable process</li>
 </ul>
-<h3>Productivity vs production</h3>
-<p><b>Production</b> is the volume of output. <b>Productivity</b> relates output to the resources used (for example units per worker or per cedi of cost). Raising output while waste and defects rise may increase production but reduce true productivity and damage the brand.</p>
+
+<h3>Key decision areas</h3>
+<ul>
+<li><b>Product / service design</b> — what is offered and how it is specified.</li>
+<li><b>Process selection and layout</b> — how work will be done and how facilities are arranged.</li>
+<li><b>Capacity planning</b> — how much the system can produce in a period; must match demand plans.</li>
+<li><b>Quality management</b> — standards, prevention, inspection and continuous improvement.</li>
+<li><b>Inventory management</b> — raw materials, work-in-progress and finished goods.</li>
+<li><b>Scheduling and maintenance</b> — when work is done and how machines/tools stay reliable.</li>
+<li><b>Supply and logistics</b> — getting inputs in and outputs to customers.</li>
+</ul>
+
+<h3>Production vs productivity</h3>
+<p><b>Production</b> is the volume of output. <b>Productivity</b> is output relative to inputs used (e.g. units per worker, output per cedi of cost). Raising output while waste, defects or overtime costs explode may increase production but harm productivity and profit.</p>
+<p>Productivity can be improved by better methods, training, reliable machines, less idle time, less scrap and better layout — not only by working people harder.</p>
+
 <h3>Quality</h3>
-<p>Quality means meeting agreed standards and customer expectations. Causes of poor quality include weak design, untrained staff, poor materials, inadequate maintenance, rushed processes and weak inspection or process control. Prevention (getting it right first time) is usually stronger than relying only on final inspection.</p>
+<p>Quality means the product or service meets agreed standards and customer expectations.</p>
+<h4>Causes of poor quality</h4>
+<ul>
+<li>Weak product design</li>
+<li>Poor quality materials</li>
+<li>Untrained or rushed workers</li>
+<li>Badly maintained machines</li>
+<li>Unclear standards or weak supervision</li>
+<li>Relying only on final inspection instead of preventing defects</li>
+</ul>
+<h4>Quality approach</h4>
+<p>Prevention (“right first time”) is usually stronger than detecting defects at the end. Simple tools include clear standards, training, process checks, maintenance and recording defects to find root causes.</p>
+
 <h3>Inventory</h3>
-<p>Too little inventory risks stock-outs and lost sales; too much ties up cash and storage space and risks damage or obsolescence. Good operations balance availability with cost.</p>
-<div class="case"><b>Ghanaian example</b><br>A school-uniform manufacturer increases output quickly to meet term demand but skips proper sizing checks. Defect rates and returns rise. Customers switch to competitors. The lesson: capacity expansion without quality control harms both productivity and reputation.</div>
+<ul>
+<li>Too little inventory → stock-outs, idle workers, lost sales.</li>
+<li>Too much inventory → cash tied up, storage cost, damage, expiry, theft risk.</li>
+</ul>
+<p>Good operations balance availability with cost. Methods include careful demand estimates, reliable suppliers, and not holding unnecessary stock “just in case” without reason.</p>
+
+<h3>Capacity and expansion</h3>
+<p>Before increasing capacity (new machines, extra shifts, new plant), management should check demand reliability, quality stability, workforce skills and finance. Expanding while quality is already weak often multiplies customer complaints.</p>
+
+<div class="case"><b>Ghanaian example</b><br>A school-uniform maker increases output quickly before term starts but skips sizing checks and operator training. Defects and returns rise; some schools switch suppliers. Production volume went up, but productivity, quality and reputation fell. A better approach: stabilise quality, train staff, then raise capacity.</div>
+
+<h3>Exam tips</h3>
+<ul>
+<li>Never treat “more output” as automatically “better performance”.</li>
+<li>Link operations problems to marketing (broken promises), finance (waste costs) and HR (skills).</li>
+<li>In case answers, name the operations problem, explain its effect, then recommend a practical control.</li>
+</ul>
+
 <h3>Trial questions</h3>
 <ol>
-<li>Distinguish productivity from production.</li>
-<li>Explain five causes of poor quality.</li>
+<li>Distinguish production from productivity with an example.</li>
+<li>Explain five causes of poor quality in a manufacturing firm.</li>
 <li>Recommend ways a small manufacturer can reduce waste.</li>
 <li>Explain why increasing output is not always an improvement in performance.</li>
+<li>A firm faces late deliveries and rising defects after rapid expansion. Advise management using operations concepts.</li>
 </ol>`}
+
 function entrepreneurshipContent(){return `
 <h3>Entrepreneurship</h3>
 <p>Entrepreneurship is the process of identifying a business opportunity, organising resources and taking calculated risks to create and grow a venture. An <b>entrepreneur</b> is the person who initiates and drives that process.</p>
@@ -925,10 +1540,44 @@ function pageTopics(app){
   }).join("")+'</div>';
 }
 function pagePractice(app){
- const i=state.practiceIndex%objTopics.length, q=objTopics[i];
- app.innerHTML=`<section class="hero"><h1>🧠 Hard Practice</h1><p>Questions are designed to test discrimination, application and reasoning — not simple recall.</p><div class="notice">Question ${i+1} of ${objTopics.length} • Score: ${state.practiceScore}</div></section>
- <div class="card" style="margin-top:15px"><div class="q"><p><b>${i+1}. ${esc(q[0])}</b></p>${q.slice(1).map((o,j)=>`<button class="secondary" data-answer="${j}" style="width:100%;text-align:left;margin:5px 0">${String.fromCharCode(65+j)}. ${esc(o)}</button>`).join("")}</div></div>
- <div class="toolbar"><button class="secondary" data-action="practicePrev">← Previous</button><button class="primary" data-action="practiceNext">Next →</button><button class="secondary" data-action="practiceReset">Reset score</button></div>`}
+ ensurePracticeDeck();
+ const deck=state.practiceDeck||[];
+ const filters=practiceTopicFilters.map(function(f){
+   return '<option value="'+f.id+'" '+(state.practiceTopic===f.id?"selected":"")+'>'+f.name+'</option>';
+ }).join("");
+ if(!deck.length){
+   app.innerHTML=`<section class="hero"><h1>🧠 Hard Practice</h1>
+    <div class="toolbar"><select id="practiceTopicSelect">${filters}</select></div>
+    <div class="notice warn">No questions in this topic filter. Choose “All topics” or another area.</div></section>`;
+   return;
+ }
+ const i=state.practiceIndex%deck.length;
+ const item=deck[i];
+ const fb=state.practiceFeedback;
+ let fbHtml="";
+ if(fb){
+   fbHtml='<div class="notice '+(fb.ok?"ok":"warn")+'" style="margin-top:12px"><b>'+(fb.ok?"Correct":"Not quite")+'.</b> '+esc(fb.explain)+'</div>';
+ }
+ app.innerHTML=`<section class="hero"><h1>🧠 Hard Practice</h1>
+  <div class="toolbar"><select id="practiceTopicSelect">${filters}</select>
+  <button class="secondary" data-action="practiceReset">🔀 Shuffle</button></div>
+  <div class="notice">Question ${i+1} of ${deck.length} • Score: ${state.practiceScore}</div></section>
+ <div class="card" style="margin-top:15px"><div class="q"><p><b>${i+1}. ${esc(item.stem)}</b></p>
+ ${item.options.map(function(o,j){
+   let extra="";
+   if(fb){
+     if(j===item.correctIndex) extra=' border-color:var(--green)';
+     if(fb.chosen===j && !fb.ok) extra=' border-color:var(--red)';
+   }
+   return '<button class="secondary" data-answer="'+j+'" style="width:100%;text-align:left;margin:5px 0;'+extra+'">'+String.fromCharCode(65+j)+'. '+esc(o)+'</button>';
+ }).join("")}
+ </div>${fbHtml}</div>
+ <div class="toolbar">
+  <button class="secondary" data-action="practicePrev">← Previous</button>
+  <button class="primary" data-action="practiceNext">Next →</button>
+ </div>`;
+}
+
 function pageStudentTest(app){
  if(!state.testMode) state.testMode="objectives";
  app.innerHTML=`<section class="hero"><h1>🧪 Build a Test</h1><p>Choose objective practice or a full essay-style test. Essay tests generate a fresh case study with 5 questions each time.</p>
@@ -942,16 +1591,21 @@ function pageStudentTest(app){
 function renderObjectiveTestSetup(){
  const body=document.getElementById("testBody"); if(!body)return;
  const set=state.examSet;
- body.innerHTML=`<div class="toolbar"><select id="studentTestSet">${examSets.map((_,i)=>`<option value="${i}" ${i===set?"selected":""}>Set ${i+1}</option>`).join("")}</select><button class="primary" data-action="startStudentTest">▶️ Start Test</button></div>
- <div class="notice">The test uses 20 challenging questions from the selected 50-question set. Your score is calculated on this device.</div>
- <div id="studentTestArea"></div>`;
- renderStudentTestPreview();
+ body.innerHTML='<div class="toolbar"><select id="studentTestSet">'+examSets.map(function(_,i){return '<option value="'+i+'" '+(i===set?"selected":"")+'>Set '+(i+1)+'</option>';}).join("")+'</select>'+
+  '<button class="primary" data-action="startStudentTest">▶️ Practice test</button>'+
+  '<button class="gold" data-action="startTimedTest">⏱ Timed test (20 min)</button></div>'+
+  '<div class="notice">Practice mode: no timer. Timed mode: 20 questions in 20 minutes, auto-submit when time ends. Score and wrong-answer review appear on this device.</div>'+
+  '<div id="studentTestArea"></div>';
+ renderStudentTestPreview(false);
 }
-function renderStudentTestPreview(){
+function renderStudentTestPreview(isTimed){
  const el=document.getElementById("studentTestArea"); if(!el)return;
  const set=Number(document.getElementById("studentTestSet")?.value??state.examSet);
  const qs=getSetObjectives(set).slice(0,20);
- el.innerHTML=`<div class="card" style="margin-top:14px"><h3>Test preview — Set ${set+1}</h3><p>20 questions • 10 marks</p>${qs.map((q,i)=>`<div class="q"><p><b>${i+1}. ${esc(q[0])}</b></p>${q.slice(1).map((o,j)=>`<label style="display:block;margin:6px 0;font-weight:600"><input type="radio" name="testq${i}" value="${j}" style="width:auto;margin-right:7px"> ${String.fromCharCode(65+j)}. ${esc(o)}</label>`).join("")}</div>`).join("")}<button class="primary" data-action="finishStudentTest">✅ Submit Test</button><div id="testScore"></div></div>`;
+ const timerHtml=isTimed?'<div class="notice warn" id="testCountdown" style="font-size:18px;font-weight:900">⏱ 20:00</div>':'';
+ el.innerHTML='<div class="card" style="margin-top:14px"><h3>'+(isTimed?"Timed test":"Practice test")+' — Set '+(set+1)+'</h3><p>20 questions • 10 marks equivalent scale shown as /20</p>'+timerHtml+
+  qs.map(function(q,i){return '<div class="q"><p><b>'+(i+1)+'. '+esc(q[0])+'</b></p>'+q.slice(1).map(function(o,j){return '<label style="display:block;margin:6px 0;font-weight:600"><input type="radio" name="testq'+i+'" value="'+j+'" style="width:auto;margin-right:7px"> '+String.fromCharCode(65+j)+'. '+esc(o)+'</label>';}).join("")+'</div>';}).join("")+
+  '<button class="primary" data-action="finishStudentTest">✅ Submit Test</button><div id="testScore"></div></div>';
 }
 function renderEssayTest(){
  const body=document.getElementById("testBody"); if(!body)return;
@@ -1027,7 +1681,7 @@ function pageExams(app){
  const s=examSets[state.examSet];
  const objectives=getSetObjectives(state.examSet);
  app.innerHTML=`<section class="hero"><h1>📝 Exam Generator</h1><p><b>WAEC-style practice — not an official WAEC paper.</b> Each set contains 50 difficult objectives and Section B with a long compulsory case study plus Questions 2–7. Total Section B = 60 marks: Q1 = 15, then answer any 3 of Q2–Q7.</p>
- <div class="toolbar"><select id="examSelect">${examSets.map((_,i)=>`<option value="${i}" ${i===state.examSet?"selected":""}>Set ${i+1}</option>`).join("")}</select><button class="gold" data-action="newExam">🔄 Generate Another Set</button></div></section>
+ <div class="toolbar"><button class="secondary" onclick="window.print()">🖨 Print exam pack</button><select id="examSelect">${examSets.map((_,i)=>`<option value="${i}" ${i===state.examSet?"selected":""}>Set ${i+1}</option>`).join("")}</select><button class="gold" data-action="newExam">🔄 Generate Another Set</button></div></section>
  <h2>Section A — 50 Objectives (25 marks)</h2>${objectives.map((q,i)=>`<div class="q"><p><b>${i+1}. ${esc(q[0])}</b></p>${q.slice(1).map((o,j)=>`<span class="pill">${String.fromCharCode(65+j)}. ${esc(o)}</span>`).join(" ")}</div>`).join("")}
  <h2>Section B — Structured Essay (60 marks)</h2><div class="case"><b>QUESTION 1 — COMPULSORY (15 marks)</b><br>${esc(s.case)}</div>${s.qs.map((x,i)=>`<div class="q"><p><b>${String.fromCharCode(97+i)}. ${esc(x)}</b></p></div>`).join("")}
  <h3>Questions 2–7 — Answer any THREE. Each question carries 15 marks.</h3>${buildEssayQuestions(state.examSet).map((q,i)=>`<div class="q"><p><b>QUESTION ${i+2}</b></p>${q.map(x=>`<p>${esc(x)}</p>`).join("")}</div>`).join("")}
@@ -1048,20 +1702,61 @@ function buildEssayQuestions(set){
  return pools[(set+0)%pools.length];
 }
 function finishStudentTest(){
+ clearInterval(window._testTimer);
  const set=Number(document.getElementById("studentTestSet")?.value||state.examSet);
  const qs=getSetObjectives(set).slice(0,20);
  let score=0;
+ const missed=[];
  qs.forEach((q,i)=>{
-   const picked=document.querySelector(`input[name="testq${i}"]:checked`);
-   if(picked&&Number(picked.value)===0)score++;
+   const picked=document.querySelector('input[name="testq'+i+'"]:checked');
+   const chosen=picked?Number(picked.value):-1;
+   if(chosen===0)score++;
+   else missed.push({n:i+1,q:q[0],correct:q[1],chosen:chosen>=0?q[chosen+1]:"(no answer)"});
  });
  const u=getUser(), a=attempts();
- a.push({id:"A-"+Date.now(),studentId:u?.id,studentName:u?.name,set:set+1,score,total:20,date:new Date().toLocaleString()});
+ a.push({id:"A-"+Date.now(),studentId:u?.id,studentName:u?.name,set:set+1,score,total:20,date:new Date().toLocaleString(),timed:!!state.timedTest});
  saveAttempts(a);
+ state.lastTestReview={score,total:20,missed,set:set+1,timed:!!state.timedTest};
+ state.timedTest=false;
  const out=document.getElementById("testScore");
- if(out)out.innerHTML=`<div class="notice ok" style="margin-top:14px"><b>Test submitted.</b> Score: ${score}/20 (${Math.round(score/20*100)}%).</div>`;
- toast("Test marked successfully.");
+ let html='<div class="notice ok" style="margin-top:14px"><b>Test submitted.</b> Score: '+score+'/20 ('+Math.round(score/20*100)+'%).</div>';
+ if(missed.length){
+   html+='<div class="card" style="margin-top:12px"><h3>Wrong-answer review ('+missed.length+')</h3>';
+   missed.forEach(function(m){
+     html+='<div class="q"><p><b>'+m.n+'. '+esc(m.q)+'</b></p><p style="color:#ff5f76">Your answer: '+esc(m.chosen)+'</p><p style="color:var(--green)">Correct: '+esc(m.correct)+'</p><p class="answer"><i>Tip:</i> Re-read the key term in the question and eliminate options that mix up related concepts.</p></div>';
+   });
+   html+='</div>';
+ } else {
+   html+='<div class="notice ok">Perfect score — excellent discrimination.</div>';
+ }
+ if(out)out.innerHTML=html;
+ toast("Test marked: "+score+"/20");
+ updateStreak();
 }
+
+function startTimedTest(){
+ state.timedTest=true;
+ state.testTimeLeft=20*60; // 20 minutes
+ state.examSet=Number(document.getElementById("studentTestSet")?.value||0);
+ renderStudentTestPreview(true);
+ clearInterval(window._testTimer);
+ window._testTimer=setInterval(function(){
+   state.testTimeLeft--;
+   const el=document.getElementById("testCountdown");
+   if(el){
+     const m=Math.floor(state.testTimeLeft/60), s=state.testTimeLeft%60;
+     el.textContent="⏱ "+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+     if(state.testTimeLeft<=60) el.style.color="#ff5f76";
+   }
+   if(state.testTimeLeft<=0){
+     clearInterval(window._testTimer);
+     toast("Time up — submitting…");
+     finishStudentTest();
+   }
+ },1000);
+ toast("Timed test started: 20 minutes");
+}
+
 function pageScan(app){
  app.innerHTML=`<section class="hero"><h1>📷 Scan Question</h1><p>Take or upload a photo of a Business Management question, then send it to a secure AI endpoint when one is connected.</p></section>
  <div class="card" style="margin-top:15px"><label>Select or take a photo</label><input id="scanFile" type="file" accept="image/*" capture="environment"><div id="scanPreview" style="margin-top:12px"></div>
@@ -1107,6 +1802,52 @@ function renderBank(set){
  const el=document.getElementById("bankList");if(!el)return;
  el.innerHTML=getSetObjectives(set).map((q,i)=>`<div class="q"><b>${i+1}.</b> ${esc(q[0])}<div class="answer">A. ${esc(q[1])}<br>B. ${esc(q[2])}<br>C. ${esc(q[3])}<br>D. ${esc(q[4])}<br><b>Key: A</b></div></div>`).join("");
 }
+
+function pageDefinitions(app){
+ const i=state.defIndex%definitionBank.length, d=definitionBank[i];
+ app.innerHTML='<section class="hero"><h1>📖 Key Definitions</h1><p>Flashcards of core Business Management terms for quick revision.</p></section>'+
+  '<div class="card" style="margin-top:14px;min-height:180px;text-align:center"><div class="pill">Card '+(i+1)+' / '+definitionBank.length+'</div>'+
+  '<h2 style="margin:18px 0 10px;color:var(--gold2)">'+esc(d.term)+'</h2>'+
+  '<p style="font-size:16px;line-height:1.6;color:#d3deee">'+esc(d.def)+'</p></div>'+
+  '<div class="toolbar"><button class="secondary" data-action="defPrev">← Previous</button><button class="primary" data-action="defNext">Next →</button><button class="secondary" data-action="defShuffle">🔀 Shuffle</button></div>';
+}
+function pageCommands(app){
+ app.innerHTML='<section class="hero"><h1>✍️ Command Words</h1><p>WASSCE questions use specific instruction words. Matching your answer style to the command word earns clearer marks.</p></section>'+
+  commandWords.map(function(c){return '<div class="card" style="margin-top:12px"><h3 style="color:var(--gold2)">'+esc(c.word)+'</h3><p><b>Meaning:</b> '+esc(c.mean)+'</p><div class="answer"><b>How to answer:</b> '+esc(c.tip)+'</div></div>';}).join("")+
+  '<div class="notice" style="margin-top:14px">In a case question, still apply facts: a perfect definition with no link to the case often loses application marks.</div>';
+}
+function pageProgress(app){
+ const u=getUser(), prog=countProgress(), streak=getStreak().count||0, badges=getBadges();
+ const atts=attempts().filter(function(x){return u&&x.studentId===u.id}).reverse();
+ const cl=checklist();
+ const rows=topics.map(function(t){
+   const st=getTopicStatus(t.id);
+   const checked=!!cl[t.id];
+   return '<tr><td><label style="display:flex;gap:8px;align-items:center;font-weight:700"><input type="checkbox" data-check="'+t.id+'" '+(checked?"checked":"")+' style="width:auto"> '+esc(t.name)+'</label></td><td>'+(st!=="none"?st:"—")+'</td></tr>';
+ }).join("");
+ let attHtml=atts.length?atts.slice(0,15).map(function(a){return '<tr><td>Set '+a.set+(a.timed?" ⏱":"")+'</td><td>'+a.score+'/'+a.total+'</td><td>'+esc(a.date)+'</td></tr>';}).join(""):'<tr><td colspan="3">No tests yet.</td></tr>';
+ app.innerHTML='<section class="hero"><h1>📊 My Progress</h1><p>Track topics, syllabus ticks, scores and badges on this device.</p></section>'+
+  '<div class="grid"><div class="card"><div class="stat">'+prog+'/'+topics.length+'</div><h3>Topics read</h3></div>'+
+  '<div class="card"><div class="stat">'+streak+'</div><h3>Day streak</h3></div>'+
+  '<div class="card"><div class="stat">'+atts.length+'</div><h3>Tests taken</h3></div></div>'+
+  (badges.length?'<div class="section-title"><h2>Badges</h2></div><div style="display:flex;flex-wrap:wrap;gap:8px">'+badges.map(function(b){return '<span class="pill">🏅 '+esc(b)+'</span>';}).join("")+'</div>':'')+
+  '<div class="section-title"><h2>Syllabus checklist</h2></div><div class="card"><p class="notice">Tick topics you feel exam-ready on. Stored only on this device.</p><table><thead><tr><th>Topic</th><th>Read status</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+  '<div class="section-title"><h2>Recent test scores</h2></div><div class="card"><table><thead><tr><th>Set</th><th>Score</th><th>Date</th></tr></thead><tbody>'+attHtml+'</tbody></table></div>';
+}
+function pageClassList(app){
+ const list=classList();
+ app.innerHTML='<section class="hero"><h1>👥 Class List</h1><p>Save student names on this device for organising review. (Cross-phone class lists need a backend later.)</p></section>'+
+  '<div class="card" style="margin-top:14px"><label>Add student name</label><div class="toolbar"><input id="classNameInput" placeholder="Student full name"><button class="primary" data-action="addClassStudent">➕ Add</button></div>'+
+  (list.length?'<table style="margin-top:12px"><thead><tr><th>#</th><th>Name</th><th></th></tr></thead><tbody>'+list.map(function(n,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(n)+'</td><td><button class="secondary" data-remove-student="'+i+'">Remove</button></td></tr>';}).join("")+'</tbody></table>':'<div class="notice">No students saved yet.</div>')+'</div>';
+}
+function pageHomework(app){
+ const u=getUser(), hw=homework();
+ app.innerHTML='<section class="hero"><h1>📋 Set Homework</h1><p>Write a short task. Students who open this app on <b>this same device/browser</b> will see it on Home.</p></section>'+
+  '<div class="card" style="margin-top:14px"><label>Homework title</label><input id="hwTitle" value="'+esc(hw&&hw.title||"")+'" placeholder="e.g. Revise Law of Contract cases">'+
+  '<label>Instructions</label><textarea id="hwBody" placeholder="What should students do?">'+esc(hw&&hw.body||"")+'</textarea>'+
+  '<div class="toolbar"><button class="primary" data-action="saveHomework">💾 Save homework</button><button class="secondary" data-action="clearHomework">Clear</button></div>'+
+  (hw?'<div class="notice ok" style="margin-top:12px"><b>Current:</b> '+esc(hw.title)+' — set by '+esc(hw.teacher)+' on '+esc(hw.date)+'</div>':'')+'</div>';
+}
 function pageAdmin(app){
  app.innerHTML=`<section class="hero"><h1>🛡 Admin Portal</h1><p>Prototype administration and privacy controls for BM Learn AI.</p></section>
  <div class="grid">
@@ -1115,12 +1856,12 @@ function pageAdmin(app){
  <div class="card"><div class="stat">10</div><h3>Exam sets</h3><p>Stable set selector with long Q1 cases.</p></div>
  </div>
  <div class="card" style="margin-top:15px"><h3>Privacy & security</h3><ul><li>Do not secretly track student location.</li><li>Do not put API keys in this public HTML.</li><li>Local prototype data is not a secure school database.</li><li>For real online presence, accounts and cross-device submissions, use a secure backend/database with consent and access controls.</li></ul></div>
- <div class="card" style="margin-top:15px"><h3>Prototype controls</h3><button class="secondary" data-action="clearLocal">Clear local BM Learn AI data</button></div>`;
+ <div class="card" style="margin-top:15px"><h3>Mark sheet export</h3><p>Download all test attempts stored in this browser as CSV.</p><button class="primary" data-action="exportMarks">📥 Export marks (CSV)</button></div><div class="card" style="margin-top:15px"><h3>Prototype controls</h3><button class="secondary" data-action="clearLocal">Clear local BM Learn AI data</button></div>`;
 }
 
 document.addEventListener("click",e=>{
- const page=e.target.closest("[data-page]");if(page){state.page=page.dataset.page;state.selectedTopic=null;document.getElementById("drawer").classList.add("hidden");document.body.style.overflow="";render();return}
- const topic=e.target.closest("[data-topic]");if(topic){state.selectedTopic=Number(topic.dataset.topic);state.page="topics";render();return}
+ const page=e.target.closest("[data-page]");if(page){pushHistory();state.page=page.dataset.page;state.selectedTopic=null;document.getElementById("drawer").classList.add("hidden");document.body.style.overflow="";render();return}
+ const topic=e.target.closest("[data-topic]");if(topic){pushHistory();state.selectedTopic=Number(topic.dataset.topic);state.page="topics";render();return}
  const role=e.target.closest("[data-role]");if(role){document.querySelectorAll(".role-btn").forEach(x=>x.classList.remove("active"));role.classList.add("active");state.role=role.dataset.role;return}
  const action=e.target.closest("[data-action]")?.dataset.action;
  if(action==="logout"){
@@ -1128,7 +1869,7 @@ document.addEventListener("click",e=>{
     localStorage.removeItem("bm_user");
     localStorage.removeItem("bm_app_state");
   }catch(ex){}
-  state.page="home"; state.selectedTopic=null; state.role="student";
+  state.page="home"; state.selectedTopic=null; state.role="student"; state.history=[];
   document.body.classList.remove("role-teacher");
   document.getElementById("appHeader").classList.add("hidden");
   document.getElementById("app").classList.add("hidden");
@@ -1140,13 +1881,15 @@ document.addEventListener("click",e=>{
   return;
 }
  if(action==="backTopics"){state.selectedTopic=null;render()}
+ if(action==="goBack"){goBack()}
  if(action==="markRead"){const t=state.selectedTopic;if(t!=null){markTopicProgress(t,"read");toast("Topic marked as read ✅");render()}}
 if(action==="toggleModelAnswers"){state.showModelAnswers=!state.showModelAnswers;if(state.page==="test"&&state.testMode==="essay")renderEssayTest();else render()}
- if(action==="practiceNext"){state.practiceIndex=(state.practiceIndex+1)%objTopics.length;render()}
- if(action==="practicePrev"){state.practiceIndex=(state.practiceIndex-1+objTopics.length)%objTopics.length;render()}
- if(action==="practiceReset"){state.practiceScore=0;state.practiceIndex=0;render()}
+ if(action==="practiceNext"){ensurePracticeDeck();state.practiceFeedback=null;if(state.practiceDeck.length)state.practiceIndex=(state.practiceIndex+1)%state.practiceDeck.length;render()}
+ if(action==="practicePrev"){ensurePracticeDeck();state.practiceFeedback=null;if(state.practiceDeck.length)state.practiceIndex=(state.practiceIndex-1+state.practiceDeck.length)%state.practiceDeck.length;render()}
+ if(action==="practiceReset"){reshufflePractice();toast("New shuffled deck ready");render()}
  if(action==="newExam"){state.examSet=(state.examSet+1)%10;render();toast("Generated Set "+examSetNumber()+" successfully. 📝")}
- if(action==="startStudentTest"){state.examSet=Number(document.getElementById("studentTestSet")?.value||0);renderStudentTestPreview();toast("Test ready. Work through all 20 questions.")}
+ if(action==="startStudentTest"){state.timedTest=false;clearInterval(window._testTimer);state.examSet=Number(document.getElementById("studentTestSet")?.value||0);renderStudentTestPreview(false);toast("Practice test ready.")}
+ if(action==="startTimedTest"){startTimedTest()}
  if(action==="finishStudentTest"){finishStudentTest()}
  if(action==="testModeObjectives"){state.testMode="objectives";render()}
  if(action==="testModeEssay"){state.testMode="essay";render()}
@@ -1164,10 +1907,48 @@ if(action==="toggleModelAnswers"){state.showModelAnswers=!state.showModelAnswers
  if(action==="assist")assist()
  if(action==="submitWork")submitWork()
  if(action==="clearLocal"){if(confirm("Clear BM Learn AI prototype data from this device?")){try{localStorage.clear()}catch(ex){}location.reload()}}
+ 
+ if(action==="defNext"){state.defIndex=(state.defIndex+1)%definitionBank.length;render()}
+ if(action==="defPrev"){state.defIndex=(state.defIndex-1+definitionBank.length)%definitionBank.length;render()}
+ if(action==="defShuffle"){state.defIndex=Math.floor(Math.random()*definitionBank.length);render()}
+ if(action==="addClassStudent"){
+   const n=(document.getElementById("classNameInput")?.value||"").trim();
+   if(!n){toast("Enter a name");return}
+   const L=classList();L.push(n);saveClassList(L);toast("Added "+n);render();
+ }
+ if(action==="saveHomework"){
+   const title=(document.getElementById("hwTitle")?.value||"").trim();
+   const body=(document.getElementById("hwBody")?.value||"").trim();
+   if(!title||!body){toast("Title and instructions required");return}
+   const u=getUser();
+   saveHomework({title,body,teacher:u?u.name:"Teacher",date:new Date().toLocaleString()});
+   toast("Homework saved for this device");render();
+ }
+ if(action==="clearHomework"){saveHomework(null);toast("Homework cleared");render()}
+ if(action==="exportMarks"){
+   const atts=attempts();
+   if(!atts.length){toast("No attempts to export");return}
+   const lines=["Student,Set,Score,Total,Timed,Date"];
+   atts.forEach(function(a){
+     lines.push('"'+String(a.studentName||"").replace(/"/g,'""')+'",'+a.set+','+a.score+','+a.total+','+(a.timed?"yes":"no")+',"'+String(a.date||"").replace(/"/g,'""')+'"');
+   });
+   const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+   const url=URL.createObjectURL(blob);
+   const link=document.createElement("a");link.href=url;link.download="bm-learn-marks.csv";link.click();
+   URL.revokeObjectURL(url);toast("Mark sheet downloaded");
+ }
+
  const ans=e.target.closest("[data-answer]");if(ans){
-   const chosen=Number(ans.dataset.answer),correct=0;
-   if(chosen===correct){state.practiceScore++;toast("Correct — strong reasoning! 🧠")}else toast("Not quite. Re-read the question and distinguish the principles.");
-   state.practiceIndex=(state.practiceIndex+1)%objTopics.length;setTimeout(render,500);
+   ensurePracticeDeck();
+   if(!state.practiceDeck.length)return;
+   if(state.practiceFeedback){state.practiceFeedback=null;state.practiceIndex=(state.practiceIndex+1)%state.practiceDeck.length;render();return;}
+   const item=state.practiceDeck[state.practiceIndex%state.practiceDeck.length];
+   const chosen=Number(ans.dataset.answer);
+   const ok=chosen===item.correctIndex;
+   if(ok) state.practiceScore++;
+   state.practiceFeedback={ok:ok,chosen:chosen,explain:item.explain};
+   toast(ok?"Correct — strong reasoning! 🧠":"Review the explanation, then tap Next");
+   render();
  }
  const review=e.target.closest("[data-review]");if(review)openReview(review.dataset.review);
 });
@@ -1175,7 +1956,9 @@ document.addEventListener("change",e=>{
  if(e.target.id==="examSelect"){state.examSet=Number(e.target.value);render()}
  if(e.target.id==="bankSet")renderBank(Number(e.target.value))
  if(e.target.id==="studentTestSet")renderStudentTestPreview()
- if(e.target.id==="scanFile")previewScan(e.target.files[0])
+ if(e.target.id==="scanFile")previewScan(e.target.files[0]);
+ if(e.target.dataset.check!=null){toggleChecklist(e.target.dataset.check);}
+ if(e.target.id==="practiceTopicSelect"){state.practiceTopic=e.target.value;state.practiceDeck=null;state.practiceDeckFilter=null;state.practiceIndex=0;state.practiceScore=0;state.practiceFeedback=null;render();}
 });
 document.addEventListener("input",e=>{
  const ta=e.target.closest("[data-essay-answer]"); if(!ta)return;
@@ -1239,17 +2022,18 @@ document.getElementById("modal").addEventListener("click",e=>{
 /* Restore session on refresh so the user stays logged in.
    Only show the login screen when no saved user exists. */
 (function init(){
-  const u = getUser();
-  const valid = u && u.name && u.id && u.role;
-  if (valid) {
-    boot();
-  } else {
-    try{localStorage.removeItem("bm_user");}catch(e){}
-    document.getElementById("loginScreen").classList.remove("hidden");
-    document.getElementById("appHeader").classList.add("hidden");
-    document.getElementById("app").classList.add("hidden");
-    document.getElementById("drawer").classList.add("hidden");
-  }
+  // Always show login on open so a new person can sign in.
+  // Do not auto-enter as the previous user.
+  try{
+    const last = localStorage.getItem("bm_last_name") || "";
+    const input = document.getElementById("loginName");
+    if(input && last) input.value = last;
+  }catch(e){}
+  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("appHeader").classList.add("hidden");
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("drawer").classList.add("hidden");
+  document.body.classList.remove("role-teacher");
 })();
 </script>
 </body>
